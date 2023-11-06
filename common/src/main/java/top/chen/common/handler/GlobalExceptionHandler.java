@@ -1,6 +1,8 @@
 package top.chen.common.handler;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +42,19 @@ public class GlobalExceptionHandler {
         Result<?> resp = new Result<>();
         resp.setCode(Integer.parseInt(HttpStatus.BAD_REQUEST.toString()));
         resp.setMsg("请求参数错误");
+        return resp;
+    }
+
+    /**
+     * SpringMVC参数绑定，Validator校验不正确
+     */
+    @ExceptionHandler(BindException.class)
+    public Result<String> bindException(BindException ex) {
+        Result<String> resp = new Result<>();
+        FieldError fieldError = ex.getFieldError();
+        assert fieldError != null;
+        resp.setCode(Integer.parseInt(HttpStatus.BAD_REQUEST.toString()));
+        resp.setMsg(fieldError.getDefaultMessage());
         return resp;
     }
 }
