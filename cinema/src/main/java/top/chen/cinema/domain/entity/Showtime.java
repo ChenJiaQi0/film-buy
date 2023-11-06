@@ -63,6 +63,7 @@ public class Showtime implements Serializable {
      * 删除标识（0：未删除1：已删除）
      */
     @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
 
     /**
