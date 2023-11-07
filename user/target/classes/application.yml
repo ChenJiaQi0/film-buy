@@ -11,6 +11,11 @@ spring:
   data:
     redis:
       database: 1
-      host: localhost
+      host: 8.130.104.225
       port: 6379
       timeout: 6000ms  # 连接超时时长（毫秒）
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: 1090060206@qq.com
+    password: dnwyxszfgrithdbg

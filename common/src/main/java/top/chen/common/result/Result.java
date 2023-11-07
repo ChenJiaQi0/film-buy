@@ -18,4 +18,18 @@ public class Result<T> {
     private int code = 200;
     private String msg = "成功";
     private T data;
+
+    public static Result ok() {
+        Result<Object> result = Result.builder()
+                .code(200)
+                .msg("成功").build();
+        return result;
+    }
+
+    public static Result error() {
+        Result<Object> result = Result.builder()
+                .code(500)
+                .msg("失败").build();
+        return result;
+    }
 }

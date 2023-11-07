@@ -1,5 +1,6 @@
 package top.chen.common.handler;
 
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -28,6 +29,20 @@ public class GlobalExceptionHandler {
         Result<?> resp = new Result<>();
         resp.setCode(500);
         resp.setMsg(e.getMessage());
+        return resp;
+    }
+
+    /**
+     * 邮箱发送异常统一处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = MessagingException.class)
+    @ResponseBody
+    public Result<?> exceptionHandler(MessagingException e){
+        Result<?> resp = new Result<>();
+        resp.setCode(500);
+        resp.setMsg("邮箱发送异常");
         return resp;
     }
 
