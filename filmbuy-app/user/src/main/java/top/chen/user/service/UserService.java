@@ -21,4 +21,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     UserLoginResp login(LoginVO user);
+
+    /**
+     * 充值
+     * @param userId
+     * @return
+     */
+    Integer topUp(String userId);
 }

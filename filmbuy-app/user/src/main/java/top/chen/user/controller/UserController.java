@@ -14,6 +14,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import top.chen.common.exception.ServiceException;
 import top.chen.common.result.Result;
 import top.chen.common.util.RedisUtil;
+import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.User;
 import top.chen.user.domain.entity.UserLoginResp;
 import top.chen.user.domain.entity.vo.LoginVO;
@@ -37,6 +38,30 @@ public class UserController {
     private JavaMailSender javaMailSender;
     @Resource
     private UserService userService;
+
+    /**
+     * 为账户默认充值50元
+     * @param id
+     * @return
+     */
+    @PostMapping("/topup/{id}")
+    public Result<Integer> topUpByUserId(@PathVariable String id){
+        Result<Integer> resp = new Result<>();
+        resp.setData(userService.topUp(id));
+        return resp;
+    }
+
+    /**
+     * 查询某账户的余额
+     * @param id
+     * @return
+     */
+    @GetMapping("/balance/{id}")
+    public Result<Integer> getBalanceByUserId(@PathVariable String id) {
+        Result<Integer> resp = new Result<>();
+        resp.setData(userService.getById(id).getBalance());
+        return resp;
+    }
 
     /**
      * 登录并返回token和用户信息

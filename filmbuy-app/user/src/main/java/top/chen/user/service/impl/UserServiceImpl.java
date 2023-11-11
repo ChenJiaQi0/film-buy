@@ -75,4 +75,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         resp.setToken(token);
         return resp;
     }
+
+    @Override
+    public Integer topUp(String userId) {
+        User user = userMapper.selectById(userId);
+        user.setBalance(user.getBalance() + 50);
+        return userMapper.updateById(user);
+    }
 }
