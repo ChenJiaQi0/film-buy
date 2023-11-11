@@ -25,7 +25,7 @@ public class JwtUtil {
      */
     private static final String KEY = "ccen";
 
-    public static String createToken(Integer id, String username) {
+    public static String createToken(Long id, String username) {
         DateTime now = DateTime.now();
 //        DateTime expTime = now.offsetNew(DateField.SECOND, 100000);
         DateTime expTime = now.offsetNew(DateField.HOUR, 48);
@@ -64,7 +64,7 @@ public class JwtUtil {
     }
 
     public static void main(String[] args) {
-        String token = createToken(1, "15351958202");
+        String token = createToken(1L, "3465976682@qq.com");
         System.out.println(token);
         try {
             Thread.sleep(12000);

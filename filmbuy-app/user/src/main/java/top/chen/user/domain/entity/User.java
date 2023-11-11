@@ -33,7 +33,7 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户名手机号
+     * 用户名邮箱号
      */
     private String username;
 

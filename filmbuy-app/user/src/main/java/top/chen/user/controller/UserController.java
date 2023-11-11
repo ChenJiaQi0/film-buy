@@ -14,6 +14,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import top.chen.common.exception.ServiceException;
 import top.chen.common.result.Result;
 import top.chen.common.util.RedisUtil;
+import top.chen.user.domain.entity.User;
+import top.chen.user.domain.entity.UserLoginResp;
+import top.chen.user.domain.entity.vo.LoginVO;
+import top.chen.user.service.UserService;
 
 /**
  * <p>
@@ -31,7 +35,29 @@ public class UserController {
     private RedisUtil redisUtil;
     @Resource
     private JavaMailSender javaMailSender;
+    @Resource
+    private UserService userService;
 
+    /**
+     * 登录并返回token和用户信息
+     * @param user
+     * @return
+     */
+    @PostMapping("/login")
+    public Result<UserLoginResp> login(@RequestBody LoginVO user) {
+        log.info("登录信息：" + user);
+
+        UserLoginResp userLoginResp = userService.login(user);
+        Result<UserLoginResp> resp = new Result<>();
+        resp.setData(userLoginResp);
+        return resp;
+    }
+
+    /**
+     * 发送验证码
+     * @param username
+     * @return
+     */
     @GetMapping("/code")
     public Result sendCode(@RequestParam String username) {
         log.info("邮箱号：" + username);

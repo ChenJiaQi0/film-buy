@@ -2,6 +2,8 @@ package top.chen.user.service;
 
 import top.chen.user.domain.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.chen.user.domain.entity.UserLoginResp;
+import top.chen.user.domain.entity.vo.LoginVO;
 
 /**
  * <p>
@@ -13,5 +15,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
-
+    /**
+     * 登录并返回token和用户信息
+     * @param user
+     * @return
+     */
+    UserLoginResp login(LoginVO user);
 }
