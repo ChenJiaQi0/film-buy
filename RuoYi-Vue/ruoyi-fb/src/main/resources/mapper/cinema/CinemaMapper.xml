@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.fb.mapper.CinemaMapper">
+    
+    <resultMap type="Cinema" id="CinemaResult">
+        <result property="id"    column="id"    />
+        <result property="brandName"    column="brand_name"    />
+        <result property="cinemaName"    column="cinema_name"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="area"    column="area"    />
+        <result property="address"    column="address"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectCinemaVo">
+        select id, brand_name, cinema_name, province, city, area, address, deleted, create_time, update_time from fb_cinema
+    </sql>
+
+    <select id="selectCinemaList" parameterType="Cinema" resultMap="CinemaResult">
+        <include refid="selectCinemaVo"/>
+        <where>  
+            <if test="brandName != null  and brandName != ''"> and brand_name like concat('%', #{brandName}, '%')</if>
+            <if test="cinemaName != null  and cinemaName != ''"> and cinema_name like concat('%', #{cinemaName}, '%')</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="area != null  and area != ''"> and area = #{area}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="deleted != null "> and deleted = #{deleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectCinemaById" parameterType="Long" resultMap="CinemaResult">
+        <include refid="selectCinemaVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCinema" parameterType="Cinema">
+        insert into fb_cinema
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="brandName != null">brand_name,</if>
+            <if test="cinemaName != null">cinema_name,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="area != null">area,</if>
+            <if test="address != null">address,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="brandName != null">#{brandName},</if>
+            <if test="cinemaName != null">#{cinemaName},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="area != null">#{area},</if>
+            <if test="address != null">#{address},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCinema" parameterType="Cinema">
+        update fb_cinema
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="brandName != null">brand_name = #{brandName},</if>
+            <if test="cinemaName != null">cinema_name = #{cinemaName},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCinemaById" parameterType="Long">
+        delete from fb_cinema where id = #{id}
+    </delete>
+
+    <delete id="deleteCinemaByIds" parameterType="String">
+        delete from fb_cinema where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.fb.mapper.SeatMapper">
+    
+    <resultMap type="Seat" id="SeatResult">
+        <result property="id"    column="id"    />
+        <result property="showtimeId"    column="showtime_id"    />
+        <result property="rn"    column="rn"    />
+        <result property="cn"    column="cn"    />
+        <result property="status"    column="status"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSeatVo">
+        select id, showtime_id, rn, cn, status, deleted, create_time, update_time from fb_seat
+    </sql>
+
+    <select id="selectSeatList" parameterType="Seat" resultMap="SeatResult">
+        <include refid="selectSeatVo"/>
+        <where>  
+            <if test="showtimeId != null "> and showtime_id = #{showtimeId}</if>
+            <if test="rn != null "> and rn = #{rn}</if>
+            <if test="cn != null "> and cn = #{cn}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="deleted != null "> and deleted = #{deleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectSeatById" parameterType="Long" resultMap="SeatResult">
+        <include refid="selectSeatVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSeat" parameterType="Seat">
+        insert into fb_seat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="showtimeId != null">showtime_id,</if>
+            <if test="rn != null">rn,</if>
+            <if test="cn != null">cn,</if>
+            <if test="status != null">status,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="showtimeId != null">#{showtimeId},</if>
+            <if test="rn != null">#{rn},</if>
+            <if test="cn != null">#{cn},</if>
+            <if test="status != null">#{status},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSeat" parameterType="Seat">
+        update fb_seat
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="showtimeId != null">showtime_id = #{showtimeId},</if>
+            <if test="rn != null">rn = #{rn},</if>
+            <if test="cn != null">cn = #{cn},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSeatById" parameterType="Long">
+        delete from fb_seat where id = #{id}
+    </delete>
+
+    <delete id="deleteSeatByIds" parameterType="String">
+        delete from fb_seat where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.fb.mapper.ShowtimeMapper">
+    
+    <resultMap type="Showtime" id="ShowtimeResult">
+        <result property="id"    column="id"    />
+        <result property="cinemaId"    column="cinema_id"    />
+        <result property="filmId"    column="film_id"    />
+        <result property="date"    column="date"    />
+        <result property="hour"    column="hour"    />
+        <result property="name"    column="name"    />
+        <result property="price"    column="price"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectShowtimeVo">
+        select id, cinema_id, film_id, date, hour, name, price, deleted, create_time, update_time from fb_showtime
+    </sql>
+
+    <select id="selectShowtimeList" parameterType="Showtime" resultMap="ShowtimeResult">
+        <include refid="selectShowtimeVo"/>
+        <where>  
+            <if test="cinemaId != null "> and cinema_id = #{cinemaId}</if>
+            <if test="filmId != null "> and film_id = #{filmId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="hour != null  and hour != ''"> and hour = #{hour}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="deleted != null "> and deleted = #{deleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectShowtimeById" parameterType="Long" resultMap="ShowtimeResult">
+        <include refid="selectShowtimeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertShowtime" parameterType="Showtime">
+        insert into fb_showtime
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="cinemaId != null">cinema_id,</if>
+            <if test="filmId != null">film_id,</if>
+            <if test="date != null">date,</if>
+            <if test="hour != null">hour,</if>
+            <if test="name != null">name,</if>
+            <if test="price != null">price,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="cinemaId != null">#{cinemaId},</if>
+            <if test="filmId != null">#{filmId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="hour != null">#{hour},</if>
+            <if test="name != null">#{name},</if>
+            <if test="price != null">#{price},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateShowtime" parameterType="Showtime">
+        update fb_showtime
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cinemaId != null">cinema_id = #{cinemaId},</if>
+            <if test="filmId != null">film_id = #{filmId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="hour != null">hour = #{hour},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShowtimeById" parameterType="Long">
+        delete from fb_showtime where id = #{id}
+    </delete>
+
+    <delete id="deleteShowtimeByIds" parameterType="String">
+        delete from fb_showtime where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
