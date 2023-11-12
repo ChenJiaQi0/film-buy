@@ -2,6 +2,9 @@ package top.chen.user.service;
 
 import top.chen.user.domain.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.chen.user.domain.entity.vo.OrderVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface OrderService extends IService<Order> {
 
+    List<OrderVO> getOrderByUserId(String id);
 }

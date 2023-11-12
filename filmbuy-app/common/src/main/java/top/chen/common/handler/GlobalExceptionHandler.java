@@ -72,4 +72,18 @@ public class GlobalExceptionHandler {
         resp.setMsg(fieldError.getDefaultMessage());
         return resp;
     }
+
+    /**
+     * 业务异常统一处理
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = NullPointerException.class)
+    @ResponseBody
+    public Result<?> exceptionHandler(NullPointerException e){
+        Result<?> resp = new Result<>();
+        resp.setCode(500);
+        resp.setMsg(e.getMessage());
+        return resp;
+    }
 }

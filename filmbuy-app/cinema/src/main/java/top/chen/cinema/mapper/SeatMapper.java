@@ -12,5 +12,5 @@ import top.chen.cinema.domain.entity.Seat;
  * @since 2023-11-05
  */
 public interface SeatMapper extends BaseMapper<Seat> {
-
+    String getShowTimeNameById(String id);
 }

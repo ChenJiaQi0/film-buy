@@ -1,12 +1,13 @@
-package top.chen.user.domain.entity;
+package top.chen.user.fegin;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.io.Serializable;
-
-import lombok.*;
-import lombok.experimental.Accessors;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,8 +21,8 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("fb_order")
-public class Order implements Serializable {
+@TableName("fb_seat")
+public class Seat implements Serializable {
 
     private static final long serialVersionUID=1L;
 
@@ -32,34 +33,24 @@ public class Order implements Serializable {
     private Long id;
 
     /**
-     * 影院名称
+     * 场次id
      */
-    private String cinemaName;
+    private Long showtimeId;
 
     /**
-     * 影片名称
+     * 座位所在排的编号
      */
-    private String filmName;
+    private Integer rn;
 
     /**
-     * 用户id
+     * 座位所在列的编号
      */
-    private Long userId;
+    private Integer cn;
 
     /**
-     * 座位信息
+     * 状态（0：空闲1：已售出）
      */
-    private String seat;
-
-    /**
-     * 总价
-     */
-    private Integer price;
-
-    /**
-     * 买票数量
-     */
-    private Integer count;
+    private String status;
 
     /**
      * 删除标识（0：未删除1：已删除）
