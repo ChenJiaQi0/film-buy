@@ -4,12 +4,10 @@ package top.chen.cinema.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import top.chen.cinema.domain.entity.Cinema;
+import top.chen.cinema.fegin.Film;
 import top.chen.cinema.service.CinemaService;
 import top.chen.common.result.Result;
 
@@ -28,6 +26,19 @@ import java.util.List;
 public class CinemaController {
     @Resource
     private CinemaService cinemaService;
+
+    /**
+     * 根据影院查询对应影片信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/films/{id}")
+    public Result<List<Film>> getFilmsByCinemaId(@PathVariable String id) {
+        List<Film> list = cinemaService.getFilmsByCinemaId(id);
+        Result<List<Film>> resp = new Result<>();
+        resp.setData(list);
+        return resp;
+    }
 
     /**
      * 根据条件获取影院列表

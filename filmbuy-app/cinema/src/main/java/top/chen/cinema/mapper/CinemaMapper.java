@@ -13,4 +13,5 @@ import top.chen.cinema.domain.entity.Cinema;
  */
 public interface CinemaMapper extends BaseMapper<Cinema> {
 
+    String[] getFilmIdsByCinemaId(String id);
 }

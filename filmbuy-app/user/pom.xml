@@ -18,18 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- OpenFeign 组件 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <!-- 负载均衡组件 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>top.chen</groupId>
             <artifactId>common</artifactId>

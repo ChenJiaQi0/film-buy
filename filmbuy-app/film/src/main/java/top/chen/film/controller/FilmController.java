@@ -25,6 +25,11 @@ public class FilmController {
     @Resource
     private FilmService filmService;
 
+    @GetMapping("/getSimpleFilm/{id}")
+    public Film getSimpleFilm(@PathVariable String id){
+        return filmService.getById(id);
+    }
+
     /**
      * 影片信息
      * @param id
