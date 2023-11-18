@@ -2,11 +2,14 @@ package top.chen.user.controller;
 
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.chen.common.result.Result;
+import top.chen.common.util.tokenUtil;
+import top.chen.user.domain.entity.Comment;
+import top.chen.user.domain.entity.vo.OrderVO;
 import top.chen.user.service.CommentService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +25,19 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
-
+    /**
+     * 对影片的评论
+     * @param token
+     * @param comment
+     * @return
+     */
+    @PostMapping()
+    public Result<Boolean> comment(@RequestHeader String token, @RequestBody Comment comment) {
+        Integer tokenId = tokenUtil.getUserIdFromToken(token);
+        comment.setUserId(Long.valueOf(tokenId));
+        Result<Boolean> resp = new Result<>();
+        resp.setData(commentService.save(comment));
+        return resp;
+    }
 }
 
