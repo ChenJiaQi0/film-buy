@@ -2,6 +2,7 @@ package top.chen.film.service;
 
 import top.chen.film.domain.entity.Film;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.chen.film.domain.vo.FilmVO;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FilmService extends IService<Film> {
 
+    FilmVO getFilmByIdAndActors(String id);
 }

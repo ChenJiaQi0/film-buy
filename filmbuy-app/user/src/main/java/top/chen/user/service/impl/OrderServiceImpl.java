@@ -2,6 +2,7 @@ package top.chen.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.vo.OrderVO;
@@ -24,6 +25,7 @@ import java.util.List;
  * @since 2023-11-05
  */
 @Service
+@Slf4j
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
     @Resource
     private SeatService seatService;
@@ -55,7 +57,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             Seat dbSeat = seatService.getSeatById(s);
             msg.append(dbSeat.getRn() + "排" + dbSeat.getCn() + "座");
         }
-        System.out.println(msg);
+//        System.out.println(msg);
+        log.info("座位信息：" + msg);
         return msg.toString();
     }
 

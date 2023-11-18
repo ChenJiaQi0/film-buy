@@ -97,6 +97,11 @@ public class Film implements Serializable {
     private Integer status;
 
     /**
+     * 简介
+     */
+    private String description;
+
+    /**
      * 演员们的ids
      */
     private String actors;
