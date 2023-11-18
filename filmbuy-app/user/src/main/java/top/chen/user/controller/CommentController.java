@@ -1,8 +1,12 @@
 package top.chen.user.controller;
 
 
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.chen.user.service.CommentService;
 
 /**
  * <p>
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
+    @Resource
+    private CommentService commentService;
+
 
 }
 

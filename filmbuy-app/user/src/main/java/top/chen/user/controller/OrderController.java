@@ -2,12 +2,11 @@ package top.chen.user.controller;
 
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import top.chen.common.result.Result;
+import top.chen.common.util.JwtUtil;
+import top.chen.common.util.tokenUtil;
 import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.vo.OrderVO;
 import top.chen.user.service.OrderService;
@@ -31,13 +30,14 @@ public class OrderController {
 
     /**
      * 查询用户订单
-     * @param id
+     * @param token
      * @return
      */
-    @GetMapping("/{id}")
-    public Result<List<OrderVO>> getOrderByUserId(@PathVariable String id) {
+    @GetMapping()
+    public Result<List<OrderVO>> getOrderByUserId(@RequestHeader String token) {
+        Integer tokenId = tokenUtil.getUserIdFromToken(token);
         Result<List<OrderVO>> resp = new Result<>();
-        List<OrderVO> list = orderService.getOrderByUserId(id);
+        List<OrderVO> list = orderService.getOrderByUserId(String.valueOf(tokenId));
         resp.setData(list);
         return resp;
     }
