@@ -36,6 +36,7 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
     public FilmVO getFilmByIdAndActors(String id) {
         FilmVO filmVO = new FilmVO();
         Film dbFilm = baseMapper.selectById(id);
+        if (dbFilm == null) return null;
         filmVO.setFilm(dbFilm);
 
         // 根据影片获取对应演员信息

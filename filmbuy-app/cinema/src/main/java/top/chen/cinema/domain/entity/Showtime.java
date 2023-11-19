@@ -2,9 +2,11 @@ package top.chen.cinema.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 /**
@@ -71,13 +73,13 @@ public class Showtime implements Serializable {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 
 }
