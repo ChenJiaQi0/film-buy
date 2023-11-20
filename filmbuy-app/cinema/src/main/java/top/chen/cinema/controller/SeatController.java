@@ -1,14 +1,15 @@
 package top.chen.cinema.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import top.chen.cinema.domain.entity.Seat;
 import top.chen.cinema.service.SeatService;
+import top.chen.common.result.Result;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,6 +33,30 @@ public class SeatController {
     @GetMapping("/name/{id}")
     public String getShowTimeNameById(@PathVariable String id){
         return seatService.getShowTimeNameById(id);
+    }
+
+    /**
+     * 生成场次的 4*4 座位信息
+     * @param id
+     */
+    @PostMapping("/{id}")
+    public void generateSeatByShowTime(@PathVariable String id) {
+        seatService.generate(id);
+    }
+
+    /**
+     * 根据场次返回座位
+     * @param id
+     * @return
+     */
+    @GetMapping
+    public Result<List<Seat>> getSeatsByShowTimeId(@RequestParam("id") String id){
+        LambdaQueryWrapper<Seat> wp = new LambdaQueryWrapper<>();
+        wp.eq(Seat::getShowtimeId, id);
+        List<Seat> list = seatService.list(wp);
+        Result<List<Seat>> resp = new Result<>();
+        resp.setData(list);
+        return resp;
     }
 }
 

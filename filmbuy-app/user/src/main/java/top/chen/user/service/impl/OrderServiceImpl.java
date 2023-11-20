@@ -52,7 +52,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private String getSeatMsgByOrderSeat(String seat) {
         String[] split = StringUtils.split(seat, ',');
         StringBuffer msg = new StringBuffer();
-        msg.append(seatService.getShowTimeNameById(split[0]) + "号厅");
+        msg.append(seatService.getShowTimeNameById(String.valueOf(seatService.getSeatById(split[0]).getShowtimeId())) + "号厅");
         for (String s : split) {
             Seat dbSeat = seatService.getSeatById(s);
             msg.append(dbSeat.getRn() + "排" + dbSeat.getCn() + "座");

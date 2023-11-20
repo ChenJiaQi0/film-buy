@@ -29,6 +29,12 @@ public class ShowtimeController {
     @Resource
     private ShowTimeService showTimeService;
 
+    /**
+     * 根据影院影片显示场次
+     * @param cid
+     * @param fid
+     * @return
+     */
     @GetMapping("/{cid}/{fid}")
     public Result<Map<String, ArrayList<Showtime>>> getShowTimeList(@PathVariable("cid") String cid,
                                                   @PathVariable("fid") String fid){

@@ -19,6 +19,12 @@ import java.util.*;
 @Service
 @Slf4j
 public class ShowTimeServiceImpl extends ServiceImpl<ShowtimeMapper, Showtime> implements ShowTimeService {
+    /**
+     * 根据影院影片显示场次
+     * @param cid
+     * @param fid
+     * @return
+     */
     @Override
     public Map<String, ArrayList<Showtime>> getShowTimeList(String cid, String fid) {
         LambdaQueryWrapper<Showtime> wp = new LambdaQueryWrapper<>();

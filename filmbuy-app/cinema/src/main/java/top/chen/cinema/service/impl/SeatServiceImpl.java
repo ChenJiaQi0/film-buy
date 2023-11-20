@@ -17,4 +17,17 @@ public class SeatServiceImpl extends ServiceImpl<SeatMapper, Seat> implements Se
     public String getShowTimeNameById(String id) {
         return baseMapper.getShowTimeNameById(id);
     }
+
+    @Override
+    public void generate(String id) {
+        for (int i = 1; i < 5; i++) {
+            for (int j = 1; j< 5; j++){
+                baseMapper.insert(Seat.builder()
+                        .showtimeId(Long.valueOf(id))
+                        .rn(i)
+                        .cn(j)
+                        .build());
+            }
+        }
+    }
 }
