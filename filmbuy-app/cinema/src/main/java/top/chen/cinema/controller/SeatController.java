@@ -46,6 +46,15 @@ public class SeatController {
     }
 
     /**
+     * 将座位status修改为1
+     * @param seats
+     */
+    @PostMapping("/updateStatusBySeats")
+    public void updateStatusBySeats(@RequestParam String seats) {
+        seatService.updateStatusBySeats(seats);
+    }
+
+    /**
      * 生成场次的 4*4 座位信息
      * @param id
      */

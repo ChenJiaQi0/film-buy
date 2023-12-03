@@ -2,6 +2,7 @@ package top.chen.cinema.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import top.chen.cinema.domain.entity.Seat;
 import top.chen.cinema.mapper.SeatMapper;
 import top.chen.cinema.service.SeatService;
@@ -52,5 +53,21 @@ public class SeatServiceImpl extends ServiceImpl<SeatMapper, Seat> implements Se
         }
 
         return flag;
+    }
+
+    /**
+     * 将座位status修改为1
+     * @param seats
+     */
+    @Override
+    public void updateStatusBySeats(String seats) {
+        String[] seatIds = seats.split(",");
+        List<Seat> list = baseMapper.selectBatchIds(Arrays.asList(seatIds));
+        if (list.size() > 0) {
+            for (Seat seat : list) {
+                seat.setStatus(1);
+                baseMapper.updateById(seat);
+            }
+        }
     }
 }

@@ -14,4 +14,6 @@ public interface SeatService extends IService<Seat> {
     void generate(String id);
 
     Boolean isOnSell(String seats);
+
+    void updateStatusBySeats(String seats);
 }
