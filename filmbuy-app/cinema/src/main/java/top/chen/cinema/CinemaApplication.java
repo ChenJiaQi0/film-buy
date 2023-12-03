@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author ChenQi
  * @date 2023/11/5

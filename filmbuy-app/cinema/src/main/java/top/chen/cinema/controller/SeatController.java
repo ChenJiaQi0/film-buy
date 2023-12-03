@@ -36,6 +36,16 @@ public class SeatController {
     }
 
     /**
+     * 判断选择的座位是否售空
+     * @param seats
+     * @return
+     */
+    @GetMapping("/isOnSell")
+    public Boolean isOnSell(@RequestParam String seats) {
+        return seatService.isOnSell(seats);
+    }
+
+    /**
      * 生成场次的 4*4 座位信息
      * @param id
      */

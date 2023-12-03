@@ -11,6 +11,7 @@
         <module name="film" />
         <module name="common" />
         <module name="user" />
+        <module name="test-demo" />
       </profile>
     </annotationProcessing>
   </component>

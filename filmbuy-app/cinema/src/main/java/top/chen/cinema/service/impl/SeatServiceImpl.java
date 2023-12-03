@@ -6,6 +6,9 @@ import top.chen.cinema.domain.entity.Seat;
 import top.chen.cinema.mapper.SeatMapper;
 import top.chen.cinema.service.SeatService;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author ChenQi
  * @date 2023/11/12
@@ -29,5 +32,25 @@ public class SeatServiceImpl extends ServiceImpl<SeatMapper, Seat> implements Se
                         .build());
             }
         }
+    }
+
+    /**
+     * 判断选择的座位是否售空
+     * @param seats
+     * @return
+     */
+    @Override
+    public Boolean isOnSell(String seats) {
+        String[] seatIds = seats.split(",");
+        boolean flag = true;
+        List<Seat> list = baseMapper.selectBatchIds(Arrays.asList(seatIds));
+        for (Seat seat : list) {
+            if (seat.getStatus() == 1) {
+                flag = false;
+                break;
+            }
+        }
+
+        return flag;
     }
 }

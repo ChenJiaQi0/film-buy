@@ -12,4 +12,6 @@ public interface SeatService extends IService<Seat> {
     String getShowTimeNameById(String id);
 
     void generate(String id);
+
+    Boolean isOnSell(String seats);
 }

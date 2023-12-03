@@ -48,7 +48,7 @@ public class Seat implements Serializable {
     /**
      * 状态（0：空闲1：已售出）
      */
-    private String status;
+    private Integer status;
 
     /**
      * 删除标识（0：未删除1：已删除）

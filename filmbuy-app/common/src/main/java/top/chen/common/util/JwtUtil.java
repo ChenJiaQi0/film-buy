@@ -54,11 +54,16 @@ public class JwtUtil {
 
     public static JSONObject getJSONObject(String token) {
         if (token == null) throw new ServiceException("没有请求参数token，请先登录");
-        JWT jwt = JWTUtil.parseToken(token).setKey(KEY.getBytes());
-        JSONObject payloads = jwt.getPayloads();
-        payloads.remove(JWTPayload.ISSUED_AT);
-        payloads.remove(JWTPayload.EXPIRES_AT);
-        payloads.remove(JWTPayload.NOT_BEFORE);
+        JSONObject payloads = null;
+        try {
+            JWT jwt = JWTUtil.parseToken(token).setKey(KEY.getBytes());
+            payloads = jwt.getPayloads();
+            payloads.remove(JWTPayload.ISSUED_AT);
+            payloads.remove(JWTPayload.EXPIRES_AT);
+            payloads.remove(JWTPayload.NOT_BEFORE);
+        } catch (Exception e) {
+            throw new ServiceException("token 格式不正确");
+        }
         log.info("根据 token 获取原始内容：{}", payloads);
         return payloads;
     }
@@ -72,6 +77,7 @@ public class JwtUtil {
             throw new RuntimeException(e);
         }
         validate(token);
-        getJSONObject(token);
+        JSONObject jsonObject = getJSONObject(token);
+        System.out.println(jsonObject.get("id"));
     }
 }

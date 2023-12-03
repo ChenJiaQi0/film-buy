@@ -19,6 +19,8 @@
 
 filmbuy-app：移动端后端
 
-filmbuy-ui：移动端页面
+filmbuy-ui：移动端前端
 
 RuoYi-Vue：后台管理系统
+
+RuoYi-Vue/ruoyi-ui：后台管理系统前端

@@ -2,16 +2,15 @@ package top.chen.user.controller;
 
 
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import top.chen.common.result.Result;
-import top.chen.common.util.JwtUtil;
 import top.chen.common.util.tokenUtil;
 import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.vo.OrderVO;
 import top.chen.user.service.OrderService;
 
-import javax.swing.plaf.SpinnerUI;
 import java.util.List;
 
 /**
@@ -40,6 +39,12 @@ public class OrderController {
         List<OrderVO> list = orderService.getOrderByUserId(String.valueOf(tokenId));
         resp.setData(list);
         return resp;
+    }
+
+    @PostMapping("/buy")
+    public Result buyFilm(@RequestHeader String token, @RequestBody Order order){
+        Integer userId = tokenUtil.getUserIdFromToken(token);
+        return null;
     }
 }
 

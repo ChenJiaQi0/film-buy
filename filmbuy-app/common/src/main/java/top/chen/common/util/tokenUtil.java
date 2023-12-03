@@ -2,6 +2,7 @@ package top.chen.common.util;
 
 import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import top.chen.common.exception.ServiceException;
 
 /**
  * @author ChenQi
@@ -24,7 +25,9 @@ public class tokenUtil {
             log.info("解析到 token 的 json 数据为：{}", jsonObject);
             userId = Integer.parseInt(jsonObject.get("id").toString());
         } else {
-            log.info("没有 token");
+            // 没有 token
+            throw new ServiceException("请先登录再进行相关操作!");
+//            log.info("没有 token");
         }
         return userId;
     }
