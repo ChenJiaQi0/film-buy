@@ -28,4 +28,6 @@ public interface UserService extends IService<User> {
      * @return
      */
     Integer topUp(String userId);
+
+    void minusBalance(Integer id, Integer price);
 }

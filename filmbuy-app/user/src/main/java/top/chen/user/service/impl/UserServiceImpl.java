@@ -82,4 +82,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setBalance(user.getBalance() + 50);
         return userMapper.updateById(user);
     }
+
+    /**
+     * 判断用户余额是否能够购买——扣减用户余额
+     * @param id
+     */
+    @Override
+    public void minusBalance(Integer id, Integer price) {
+        User user = baseMapper.selectById(id);
+        if (price > user.getBalance()) throw new ServiceException("用户余额不足，请先充值再购买");
+
+        user.setBalance(user.getBalance() - price);
+        baseMapper.updateById(user);
+    }
 }

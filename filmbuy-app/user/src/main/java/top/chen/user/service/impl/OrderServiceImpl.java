@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import top.chen.common.exception.ServiceException;
 import top.chen.user.domain.entity.Order;
+import top.chen.user.domain.entity.User;
 import top.chen.user.domain.entity.vo.OrderVO;
 import top.chen.user.fegin.Seat;
 import top.chen.user.fegin.SeatService;
@@ -12,6 +14,7 @@ import top.chen.user.mapper.OrderMapper;
 import top.chen.user.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import top.chen.user.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,8 @@ import java.util.List;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
     @Resource
     private SeatService seatService;
+    @Resource
+    private UserService userService;
 
     /**
      * 查询用户订单
@@ -48,6 +53,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         return orderVOS;
     }
+
+
 
     private String getSeatMsgByOrderSeat(String seat) {
         String[] split = StringUtils.split(seat, ',');

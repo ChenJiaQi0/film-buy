@@ -42,7 +42,7 @@ public class OrderController {
     }
 
     @PostMapping("/buy")
-    public Result buyFilm(@RequestHeader String token, @RequestBody Order order){
+    public Result buyFilm(@RequestHeader String token, @RequestBody Order order) {
         Integer userId = tokenUtil.getUserIdFromToken(token);
         return null;
     }
