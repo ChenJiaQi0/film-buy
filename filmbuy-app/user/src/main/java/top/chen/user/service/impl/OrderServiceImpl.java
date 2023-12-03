@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 import top.chen.common.exception.ServiceException;
 import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.User;
@@ -54,8 +55,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return orderVOS;
     }
 
-
-
     private String getSeatMsgByOrderSeat(String seat) {
         String[] split = StringUtils.split(seat, ',');
         StringBuffer msg = new StringBuffer();
@@ -76,5 +75,25 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     private String getBrandNameByOrderCinemaName(String cinemaName) {
         return baseMapper.getBrandNameByOrderCinemaName(cinemaName);
+    }
+
+    /**
+     * 生成订单并做相应的扣减操作
+     * @param order
+     */
+    @Override
+    @Transactional
+    public void buyFilm(Order order) {
+        //判断选择的座位是否售空——将座位status修改为1
+        Boolean onSell = seatService.isOnSell(order.getSeat());
+        if (onSell) {
+            seatService.updateStatusBySeats(order.getSeat());
+            //判断用户余额是否能够购买——扣减用户余额
+            userService.minusBalance(order.getUserId(), order.getPrice());
+            //插入订单
+            baseMapper.insert(order);
+        } else {
+            throw new ServiceException("选中的座位中被提前抢到了，请重新选择座位");
+        }
     }
 }

@@ -88,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @param id
      */
     @Override
-    public void minusBalance(Integer id, Integer price) {
+    public void minusBalance(Long id, Integer price) {
         User user = baseMapper.selectById(id);
         if (price > user.getBalance()) throw new ServiceException("用户余额不足，请先充值再购买");
 

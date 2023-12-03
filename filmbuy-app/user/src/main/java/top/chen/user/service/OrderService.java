@@ -17,4 +17,6 @@ import java.util.List;
 public interface OrderService extends IService<Order> {
 
     List<OrderVO> getOrderByUserId(String id);
+
+    void buyFilm(Order order);
 }

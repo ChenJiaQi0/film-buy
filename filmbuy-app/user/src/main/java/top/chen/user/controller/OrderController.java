@@ -43,8 +43,11 @@ public class OrderController {
 
     @PostMapping("/buy")
     public Result buyFilm(@RequestHeader String token, @RequestBody Order order) {
+        // 判断用户是否登录
         Integer userId = tokenUtil.getUserIdFromToken(token);
-        return null;
+        order.setUserId(Long.valueOf(userId));
+        orderService.buyFilm(order);
+        return Result.ok();
     }
 }
 

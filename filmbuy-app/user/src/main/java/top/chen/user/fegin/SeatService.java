@@ -3,6 +3,8 @@ package top.chen.user.fegin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author ChenQi
@@ -16,4 +18,10 @@ public interface SeatService {
 
     @GetMapping("/name/{id}")
     String getShowTimeNameById(@PathVariable String id);
+
+    @GetMapping("/isOnSell")
+    Boolean isOnSell(@RequestParam String seats);
+
+    @PostMapping("/updateStatusBySeats")
+    void updateStatusBySeats(@RequestParam String seats);
 }

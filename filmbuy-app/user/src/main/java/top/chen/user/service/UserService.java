@@ -29,5 +29,5 @@ public interface UserService extends IService<User> {
      */
     Integer topUp(String userId);
 
-    void minusBalance(Integer id, Integer price);
+    void minusBalance(Long id, Integer price);
 }
