@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface FilmMapper extends BaseMapper<Film> {
 
-    List<Film> hotFilms();
+    List<Film> hotFilms(String name);
 
-    List<Film> exceptFilms();
+    List<Film> exceptFilms(String name);
 }

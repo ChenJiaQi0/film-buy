@@ -57,9 +57,9 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
      * @return
      */
     @Override
-    public Map<String, List<Film>> hotAndExceptFilms() {
-        List<Film> hotFilms = baseMapper.hotFilms();
-        List<Film> exceptFilms = baseMapper.exceptFilms();
+    public Map<String, List<Film>> hotAndExceptFilms(String name) {
+        List<Film> hotFilms = baseMapper.hotFilms(name);
+        List<Film> exceptFilms = baseMapper.exceptFilms(name);
         HashMap<String, List<Film>> map = new HashMap<>();
         map.put("hotFilms", hotFilms);
         map.put("exceptFilms", exceptFilms);

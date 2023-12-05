@@ -2,10 +2,7 @@ package top.chen.film.controller;
 
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.chen.common.result.Result;
 import top.chen.film.domain.entity.Film;
 import top.chen.film.domain.vo.FilmVO;
@@ -51,9 +48,9 @@ public class FilmController {
      * @return
      */
     @GetMapping("/hotAndExcept")
-    public Result<Map<String, List<Film>>> hotAndExceptFilms() {
+    public Result<Map<String, List<Film>>> hotAndExceptFilms(@RequestParam(required = false) String name) {
         Result<Map<String, List<Film>>> resp = new Result<>();
-        resp.setData(filmService.hotAndExceptFilms());
+        resp.setData(filmService.hotAndExceptFilms(name));
         return resp;
     }
 }
