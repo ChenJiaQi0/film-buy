@@ -12,7 +12,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -48,5 +50,19 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
         }
         filmVO.setActors(actorList);
         return filmVO;
+    }
+
+    /**
+     * 热映和待映影片
+     * @return
+     */
+    @Override
+    public Map<String, List<Film>> hotAndExceptFilms() {
+        List<Film> hotFilms = baseMapper.hotFilms();
+        List<Film> exceptFilms = baseMapper.exceptFilms();
+        HashMap<String, List<Film>> map = new HashMap<>();
+        map.put("hotFilms", hotFilms);
+        map.put("exceptFilms", exceptFilms);
+        return map;
     }
 }

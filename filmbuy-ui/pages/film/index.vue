@@ -159,12 +159,12 @@
 
 <style lang="scss" scoped>
 	.tabs-item-title {
-		color: #db5f54 !important;
+		color: #fc8076 !important;
 	}
 	.tabs-title {
 	}
 	.tabs-item-title.cur {
-		color: #e54d42 !important;
+		color: #db5f54 !important;
 		font-size: calc(4px + 14px) !important;
 	}
 	.list1-item-clz {

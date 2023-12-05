@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.chen.film.mapper.FilmMapper">
+    <select id="hotFilms" resultType="top.chen.film.domain.entity.Film">
+        SELECT * from fb_film WHERE watched > 100000;
+    </select>
 
+    <select id="exceptFilms" resultType="top.chen.film.domain.entity.Film">
+        SELECT * from fb_film WHERE status = 0;
+    </select>
 </mapper>

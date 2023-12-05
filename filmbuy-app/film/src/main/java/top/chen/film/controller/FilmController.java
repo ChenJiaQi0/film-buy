@@ -11,6 +11,10 @@ import top.chen.film.domain.entity.Film;
 import top.chen.film.domain.vo.FilmVO;
 import top.chen.film.service.FilmService;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  前端控制器
@@ -39,6 +43,17 @@ public class FilmController {
     public Result<FilmVO> getFilmByIdAndActors(@PathVariable String id){
         Result<FilmVO> resp = new Result<>();
         resp.setData(filmService.getFilmByIdAndActors(id));
+        return resp;
+    }
+
+    /**
+     * 热映影片和即将上映影片
+     * @return
+     */
+    @GetMapping("/hotAndExcept")
+    public Result<Map<String, List<Film>>> hotAndExceptFilms() {
+        Result<Map<String, List<Film>>> resp = new Result<>();
+        resp.setData(filmService.hotAndExceptFilms());
         return resp;
     }
 }

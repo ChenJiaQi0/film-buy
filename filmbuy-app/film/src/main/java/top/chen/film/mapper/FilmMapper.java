@@ -3,6 +3,8 @@ package top.chen.film.mapper;
 import top.chen.film.domain.entity.Film;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface FilmMapper extends BaseMapper<Film> {
 
+    List<Film> hotFilms();
+
+    List<Film> exceptFilms();
 }
