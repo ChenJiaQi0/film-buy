@@ -11,15 +11,19 @@
         <module name="film" />
         <module name="common" />
         <module name="user" />
-        <module name="test-demo" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="test-demo" target="18" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cinema" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="film" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="user" options="-parameters" />
     </option>
   </component>
