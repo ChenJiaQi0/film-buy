@@ -10,7 +10,7 @@
 						<view class="diygw-search">
 							<view class="flex1 align-center flex padding-xs solid radius">
 								<text style="color: #555 !important" class="diy-icon-search"></text>
-								<input class="flex1" name="search" type="" v-model="search" placeholder="请输入关键字" />
+								<input class="flex1" name="search" type="" v-model="name" placeholder="请输入关键字" />
 							</view>
 							<view style="color: #333 !important" class="diygw-tag margin-left-xs radius-xs"> 搜索 </view>
 						</view>
@@ -36,25 +36,20 @@
 					</view>
 					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz">
 						<view class="flex diygw-col-24 list-clz">
-							<view class="diygw-list">
-								<view style="" class="diygw-item col-100 row solid-bottom">
-									<view class="diygw-avatar">
-										<image mode="aspectFit" class="diygw-avatar-img" src="/static/my2.jpg"></image>
+							<view class="diygw-list" v-if="hotFilms">
+								<view style="margin-bottom: 2px;margin-top: 2px;" class="diygw-item col-100 row solid-bottom" v-for="(hot, index) in hotFilms" :key="index">
+									<view class="">
+										<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="hot.img"></image>
 									</view>
 									<view class="content">
-										<view class="title"> 少年的你 </view>
-										<view class="text-sm remark"> 777777777777777777777777777 </view>
+										<view class="title"> {{ hot.name }} </view>
+										<view>评分：<span style="color: red;">{{ hot.sc }}</span><button style="float: right;font-size: 12px;background-color: #ffc9c9;color: #d9480f;">购票</button></view>
+										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ hot.description }} </view>
 									</view>
 								</view>
-								<view style="" class="diygw-item col-100 row solid-bottom">
-									<view class="diygw-avatar">
-										<image mode="aspectFit" class="diygw-avatar-img" src="/static/my2.jpg"></image>
-									</view>
-									<view class="content">
-										<view class="title"> 无价之宝 </view>
-										<view class="text-sm remark"> 777777777777777777777777777 </view>
-									</view>
-								</view>
+							</view>
+							<view v-else>
+								<p>暂无热映影片</p>
 							</view>
 						</view>
 					</view>
@@ -64,40 +59,28 @@
 						<view class="diygw-search">
 							<view class="flex1 align-center flex padding-xs solid radius">
 								<text style="color: #555 !important" class="diy-icon-search"></text>
-								<input class="flex1" name="search1" type="" v-model="search1" placeholder="请输入关键字" />
+								<input class="flex1" name="search1" type="" v-model="name" placeholder="请输入关键字" />
 							</view>
 							<view style="color: #333 !important" class="diygw-tag margin-left-xs radius-xs"> 搜索 </view>
 						</view>
 					</view>
 					<view class="diygw-col-24 text-clz diygw-text-md"> 近期最受欢迎 </view>
-					<view class="flex diygw-col-24 list1-clz">
-						<view class="diygw-list">
-							<view style="" class="diygw-item col-100 row solid-bottom diygw-card diygw-shadow list1-item-clz">
-								<view class="diygw-avatar list1-icon-clz">
-									<image mode="aspectFit" class="diygw-avatar-img" src="/static/grid1.png"></image>
-								</view>
-								<view class="content">
-									<view class="title"> 哈利奎因：猛禽小队 </view>
-									<view class="text-sm remark"> 这部电影并不只是小丑女的个人电影。DC漫画《猛禽小队》实际上讲述了.... </view>
-								</view>
-							</view>
-							<view style="" class="diygw-item col-100 row solid-bottom diygw-card diygw-shadow list1-item-clz">
-								<view class="diygw-avatar list1-icon-clz">
-									<image mode="aspectFit" class="diygw-avatar-img" src="/static/global/grid2.png"></image>
-								</view>
-								<view class="content">
-									<view class="title"> 囧妈 </view>
-									<view class="text-sm remark"> 徐伊万（徐峥 饰） </view>
+					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz">
+						<view class="flex diygw-col-24 list-clz">
+							<view class="diygw-list" v-if="exceptFilms">
+								<view style="margin-bottom: 2px;margin-top: 2px;" class="diygw-item col-100 row solid-bottom" v-for="(except, index) in exceptFilms" :key="index">
+									<view class="">
+										<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="except.img"></image>
+									</view>
+									<view class="content">
+										<view class="title"> {{ except.name }} </view>
+										<view><span style="color: red;">{{ except.wish }}</span>人想看<uni-tag style="float: right;" text="预售" type="success" /></view>
+										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ except.description }} </view>
+									</view>
 								</view>
 							</view>
-							<view style="" class="diygw-item col-100 row solid-bottom diygw-card diygw-shadow list1-item-clz">
-								<view class="diygw-avatar list1-icon-clz">
-									<image mode="aspectFit" class="diygw-avatar-img" src="/static/global/grid3.png"></image>
-								</view>
-								<view class="content">
-									<view class="title"> 菜单三 </view>
-									<view class="text-sm remark"> 说明文字 </view>
-								</view>
+							<view v-else>
+								暂无待映影片
 							</view>
 						</view>
 					</view>
@@ -109,7 +92,7 @@
 
 <script>
 	import { request } from '@/utils/request.js';
-	// import { LATEST_NOTICE_URL,SHARE_LIST_URL } from '@/utils/api.js';
+	import { HOT_EXCEPT_FILM } from '@/utils/api.js';
 	export default {
 		data() {
 			return {
@@ -127,8 +110,9 @@
 				tabsWidth: 0,
 				tabsItemWidth: 0,
 				tabsIndex: 0,
-				search: '',
-				search1: ''
+				name: '',
+				hotFilms: [],
+				exceptFilms: []
 			};
 		},
 		onShow() {
@@ -142,16 +126,25 @@
 				});
 			}
 
-			this.init();
+			this.hotAndExcept();
 		},
 		methods: {
-			async init() {},
 			changeTabs(evt) {
 				let { index } = evt.currentTarget.dataset;
 				if (index == this.tabsIndex) return;
 				this.setData({
 					tabsIndex: index
 				});
+			},
+			async hotAndExcept() {
+				const data = await request(HOT_EXCEPT_FILM, 'GET', this.name)
+				if (data.code != 200) {
+					uni.showToast({
+						title: data.msg != null ? data.msg : '获取失败请稍后重试'
+					})
+				}
+				this.hotFilms = data.data.hotFilms
+				this.exceptFilms = data.data.exceptFilms
 			}
 		}
 	};

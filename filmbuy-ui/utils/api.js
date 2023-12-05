@@ -7,6 +7,4 @@ export const FILM_URL = BASE_API_URL + '/film';
 export const USER_URL = BASE_API_URL + '/user';
 
 /******  影片模块  ******/
-export const HOT_FILM = FILM_URL + '/hot';
-export const EXCEPT_FILM = FILM_URL + '/except'
-
+export const HOT_EXCEPT_FILM = FILM_URL + '/hotAndExcept';
