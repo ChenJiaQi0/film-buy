@@ -21,4 +21,5 @@ public interface FilmService extends IService<Film> {
 
     List<Film> hotFilms(String name);
     List<Film> exceptFilms(String name);
+    List<Film> recommendedFilms();
 }

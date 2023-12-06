@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -59,6 +60,7 @@ public class Film implements Serializable {
     /**
      * 上映时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     /**

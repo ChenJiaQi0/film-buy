@@ -64,5 +64,16 @@ public class FilmController {
         resp.setData(filmService.exceptFilms(name));
         return resp;
     }
+
+    /**
+     * 待映推荐
+     * @return
+     */
+    @GetMapping("/recommend")
+    public Result<List<Film>> recommendedFilms() {
+        Result<List<Film>> resp = new Result<>();
+        resp.setData(filmService.recommendedFilms());
+        return resp;
+    }
 }
 

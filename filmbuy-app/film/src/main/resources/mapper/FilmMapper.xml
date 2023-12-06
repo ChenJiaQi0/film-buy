@@ -9,9 +9,13 @@
     </select>
 
     <select id="exceptFilms" parameterType="string" resultType="top.chen.film.domain.entity.Film">
-        SELECT * from fb_film WHERE status = 0
+        SELECT * from fb_film WHERE status != 1
         <if test="name != null">
             and name like concat('%', #{name}, '%')
         </if>
+    </select>
+
+    <select id="recommendedFilms" resultType="top.chen.film.domain.entity.Film">
+        SELECT * from fb_film WHERE status != 1 ORDER BY wish DESC LIMIT 0,6
     </select>
 </mapper>

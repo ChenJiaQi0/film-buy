@@ -71,4 +71,13 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
         List<Film> exceptFilms = baseMapper.exceptFilms(name);
         return exceptFilms;
     }
+
+    /**
+     * 待映推荐
+     * @return
+     */
+    @Override
+    public List<Film> recommendedFilms() {
+        return baseMapper.recommendedFilms();
+    }
 }

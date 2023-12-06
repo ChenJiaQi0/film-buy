@@ -18,4 +18,6 @@ public interface FilmMapper extends BaseMapper<Film> {
     List<Film> hotFilms(String name);
 
     List<Film> exceptFilms(String name);
+
+    List<Film> recommendedFilms();
 }
