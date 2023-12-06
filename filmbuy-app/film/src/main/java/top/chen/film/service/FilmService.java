@@ -19,5 +19,6 @@ public interface FilmService extends IService<Film> {
 
     FilmVO getFilmByIdAndActors(String id);
 
-    Map<String, List<Film>> hotAndExceptFilms(String name);
+    List<Film> hotFilms(String name);
+    List<Film> exceptFilms(String name);
 }

@@ -53,16 +53,22 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
     }
 
     /**
-     * 热映和待映影片
+     * 热映影片
      * @return
      */
     @Override
-    public Map<String, List<Film>> hotAndExceptFilms(String name) {
+    public List<Film> hotFilms(String name) {
         List<Film> hotFilms = baseMapper.hotFilms(name);
+        return hotFilms;
+    }
+
+    /**
+     * 待映影片
+     * @return
+     */
+    @Override
+    public List<Film> exceptFilms(String name) {
         List<Film> exceptFilms = baseMapper.exceptFilms(name);
-        HashMap<String, List<Film>> map = new HashMap<>();
-        map.put("hotFilms", hotFilms);
-        map.put("exceptFilms", exceptFilms);
-        return map;
+        return exceptFilms;
     }
 }

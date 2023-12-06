@@ -44,13 +44,24 @@ public class FilmController {
     }
 
     /**
-     * 热映影片和即将上映影片
+     * 热映影片
      * @return
      */
-    @GetMapping("/hotAndExcept")
-    public Result<Map<String, List<Film>>> hotAndExceptFilms(@RequestParam(required = false) String name) {
-        Result<Map<String, List<Film>>> resp = new Result<>();
-        resp.setData(filmService.hotAndExceptFilms(name));
+    @GetMapping("/hot")
+    public Result<List<Film>> hotFilms(@RequestParam(required = false) String name) {
+        Result<List<Film>> resp = new Result<>();
+        resp.setData(filmService.hotFilms(name));
+        return resp;
+    }
+
+    /**
+     * 待映影片
+     * @return
+     */
+    @GetMapping("/except")
+    public Result<List<Film>> exceptFilms(@RequestParam(required = false) String name) {
+        Result<List<Film>> resp = new Result<>();
+        resp.setData(filmService.exceptFilms(name));
         return resp;
     }
 }
