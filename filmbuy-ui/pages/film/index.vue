@@ -1,5 +1,5 @@
 <template>
-	<view class="container container27315">
+	<view class="container container27315" style="background-color: white">
 		<view class="flex diygw-col-24 flex-direction-column tabs-clz">
 			<view class="diygw-tabs text-center solid-bottom justify-center scale-title small-border tabs-title">
 				<view class="diygw-tab-item tabs-item-title" :class="index == tabsIndex ? ' cur text-green ' : ''"
@@ -52,7 +52,7 @@
 											:src="hot.img"></image>
 									</view>
 									<view class="content">
-										<view class="title"> {{ hot.name }} </view>
+										<view class="title title2"> {{ hot.name }} </view>
 										<view>评分：<span style="color: red;">{{ hot.sc }}</span><button
 												style="float: right;font-size: 12px;background-color: #ffc9c9;color: #d9480f;">购票</button>
 										</view>
@@ -78,14 +78,22 @@
 						</view>
 					</view>
 
-					<view class="diygw-col-24 text-clz diygw-text-md" style="margin-left: 10px;"> 近期最受欢迎 </view>
-					<view>
-						<view class="grid col-4 grid-square">
-							<view class="bg-img" v-for="(item,index) in avatar" :key="index"
-								:style="[{ backgroundImage:'url(' + avatar[index] + ')' }]"></view>
+					<!-- 待映 -->
+					<view class="diygw-col-24 text-clz diygw-text-md" style="margin-left: 10px;"> 待映推荐 </view>
+					<!-- 待映推荐 -->
+					<view class="cu-list grid col-6 no-border">
+						<view class="cu-item" v-for="(item,index) in recommandedFilms" :key="index">
+							<view class="">
+								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
+								</image>
+								<!-- 			{{item.tag}} -->
+							</view>
+							<text>{{item.name}}</text>
+							<text>{{item.date}}</text>
 						</view>
 					</view>
 
+					<!-- 待映列表 -->
 					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz">
 						<view class="flex diygw-col-24 list-clz">
 							<view class="diygw-list" v-if="exceptFilms.length > 0">
@@ -97,9 +105,20 @@
 											:src="except.img"></image>
 									</view>
 									<view class="content">
-										<view class="title"> {{ except.name }} </view>
-										<view><span style="color: red;">{{ except.wish }}</span>人想看<uni-tag
-												style="float: right;" text="预售" type="success" /></view>
+										<view class="title title2">
+											{{ except.name }}
+										</view>
+										<view class=".cu-capsule">
+											<view class='cu-tag bg-red'>
+												<text class='cuIcon-likefill'></text>
+											</view>
+											<view class="cu-tag line-red">
+												{{ except.wish }}
+											</view>
+											<!-- <span style="color: red;">{{ except.wish }}</span>人想看 -->
+											<uni-tag style="float: right;" :text="except.status === 2 ? '预售' : '想看'"
+												:type="except.status === 2 ? 'success' : 'warning'" />
+										</view>
 										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ except.description }}
 										</view>
 									</view>
@@ -120,7 +139,8 @@
 	} from '@/utils/request.js';
 	import {
 		HOT_FILM,
-		EXCEPT_FILM
+		EXCEPT_FILM,
+		RECOMMEND_FILM
 	} from '@/utils/api.js';
 	export default {
 		data() {
@@ -142,20 +162,11 @@
 				exceptParam: '',
 				hotFilms: [],
 				exceptFilms: [],
-				avatar: ['https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg',
-					'https://ossweb-img.qq.com/images/lol/web201310/skin/big81005.jpg',
-					'https://ossweb-img.qq.com/images/lol/web201310/skin/big25002.jpg',
-					'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-				],
+				recommandedFilms: [],
 			};
 		},
 		onShow() {
 			this.setCurrentPage(this);
-
-			this.hot();
-			this.except();
-			this.hotParam = '';
-			this.exceptParam = '';
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);
@@ -167,6 +178,7 @@
 
 			this.hot();
 			this.except();
+			this.recommend();
 			this.hotParam = '';
 			this.exceptParam = '';
 		},
@@ -191,6 +203,18 @@
 				}
 				this.hotFilms = data.data
 			},
+			async recommend() {
+				const data = await request(RECOMMEND_FILM, 'GET')
+				if (data.code != 200) {
+					uni.showToast({
+						title: data.msg != null ? data.msg : '获取失败请稍后重试'
+					})
+				}
+				this.recommandedFilms = data.data.map((item) => {
+					item.date = this.formatDateString(item.date);
+					return item;
+				})
+			},
 			async except() {
 				const data = await request(EXCEPT_FILM, 'GET', {
 					name: this.exceptParam
@@ -202,11 +226,38 @@
 				}
 				this.exceptFilms = data.data
 			},
+			formatDateString(inputDateString) {
+				const date = new Date(inputDateString);
+
+				// 将月份的英文表示转换为数字表示
+				const month = this.monthNameToNumber(date.toLocaleString('default', {
+					month: 'long'
+				}));
+
+				const day = date.getDate();
+
+				const formattedString = `${month}月${day}日`;
+				return formattedString;
+			},
+			monthNameToNumber(monthName) {
+				const months = [
+					'一月', '二月', '三月', '四月', '五月', '六月',
+					'七月', '八月', '九月', '十月', '十一月', '十二月'
+				];
+
+				return months.indexOf(monthName) + 1;
+			}
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
+	.title2 {
+		font-size: 18px;
+		font-weight: 700;
+		margin-bottom: 5px;
+	}
+
 	.scroll-Y {
 		height: 300rpx;
 	}
