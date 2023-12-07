@@ -107,15 +107,15 @@
 										<view class="title title2">
 											{{ except.name }}
 										</view>
-										<view class=".cu-capsule">
+										<view class="cu-capsule">
 											<view class='cu-tag bg-red'>
 												<text class='cuIcon-likefill'></text>
 											</view>
-											<view class="cu-tag line-red">
+											<view class="cu-tag line-red" style="margin-right: 80px;">
 												{{ except.wish }}
 											</view>
-											<!-- <span style="color: red;">{{ except.wish }}</span>人想看 -->
-											<uni-tag style="float: right;" :text="except.status === 2 ? '预售' : '想看'"
+											<uni-tag style="margin-left: 80px;"
+												:text="except.status === 2 ? '预售' : '想看'"
 												:type="except.status === 2 ? 'success' : 'warning'" />
 										</view>
 										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ except.description }}

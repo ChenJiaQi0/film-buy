@@ -2,10 +2,10 @@
 	<view class="container container27315 white page">
 		<view class="flex diygw-dropdown diygw-col-24 dropdowns-clz">
 			<u-dropdown class="flex-sub" direction="down" ref="refDropdowns">
-				<u-dropdown-item @change="changeDropdowns0" v-model="dropdowns0" title="全城"
-					:options="dropdownsDatas0"></u-dropdown-item>
-				<u-dropdown-item @change="changeDropdowns1" v-model="dropdowns1" title="品牌"
-					:options="dropdownsDatas1"></u-dropdown-item>
+				<u-dropdown-item @change="getCinemaByArea" v-model="areaParam" :title="cityInfo"
+					:options="area"></u-dropdown-item>
+				<u-dropdown-item @change="getCinemaByBrand" v-model="brandParam" title="品牌"
+					:options="brand"></u-dropdown-item>
 			</u-dropdown>
 		</view>
 		<view class="flex diygw-col-24 flex-wrap flex-clz">
@@ -29,6 +29,10 @@
 </template>
 
 <script>
+	import {
+		brand,
+		location
+	} from '@/data/cinemaData.js';
 	export default {
 		data() {
 			return {
@@ -39,33 +43,12 @@
 				//自定义全局变量
 				globalData: {},
 				dropdowns0: '',
-				dropdowns1: '',
-				dropdownsDatas0: [{
-						text: '全部商品',
-						value: 0
-					},
-					{
-						text: '新款商品',
-						value: 1
-					},
-					{
-						text: '活动商品',
-						value: 2
-					}
-				],
-				dropdownsDatas1: [{
-						text: '默认排序',
-						value: 0
-					},
-					{
-						text: '好评排序',
-						value: 1
-					},
-					{
-						text: '销量排序',
-						value: 2
-					}
-				]
+				brandParam: '',
+				brand: brand,
+				cityInfo: '',
+				city: '',
+				areaParam: '',
+				area: [],
 			};
 		},
 		onShow() {
@@ -79,10 +62,9 @@
 				});
 			}
 
-			this.init();
+			this.getLocation();
 		},
 		methods: {
-			async init() {},
 			closeDropdowns() {
 				this.$refs.refDropdowns.close();
 			},
@@ -92,13 +74,44 @@
 				});
 				item && item.action && this.navigateTo(item.action);
 			},
-			changeDropdowns1(evt) {
-				let item = this.dropdownsDatas1.find((item) => {
-					return item.value == evt;
+			getCinemaByBrand(evt) {
+
+			},
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: (res) => {
+						const latitude = res.latitude;
+						const longitude = res.longitude;
+
+						// 调用逆地理编码服务
+						this.reverseGeocoding(latitude, longitude);
+					},
+					fail: (err) => {
+						console.error('获取位置失败', err);
+						this.cityInfo = '获取位置失败';
+					},
 				});
-				item && item.action && this.navigateTo(item.action);
+			},
+			reverseGeocoding(latitude, longitude) {
+				uni.request({
+					url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=4I5BZ-IAYKL-HBSPT-EMCOL-EWRA2-2DBKM`,
+					method: 'GET',
+					success: (res) => {
+						this.city = res.data.result.address_component.city;
+						this.cityInfo = `所在城市: ${this.city}`;
+						this.getAreaList();
+					},
+					fail: (err) => {
+						this.cityInfo = '获取城市失败';
+					},
+				});
+			},
+			getAreaList() {
+				const city = location.find((item) => item.city === this.city)
+				return this.area = city.area
 			}
-		}
+		},
 	};
 </script>
 
