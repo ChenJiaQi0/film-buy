@@ -2,7 +2,9 @@
  * 修改common/diygw-ui/index.scss 可以取消相关组件样式
  * 修改common/diygw-ui/iconfont.scss 如果发布APP可能会图标字体找不到的问题，加上https测试
  */
-
+white {
+	background-color: white;
+}
 /* 颜色变量 */
 /* 行为相关颜色 */
 $uni-color-primary: #007aff;

@@ -1,9 +1,11 @@
 <template>
-	<view class="container container27315">
+	<view class="container container27315 white page">
 		<view class="flex diygw-dropdown diygw-col-24 dropdowns-clz">
 			<u-dropdown class="flex-sub" direction="down" ref="refDropdowns">
-				<u-dropdown-item @change="changeDropdowns0" v-model="dropdowns0" title="全城" :options="dropdownsDatas0"></u-dropdown-item>
-				<u-dropdown-item @change="changeDropdowns1" v-model="dropdowns1" title="品牌" :options="dropdownsDatas1"></u-dropdown-item>
+				<u-dropdown-item @change="changeDropdowns0" v-model="dropdowns0" title="全城"
+					:options="dropdownsDatas0"></u-dropdown-item>
+				<u-dropdown-item @change="changeDropdowns1" v-model="dropdowns1" title="品牌"
+					:options="dropdownsDatas1"></u-dropdown-item>
 			</u-dropdown>
 		</view>
 		<view class="flex diygw-col-24 flex-wrap flex-clz">
@@ -38,15 +40,31 @@
 				globalData: {},
 				dropdowns0: '',
 				dropdowns1: '',
-				dropdownsDatas0: [
-					{ text: '全部商品', value: 0 },
-					{ text: '新款商品', value: 1 },
-					{ text: '活动商品', value: 2 }
+				dropdownsDatas0: [{
+						text: '全部商品',
+						value: 0
+					},
+					{
+						text: '新款商品',
+						value: 1
+					},
+					{
+						text: '活动商品',
+						value: 2
+					}
 				],
-				dropdownsDatas1: [
-					{ text: '默认排序', value: 0 },
-					{ text: '好评排序', value: 1 },
-					{ text: '销量排序', value: 2 }
+				dropdownsDatas1: [{
+						text: '默认排序',
+						value: 0
+					},
+					{
+						text: '好评排序',
+						value: 1
+					},
+					{
+						text: '销量排序',
+						value: 2
+					}
 				]
 			};
 		},
@@ -85,6 +103,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.page {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
 	.text1-clz {
 		margin-left: 10rpx;
 		width: calc(100% - 10rpx - 10rpx) !important;
@@ -92,10 +116,12 @@
 		margin-bottom: 10rpx;
 		margin-right: 10rpx;
 	}
+
 	.container27315 {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
+
 	.container27315 {
 		padding-bottom: 80px;
 	}

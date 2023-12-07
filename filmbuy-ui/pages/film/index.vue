@@ -1,5 +1,5 @@
 <template>
-	<view class="container container27315" style="background-color: white">
+	<view class="container container27315 white page">
 		<view class="flex diygw-col-24 flex-direction-column tabs-clz">
 			<view class="diygw-tabs text-center solid-bottom justify-center scale-title small-border tabs-title">
 				<view class="diygw-tab-item tabs-item-title" :class="index == tabsIndex ? ' cur text-green ' : ''"
@@ -79,16 +79,15 @@
 					</view>
 
 					<!-- 待映 -->
-					<view class="diygw-col-24 text-clz diygw-text-md" style="margin-left: 10px;"> 待映推荐 </view>
+					<view class="diygw-col-24 text-clz diygw-text-md" style="margin: 0 0 5px 5px;"> 待映推荐 </view>
 					<!-- 待映推荐 -->
 					<view class="cu-list grid col-6 no-border">
 						<view class="cu-item" v-for="(item,index) in recommandedFilms" :key="index">
 							<view class="">
 								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
 								</image>
-								<!-- 			{{item.tag}} -->
 							</view>
-							<text>{{item.name}}</text>
+							<text style="font-weight: 700;color: black;">{{item.name}}</text>
 							<text>{{item.date}}</text>
 						</view>
 					</view>
@@ -252,6 +251,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.page {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
 	.title2 {
 		font-size: 18px;
 		font-weight: 700;
