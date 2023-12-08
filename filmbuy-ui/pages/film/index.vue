@@ -71,7 +71,7 @@
 							<view class="flex1 align-center flex padding-xs solid radius">
 								<text style="color: #555 !important" class="diy-icon-search"></text>
 								<input class="flex1" name="search2" type="" v-model="exceptParam"
-									placeholder="请输入想要观看的影片" />
+									placeholder="请输入感兴趣的影片" />
 							</view>
 							<view style="color: #333 !important" class="diygw-tag margin-left-xs radius-xs"
 								@tap="except()"> 查询 </view>
@@ -81,7 +81,7 @@
 					<!-- 待映 -->
 					<view class="diygw-col-24 text-clz diygw-text-md" style="margin: 0 0 5px 5px;"> 待映推荐 </view>
 					<!-- 待映推荐 -->
-					<view class="cu-list grid col-6 no-border">
+					<!-- <view class="cu-list grid col-6 no-border" style="display: flex;flex-wrap: nowrap;">
 						<view class="cu-item" v-for="(item,index) in recommandedFilms" :key="index">
 							<view class="">
 								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
@@ -90,6 +90,19 @@
 							<text style="font-weight: 700;color: black;">{{item.name}}</text>
 							<text>{{item.date}}</text>
 						</view>
+					</view> -->
+					<view class="container2">
+						<scroll-view class="scroll-view" scroll-x>
+							<view class="product-item" v-for="(item, index) in recommandedFilms" :key="index">
+								<!-- <image class="product-image" :src="item.img"></image> -->
+								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
+								</image>
+								<view class="product-info">
+									<text class="product-name diygw-text-line3">{{ item.name }}</text> <br />
+									<text class="product-price">{{ item.date }}</text>
+								</view>
+							</view>
+						</scroll-view>
 					</view>
 
 					<!-- 待映列表 -->
@@ -107,16 +120,21 @@
 										<view class="title title2">
 											{{ except.name }}
 										</view>
-										<view class="cu-capsule">
-											<view class='cu-tag bg-red'>
-												<text class='cuIcon-likefill'></text>
+										<view class="cu-capsule"
+											style="display: flex;width: 100%;justify-content: space-between;">
+											<view>
+												<view class='cu-tag bg-red'>
+													<text class='cuIcon-likefill'></text>
+												</view>
+												<view class="cu-tag line-red">
+													{{ except.wish }}
+												</view>
 											</view>
-											<view class="cu-tag line-red" style="margin-right: 80px;">
-												{{ except.wish }}
+											<view>
+												<uni-tag style="font-size: 20px;text-align: center;"
+													:text="except.status === 2 ? '预售' : '想看'"
+													:type="except.status === 2 ? 'success' : 'warning'" />
 											</view>
-											<uni-tag style="margin-left: 80px;"
-												:text="except.status === 2 ? '预售' : '想看'"
-												:type="except.status === 2 ? 'success' : 'warning'" />
 										</view>
 										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ except.description }}
 										</view>
@@ -166,6 +184,10 @@
 		},
 		onShow() {
 			this.setCurrentPage(this);
+
+			this.hot();
+			this.except();
+			this.recommend();
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);
@@ -316,4 +338,53 @@
 	}
 
 	.container27315 {}
+
+	.container2 {
+		width: 100%;
+		height: 200px;
+		background-color: #f8f8f8;
+		padding: 10px;
+		box-sizing: border-box;
+		margin-bottom: 40px;
+	}
+
+	.scroll-view {
+		white-space: nowrap;
+		overflow-x: auto;
+	}
+
+	.product-item {
+		display: inline-block;
+		width: 100px;
+		height: 165px;
+		margin-right: 10px;
+		background-color: #ffffff;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		overflow: hidden;
+	}
+
+	.product-image {
+		width: 100%;
+		height: 120px;
+		object-fit: cover;
+		background-color: #f0f0f0;
+	}
+
+	.product-info {
+		padding: 8px;
+		text-align: center;
+	}
+
+	.product-name {
+		font-weight: 700;
+		font-size: 14px;
+		color: #333333;
+		line-height: 1.4;
+		margin-bottom: 4px;
+	}
+
+	.product-price {
+		font-size: 16px;
+	}
 </style>

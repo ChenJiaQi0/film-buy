@@ -1,5 +1,5 @@
 /******  后端接口基础地址  ******/
-export const BASE_API_URL = 'http://localhost:8000';
+export const BASE_API_URL = 'http://10.20.68.187:8000';
 
 /******  各服务基础地址  ******/
 export const CINEMA_URL = BASE_API_URL + '/cinema';
@@ -13,3 +13,7 @@ export const HOT_FILM = FILM_URL + '/hot';
 export const EXCEPT_FILM = FILM_URL + '/except';
 // 待映推荐
 export const RECOMMEND_FILM = FILM_URL + '/recommend';
+
+/******  影院模块  ******/
+// 影院列表
+export const CINEMA_LIST = CINEMA_URL

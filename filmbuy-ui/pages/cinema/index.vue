@@ -2,29 +2,34 @@
 	<view class="container container27315 white page">
 		<view class="flex diygw-dropdown diygw-col-24 dropdowns-clz">
 			<u-dropdown class="flex-sub" direction="down" ref="refDropdowns">
-				<u-dropdown-item @change="getCinemaByArea" v-model="areaParam" :title="cityInfo"
+				<u-dropdown-item @change="getCinemaList" :title="cityInfo" v-model="areaParam"
 					:options="area"></u-dropdown-item>
-				<u-dropdown-item @change="getCinemaByBrand" v-model="brandParam" title="品牌"
+				<u-dropdown-item @change="getCinemaList" title="品牌" v-model="brandParam"
 					:options="brand"></u-dropdown-item>
 			</u-dropdown>
 		</view>
-		<view class="flex diygw-col-24 flex-wrap flex-clz">
-			<view class="diygw-title flex diygw-col-24 title-clz">
-				<view class="title font-normal"> 幸福蓝海国际影城 </view>
-				<view class="more"> 39.9元起 </view>
-			</view>
-			<view class="diygw-col-24 text1-clz"> 江宁区麒麟街道悦民路128号天赋广场23栋3楼 </view>
-			<view class="flex diygw-col-3 tag-clz">
-				<view class="diygw-tag margin-xs xs diygw-line-blue">
-					<text> 改签 </text>
+		<view v-if="cinemaList.length > 0">
+			<view class="flex diygw-col-24 flex-wrap flex-clz" v-for="(cinema, index) in cinemaList" :key="index">
+				<view class="diygw-title flex diygw-col-24 title-clz">
+					<view class="title font-normal"> {{cinema.brandName}}({{cinema.cinemaName}}) </view>
+					<view class="more">
+						<span style="color: red;">39.9</span>元起
+					</view>
 				</view>
-			</view>
-			<view class="flex diygw-col-3 tag2-clz">
-				<view class="diygw-tag margin-xs xs diygw-line-orange">
-					<text> 影城卡 </text>
+				<view class="diygw-col-24 text1-clz"> {{cinema.address}} </view>
+				<view class="flex diygw-col-3 tag-clz">
+					<view class="diygw-tag margin-xs xs diygw-line-blue">
+						<text> 改签 </text>
+					</view>
+				</view>
+				<view class="flex diygw-col-3 tag2-clz">
+					<view class="diygw-tag margin-xs xs diygw-line-orange">
+						<text> 影城卡 </text>
+					</view>
 				</view>
 			</view>
 		</view>
+		<view v-else style="text-align: center;color: red;width: 100%;font-size: 15px;">查无对应影院信息，请重新筛选...</view>
 	</view>
 </template>
 
@@ -33,6 +38,12 @@
 		brand,
 		location
 	} from '@/data/cinemaData.js';
+	import {
+		CINEMA_LIST
+	} from '@/utils/api.js';
+	import {
+		request
+	} from '@/utils/request.js';
 	export default {
 		data() {
 			return {
@@ -49,10 +60,14 @@
 				city: '',
 				areaParam: '',
 				area: [],
+				cinemaList: [],
 			};
 		},
 		onShow() {
 			this.setCurrentPage(this);
+
+			this.getLocation();
+			this.getCinemaList();
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);
@@ -63,6 +78,7 @@
 			}
 
 			this.getLocation();
+			this.getCinemaList();
 		},
 		methods: {
 			closeDropdowns() {
@@ -74,8 +90,13 @@
 				});
 				item && item.action && this.navigateTo(item.action);
 			},
-			getCinemaByBrand(evt) {
-
+			async getCinemaList() {
+				const data = await request(CINEMA_LIST, 'GET', {
+					area: this.areaParam,
+					brandName: this.brandParam
+				});
+				console.log(data);
+				this.cinemaList = data.data;
 			},
 			getLocation() {
 				uni.getLocation({

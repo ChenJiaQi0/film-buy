@@ -1,6 +1,6 @@
 export const brand = [{
 		text: "全部",
-		value: "null"
+		value: ""
 	},
 	{
 		text: "大地电影城",
@@ -17,13 +17,17 @@ export const brand = [{
 	{
 		text: "上影国际影城",
 		value: "上影国际影城"
+	},
+	{
+		text: "卢米埃影城",
+		value: "卢米埃影城"
 	}
 ];
 export const location = [{
 		city: "南京市",
 		area: [{
 				text: '全部',
-				value: 'null'
+				value: ''
 			},
 			{
 				text: '栖霞区',
@@ -43,7 +47,7 @@ export const location = [{
 		city: "常州市",
 		area: [{
 				text: '全部',
-				value: 'null'
+				value: ''
 			}, {
 				text: '武进区',
 				value: '武进区'
