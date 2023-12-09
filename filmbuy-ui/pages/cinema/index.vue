@@ -88,7 +88,6 @@
 					area: this.areaParam,
 					brandName: this.brandParam
 				});
-				console.log(data);
 				this.cinemaList = data.data;
 			},
 			getLocation() {
