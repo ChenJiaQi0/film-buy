@@ -47,7 +47,9 @@
 				uni.request({
 					url: ORDER_LIST, //仅为示例，并非真实接口地址。
 					header: {
-						'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE3MDE2MDgxOTMsImlkIjoxLCJleHAiOjE3MDE3ODA5OTMsImlhdCI6MTcwMTYwODE5MywidXNlcm5hbWUiOiIzNDY1OTc2NjgyQHFxLmNvbSJ9.eJOF3ovwsyoYYGZmtMQUDxxn_Wvh8U0g75dLWZNOgxY'
+						'token': uni.getStorage({
+							key: 'token'
+						})
 					},
 					success: (res) => {
 						if (res.data.code != 200) {
