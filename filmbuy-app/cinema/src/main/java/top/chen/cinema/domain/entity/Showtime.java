@@ -45,6 +45,7 @@ public class Showtime implements Serializable {
     /**
      * 放映日期（显示今明两天）
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date date;
 
     /**

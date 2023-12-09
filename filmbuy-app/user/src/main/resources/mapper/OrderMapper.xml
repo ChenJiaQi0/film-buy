@@ -2,9 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.chen.user.mapper.OrderMapper">
     <select id="getBrandNameByOrderCinemaName" parameterType="string" resultType="string">
-        SELECT c.brand_name
+        SELECT DISTINCT(c.brand_name)
         FROM `fb_order` o
             LEFT JOIN fb_cinema c on o.cinema_name = c.cinema_name
         where o.cinema_name = #{cinemaName}
+    </select>
+
+    <select id="getFilmImgByOrderFilmName" parameterType="string" resultType="string">
+        SELECT f.img
+        FROM `fb_order` o
+                 LEFT JOIN fb_film f on o.film_name = f.name
+        where o.film_name = #{filmName}
     </select>
 </mapper>

@@ -121,7 +121,7 @@
 											{{ except.name }}
 										</view>
 										<view class="cu-capsule"
-											style="display: flex;width: 100%;justify-content: space-between;">
+											style="display: flex;width: 100%;justify-content: space-between;margin-bottom: 5px;">
 											<view>
 												<view class='cu-tag bg-red'>
 													<text class='cuIcon-likefill'></text>

@@ -19,6 +19,7 @@ public class OrderVO {
     private Order order;
 
     private String brandName;
+    private String filmImg;
 
     /**
      * 座位信息（xxx厅 xx排xx座...）

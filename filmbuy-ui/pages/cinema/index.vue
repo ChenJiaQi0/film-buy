@@ -47,13 +47,6 @@
 	export default {
 		data() {
 			return {
-				//用户全局信息
-				userInfo: {},
-				//页面传参
-				globalOption: {},
-				//自定义全局变量
-				globalData: {},
-				dropdowns0: '',
 				brandParam: '',
 				brand: brand,
 				cityInfo: '',

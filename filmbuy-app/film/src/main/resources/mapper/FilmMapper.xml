@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.chen.film.mapper.FilmMapper">
     <select id="hotFilms" parameterType="string" resultType="top.chen.film.domain.entity.Film">
-        SELECT * from fb_film WHERE watched > 100000
+        SELECT * from fb_film WHERE watched > 100000 and status = 1
         <if test="name != null">
             and name like concat('%', #{name}, '%')
         </if>
+        ORDER BY `date` DESC
     </select>
 
     <select id="exceptFilms" parameterType="string" resultType="top.chen.film.domain.entity.Film">

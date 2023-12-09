@@ -50,9 +50,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             vo.setOrder(order);
             vo.setBrandName(this.getBrandNameByOrderCinemaName(order.getCinemaName()));
             vo.setSeatMsg(this.getSeatMsgByOrderSeat(order.getSeat()));
+            vo.setFilmImg(this.getFilmImgByOrderFilmName(order.getFilmName()));
             orderVOS.add(vo);
         }
         return orderVOS;
+    }
+
+    /**
+     * 根据订单里的影片获取影片图片
+     * @param filmName
+     * @return
+     */
+    private String getFilmImgByOrderFilmName(String filmName) {
+        return baseMapper.getFilmImgByOrderFilmName(filmName);
     }
 
     private String getSeatMsgByOrderSeat(String seat) {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -60,6 +61,14 @@ public class Order implements Serializable {
      * 买票数量
      */
     private Integer count;
+
+    /**
+     *  订单状态（0：待消费1：已完成）
+     */
+    private Integer status;
+
+    @JsonFormat(pattern = "yyyy年-MM月-dd日 HH:mm")
+    private Date date;
 
     /**
      * 删除标识（0：未删除1：已删除）

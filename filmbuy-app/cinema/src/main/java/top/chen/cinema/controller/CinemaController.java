@@ -42,20 +42,16 @@ public class CinemaController {
 
     /**
      * 根据条件获取影院列表
-     * @param province
-     * @param city
      * @param area
      * @return
      */
     @GetMapping()
-    public Result<List<Cinema>> list(@RequestParam(required = false) String province,
-                                     @RequestParam(required = false) String city,
-                                     @RequestParam(required = false) String area) {
+    public Result<List<Cinema>> list(@RequestParam(required = false) String area,
+                                     @RequestParam(required = false) String brandName) {
         LambdaQueryWrapper<Cinema> wp = new LambdaQueryWrapper<>();
         Result<List<Cinema>> resp = new Result<>();
-        if (province != null) wp.like(Cinema::getProvince, province);
-        if (city != null) wp.like(Cinema::getCity, city);
-        if (area != null) wp.like(Cinema::getArea, area);
+        if (area != null ) wp.like(Cinema::getArea, area);
+        if (brandName != null ) wp.like(Cinema::getBrandName, brandName);
         resp.setData(cinemaService.list(wp));
         return resp;
     }

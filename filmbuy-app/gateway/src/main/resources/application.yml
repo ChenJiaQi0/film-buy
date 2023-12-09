@@ -29,6 +29,10 @@ spring:
           uri: lb://user
           predicates:
             - Path=/user/**
+        - id: route-order
+          uri: lb://user
+          predicates:
+            - Path=/order/**
     nacos:
       discovery:
         server-addr: localhost:8848
