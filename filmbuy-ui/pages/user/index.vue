@@ -6,11 +6,16 @@
 			<!--  #endif -->
 			<image src="/static/image/user.png" class="image3-size diygw-image diygw-col-0 image3-clz" mode="widthFix">
 			</image>
-			<view class="diygw-col-0 text1-clz"> {{userInfo.username != null ? userInfo.username : '点击登录'}} </view>
+			<view class="diygw-col-0 text1-clz" v-if="userInfo.username != null"> {{userInfo.username}} </view>
+			<view class="diygw-col-0 text1-clz" v-else>
+				<button @tap="navigateTo" data-type="page" data-url="/pages/user/login"
+					class="cu-btn round bg-green">点击登录</button>
+			</view>
 			<view class="flex diygw-col-24 justify-around flex-wrap flex9-clz">
 				<view class="flex flex-wrap diygw-col-8 flex-direction-column items-center flex19-clz">
 					<view class="diygw-col-0 text20-clz diygw-text-lg">
-						{{userInfo.balance != null ? userInfo.balance : '0'}} </view>
+						{{userInfo.balance != null ? userInfo.balance : '0'}}
+					</view>
 					<view class="diygw-col-0"> 账户余额 </view>
 				</view>
 			</view>
@@ -26,6 +31,15 @@
 								</image>
 							</view>
 							<view class="diygw-grid-title"> 电影票 </view>
+						</view>
+					</view>
+					<view class="diygw-grid-item">
+						<view class="diygw-grid-inner grid1-item-clz">
+							<view class="diygw-grid-icon diygw-avatar grid1-icon-clz">
+								<image mode="aspectFill" class="diygw-avatar-img" src="/static/image/topup.png">
+								</image>
+							</view>
+							<view class="diygw-grid-title"> 充值 </view>
 						</view>
 					</view>
 					<view class="diygw-grid-item">

@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/film/index",
 			"style": {
 				"navigationBarTextStyle": "white",
@@ -31,6 +30,22 @@
 				"navigationBarTitleText": "我的",
 				"navigationBarBackgroundColor": "#db5f54"
 			}
+		},
+		{
+			"path": "pages/user/login",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor": "#db5f54"
+			}
+		},
+		{
+			"path": "pages/user/forget",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "忘记密码",
+				"navigationBarBackgroundColor": "#db5f54"
+			}
 		}
 	],
 	"globalStyle": {
@@ -44,27 +59,28 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/film/index",
-			"iconPath": "static/image/dianyingyuan.png",
-			"selectedIconPath": "static/image/yingpian.png",
-			"text": "影片"
-		}, {
-			"pagePath": "pages/cinema/index",
-			"iconPath": "static/image/yingyuan1.png",
-			"selectedIconPath": "static/image/yingyuan.png",
-			"text": "影院"
-		},
-		{
-			"pagePath": "pages/order/index",
-			"iconPath": "static/image/dingdan1.png",
-			"selectedIconPath": "static/image/dingdan.png",
-			"text": "订单"
-		},
-		{
-			"pagePath": "pages/user/index",
-			"iconPath": "static/image/wode.png",
-			"selectedIconPath": "static/image/wode2.png",
-			"text": "我的"
-		}]
+				"pagePath": "pages/film/index",
+				"iconPath": "static/image/dianyingyuan.png",
+				"selectedIconPath": "static/image/yingpian.png",
+				"text": "影片"
+			}, {
+				"pagePath": "pages/cinema/index",
+				"iconPath": "static/image/yingyuan1.png",
+				"selectedIconPath": "static/image/yingyuan.png",
+				"text": "影院"
+			},
+			{
+				"pagePath": "pages/order/index",
+				"iconPath": "static/image/dingdan1.png",
+				"selectedIconPath": "static/image/dingdan.png",
+				"text": "订单"
+			},
+			{
+				"pagePath": "pages/user/index",
+				"iconPath": "static/image/wode.png",
+				"selectedIconPath": "static/image/wode2.png",
+				"text": "我的"
+			}
+		]
 	}
 }
