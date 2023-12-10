@@ -17,6 +17,12 @@ export const RECOMMEND_FILM = FILM_URL + '/recommend';
 
 /******  影院模块  ******/
 // 影院列表
-export const CINEMA_LIST = CINEMA_URL
+export const CINEMA_LIST = CINEMA_URL;
 /******  订单模块  ******/
-export const ORDER_LIST = ORDER_URL
+export const ORDER_LIST = ORDER_URL;
+
+/******  用户模块  ******/
+// 注册登录
+export const LOGIN_URL = USER_URL + '/login';
+// 获取验证码
+export const CODE_URL = USER_URL + '/code';

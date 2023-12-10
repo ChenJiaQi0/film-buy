@@ -17,7 +17,7 @@
 			<view class='form' v-if='codelogin'>
 				<input type="digit" controlled="true" v-model="code" class='codeinput' :password="show"
 					placeholder="请输入验证码" placeholder-class="placeholder">
-				<view :class="disabled ? 'huoquzhong' : 'huoqu'" @click="get_code">{{ time }}{{ text }}</view>
+				<view :class="disabled ? 'huoquzhong' : 'huoqu'" @tap="get_code">{{ time }}{{ text }}</view>
 			</view>
 			<view class='forget'>
 				忘记密码？
@@ -45,6 +45,10 @@
 </template>
 
 <script>
+	import {
+		LOGIN_URL,
+		CODE_URL
+	} from '@/utils/api.js'
 	import sunuipassword from './sunui-password.vue'
 	export default {
 		components: {
@@ -59,8 +63,8 @@
 				isCheck: '1',
 				isCheckEd: false,
 				disabled: false,
-				username: '',
-				password: '',
+				username: '3465976682@qq.com',
+				password: '123456',
 				code: '',
 				rules: {
 					password: {
@@ -93,14 +97,12 @@
 				console.log('查看隐私政策')
 			},
 			rtrues() {
-				console.log(this.isCheckEd)
 				if (this.isCheckEd) {
 					return 'isCheckEd'
 				}
 			},
 			//选中协议
 			choose(e) {
-				console.log(e.detail.value);
 				if (e.detail.value.length > 0) {
 					this.isCheckEd = true;
 				} else {
@@ -109,7 +111,6 @@
 			},
 			//显示密码
 			showPass(e) {
-				console.log(e);
 				this.show = e;
 			},
 			//选择登录方式
@@ -148,14 +149,15 @@
 					mask: true
 				});
 				uni.request({
-					url: '你的发送短信的接口',
-					data: '接口需要的参数',
-					method: 'post', //get、post、delete
+					url: CODE_URL,
+					data: {
+						username: this.username
+					},
+					method: 'get', //get、post、delete
 					success: re => {
 						setTimeout(function() {
 							uni.hideLoading();
 						}, 100);
-						console.log(re)
 						if (re.data.code == 0) {
 							this.disabled = true;
 							this.setInterValFunc(); //开启倒计时
@@ -170,7 +172,7 @@
 			},
 			//倒计时
 			setInterValFunc() {
-				this.time = 60;
+				this.time = 5;
 				this.text = '秒';
 				this.setTime = setInterval(() => {
 					if (this.time - 1 == 0) {
@@ -202,16 +204,33 @@
 						mask: true
 					});
 					uni.request({
-						url: '你的登录接口',
-						data: '接口参数',
-						method: 'post', //get、post、delete
+						url: LOGIN_URL,
+						data: {
+							username: this.username,
+							password: this.password
+						},
+						method: 'POST', //get、post、delete
 						success: re => {
 							uni.hideLoading();
-							if (re.data.code == 0) {
+							if (re.data.code == 200) {
+								console.log(re.data.data);
 								uni.showToast({
-									title: '登录成功'
+									title: '登录成功',
+									duration: 50000,
+									success() {
+										uni.switchTab({
+											url: '/pages/film/index'
+										})
+									}
 								})
-
+								uni.setStorageSync(
+									'user',
+									re.data.data.user
+								)
+								uni.setStorageSync(
+									'token',
+									re.data.data.token
+								)
 							} else {
 								uni.showToast({
 									title: re.data.msg,
@@ -229,20 +248,39 @@
 						mask: true
 					});
 					uni.request({
-						url: '你的验证码登录接口',
-						data: '接口需要的参数',
-						method: 'post', //get、post、delete
+						url: LOGIN_URL,
+						data: {
+							username: this.username,
+							code: this.code
+						},
+						method: 'POST', //get、post、delete
 						success: re => {
 							uni.hideLoading();
-							if (re.data.code == 0) {
+							if (re.data.code == 200) {
+								console.log(re.data.data);
 								uni.showToast({
-									title: '登录成功'
+									title: '登录成功',
+									duration: 50000,
+									success() {
+										uni.switchTab({
+											url: '/pages/film/index'
+										})
+									}
 								})
+								uni.setStorageSync(
+									'user',
+									re.data.data.user
+								)
+								uni.setStorageSync(
+									'token',
+									re.data.data.token
+								)
 							} else {
 								uni.showToast({
 									title: re.data.msg,
 									icon: 'none'
 								});
+
 							}
 						}
 					})

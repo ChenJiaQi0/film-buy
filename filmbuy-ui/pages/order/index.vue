@@ -47,19 +47,24 @@
 				uni.request({
 					url: ORDER_LIST, //仅为示例，并非真实接口地址。
 					header: {
-						'token': uni.getStorage({
-							key: 'token'
-						})
+						'token': uni.getStorageSync('token') != '' ? uni.getStorageSync('token') : 'no-token',
 					},
 					success: (res) => {
 						if (res.data.code != 200) {
 							uni.showModal({
 								title: '错误',
-								content: res.data.msg != null ? res.data.msg : '用户未登录，请先登录！'
+								content: res.data.msg != null ? res.data.msg : '用户未登录，请先登录！',
+								success: function(res) {
+									if (res.confirm) {
+										uni.navigateTo({
+											url: '/pages/user/login'
+										})
+									}
+								}
+
 							})
 						}
 						this.orderList = res.data.data;
-						console.log(this.orderList);
 					}
 				});
 			}

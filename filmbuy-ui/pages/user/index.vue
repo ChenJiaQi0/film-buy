@@ -75,6 +75,9 @@
 				<text class="diy-icon-right"></text>
 			</view>
 		</view>
+		<view class="flex diygw-col-24">
+			<button class="round bg-orange sm" @tap="quit">退出登录</button>
+		</view>
 	</view>
 </template>
 
@@ -94,71 +97,16 @@
 			};
 		},
 		onShow() {
-			this.setCurrentPage(this);
-		},
-		onLoad(option) {
-			this.setCurrentPage(this);
-			if (option) {
-				this.setData({
-					globalOption: this.getOption(option)
-				});
-			}
-
 			this.init();
 		},
+		onLoad(option) {},
 		methods: {
-			async init() {},
-			// 同意或不同意 自定义方法
-			async agreeFunction(param) {
-				let thiz = this;
-				//如果不同意，改为同意
-				this.globalData.agree = this.globalData.agree == '1' ? '0' : '1';
+			init() {
+				this.userInfo = uni.getStorageSync('user');
 			},
-
-			// 验证码登录或密码登录 自定义方法
-			async codeFunction(param) {
-				let thiz = this;
-				//如果1表示验证码登录，0表进密码登录
-				this.globalData.logintype = this.globalData.logintype == '1' ? '0' : '1';
-			},
-
-			// 发送短信验证码 自定义方法
-			async sendMsgFunction(param) {
-				let thiz = this;
-				this.formData.codeFlag = false;
-				if (!this.form.phone) {
-					this.showToast('手机号码不能为空');
-					//不给发送验证码
-					this.formData.codeFlag = false;
-					return;
-				}
-				let pattern = /^1[3-9]\d{9}$/;
-				if (!pattern.test(this.form.phone)) {
-					this.showToast('手机号码输入有误');
-					//不给发送验证码
-					this.formData.codeFlag = false;
-					return;
-				}
-				let http_url = '';
-				//配置后可删除下面的判断
-				if (!http_url) {
-					this.showToast('默认发送短信验证地址，配置后可删除此判断');
-					return;
-				}
-				let http_data = {
-					phone: this.form.phone
-				};
-				let http_header = {};
-				let data = await this.$http.post(http_url, http_data, http_header, 'json');
-				if (data.code == 0) {
-					this.showToast(data.msg);
-					return;
-				} else {
-					//修改为true
-					this.formData.codeFlag = true;
-					this.$refs.codeCodeRef.start();
-					this.showToast('验证码已发送');
-				}
+			quit() {
+				uni.clearStorageSync();
+				this.init();
 			}
 		}
 	};
