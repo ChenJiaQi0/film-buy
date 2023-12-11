@@ -11,7 +11,7 @@ spring:
   data:
     redis:
       database: 1
-      host: 8.130.104.225
+      host: localhost
       port: 6379
       timeout: 6000ms  # 连接超时时长（毫秒）
   mail:

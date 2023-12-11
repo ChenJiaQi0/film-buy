@@ -46,15 +46,18 @@
 							<view class="diygw-list" v-if="hotFilms.length > 0">
 								<view style="margin-bottom: 2px;margin-top: 2px;"
 									class="diygw-item col-100 row solid-bottom" v-for="(hot, index) in hotFilms"
-									:key="index">
-									<view class="">
+									:key="index" @tap="goFilm(hot)">
+									<view>
 										<image style="width: 100px;height: 100px;" mode="aspectFit" class=""
 											:src="hot.img"></image>
 									</view>
 									<view class="content">
 										<view class="title title2"> {{ hot.name }} </view>
-										<view>评分：<span style="color: red;">{{ hot.sc }}</span><button
-												style="float: right;font-size: 12px;background-color: #ffc9c9;color: #d9480f;">购票</button>
+										<view>
+											<uni-rate :readonly="true" v-model="hot.sc" active-color="#FF6E06"
+												allowHalf="true" :size="15" max="10" color="gray" />
+											<span style="color: #FF6E06;">{{ hot.sc }}分</span>
+											<button class="movie-btns" @tap="goFilmShowTime(hot)">购票</button>
 										</view>
 										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ hot.description }}
 										</view>
@@ -79,22 +82,10 @@
 					</view>
 
 					<!-- 待映 -->
-					<view class="diygw-col-24 text-clz diygw-text-md" style="margin: 0 0 5px 5px;"> 待映推荐 </view>
-					<!-- 待映推荐 -->
-					<!-- <view class="cu-list grid col-6 no-border" style="display: flex;flex-wrap: nowrap;">
-						<view class="cu-item" v-for="(item,index) in recommandedFilms" :key="index">
-							<view class="">
-								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
-								</image>
-							</view>
-							<text style="font-weight: 700;color: black;">{{item.name}}</text>
-							<text>{{item.date}}</text>
-						</view>
-					</view> -->
+					<view class="diygw-col-24 text-clz diygw-text-md" style="margin: 0 0 10px 10px;"> 待映推荐 </view>
 					<view class="container2">
 						<scroll-view class="scroll-view" scroll-x>
 							<view class="product-item" v-for="(item, index) in recommandedFilms" :key="index">
-								<!-- <image class="product-image" :src="item.img"></image> -->
 								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
 								</image>
 								<view class="product-info">
@@ -159,6 +150,7 @@
 		EXCEPT_FILM,
 		RECOMMEND_FILM
 	} from '@/utils/api.js';
+	import queryParams from '../../uni_modules/diy-uview-ui/libs/function/queryParams';
 	export default {
 		data() {
 			return {
@@ -204,6 +196,16 @@
 			this.exceptParam = '';
 		},
 		methods: {
+			goFilm(film) {
+				uni.navigateTo({
+					url: '/pages/film/film?film=' + JSON.stringify(film),
+				})
+			},
+			goFilmShowTime(film) {
+				uni.navigateTo({
+					url: '/pages/film/film-showtime?film=' + JSON.stringify(film),
+				})
+			},
 			changeTabs(evt) {
 				let {
 					index
@@ -273,6 +275,20 @@
 </script>
 
 <style lang="scss" scoped>
+	.movie-btns {
+		float: right;
+		margin-left: auto;
+		width: 110rpx;
+		height: 58rpx;
+		background: linear-gradient(207deg, #FF9272 0%, #FC5421 100%);
+		border-radius: 29rpx;
+		text-align: center;
+		line-height: 58rpx;
+		color: #FFFFFF;
+		font-size: 24rpx;
+		font-weight: 550;
+	}
+
 	.page {
 		display: flex;
 		flex-direction: column;
@@ -336,8 +352,6 @@
 		padding-left: -1px;
 		padding-right: 0px;
 	}
-
-	.container27315 {}
 
 	.container2 {
 		width: 100%;

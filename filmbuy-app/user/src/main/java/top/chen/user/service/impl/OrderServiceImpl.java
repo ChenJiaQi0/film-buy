@@ -44,7 +44,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<OrderVO> getOrderByUserId(String id) {
         List<OrderVO> orderVOS = new ArrayList<>();
-        List<Order> orders = baseMapper.selectList(new QueryWrapper<Order>().lambda().eq(Order::getUserId, id));
+        List<Order> orders = baseMapper.selectList(new QueryWrapper<Order>().lambda().eq(Order::getUserId, id).orderBy(true, true, Order::getStatus));
         for (Order order : orders) {
             OrderVO vo = new OrderVO();
             vo.setOrder(order);

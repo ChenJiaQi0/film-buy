@@ -46,6 +46,30 @@
 				"navigationBarTitleText": "忘记密码",
 				"navigationBarBackgroundColor": "#db5f54"
 			}
+		},
+		{
+			"path": "pages/film/film",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "电影",
+				"navigationBarBackgroundColor": "#db5f54"
+			}
+		},
+		{
+			"path": "pages/film/film-showtime",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#db5f54"
+			}
+		},
+		{
+			"path": "pages/film/film-buy",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#db5f54"
+			}
 		}
 	],
 	"globalStyle": {

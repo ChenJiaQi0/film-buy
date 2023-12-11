@@ -67,7 +67,7 @@ public class Order implements Serializable {
      */
     private Integer status;
 
-    @JsonFormat(pattern = "yyyy年-MM月-dd日 HH:mm")
+    @JsonFormat(pattern = "yyyy年-MM月-dd日 HH:mm", timezone = "GMT+8")
     private Date date;
 
     /**
