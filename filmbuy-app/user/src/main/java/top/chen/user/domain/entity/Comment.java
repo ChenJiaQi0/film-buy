@@ -30,6 +30,11 @@ public class Comment implements Serializable {
     private Long id;
 
     /**
+     * 评分
+     */
+    private Double sc;
+
+    /**
      * 评论内容
      */
     private String comment;

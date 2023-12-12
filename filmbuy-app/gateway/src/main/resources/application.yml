@@ -33,6 +33,14 @@ spring:
           uri: lb://user
           predicates:
             - Path=/order/**
+        - id: route-actor
+          uri: lb://film
+          predicates:
+            - Path=/actor/**
+        - id: route-comment
+          uri: lb://film
+          predicates:
+            - Path=/comment/**
     nacos:
       discovery:
         server-addr: localhost:8848

@@ -6,6 +6,7 @@ export const CINEMA_URL = BASE_API_URL + '/cinema';
 export const FILM_URL = BASE_API_URL + '/film';
 export const USER_URL = BASE_API_URL + '/user';
 export const ORDER_URL = BASE_API_URL + '/order';
+export const ACTOR_URL = BASE_API_URL + '/actor';
 
 /******  影片模块  ******/
 // 热映影片
@@ -14,6 +15,8 @@ export const HOT_FILM = FILM_URL + '/hot';
 export const EXCEPT_FILM = FILM_URL + '/except';
 // 待映推荐
 export const RECOMMEND_FILM = FILM_URL + '/recommend';
+// 获取演员信息
+export const ACTORS = ACTOR_URL;
 
 /******  影院模块  ******/
 // 影院列表

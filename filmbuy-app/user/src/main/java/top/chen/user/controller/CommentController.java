@@ -1,6 +1,7 @@
 package top.chen.user.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import top.chen.common.result.Result;
@@ -24,6 +25,16 @@ import java.util.List;
 public class CommentController {
     @Resource
     private CommentService commentService;
+
+    @GetMapping("/{id}")
+    public Result<List<Comment>> list(@PathVariable String id) {
+        Result<List<Comment>> resp = new Result<>();
+        LambdaQueryWrapper<Comment> wp = new LambdaQueryWrapper<>();
+        wp.eq(Comment::getFilmId, id);
+        List<Comment> list = commentService.list(wp);
+        resp.setData(list);
+        return resp;
+    }
 
     /**
      * 对影片的评论

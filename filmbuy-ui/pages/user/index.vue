@@ -76,7 +76,7 @@
 			</view>
 		</view>
 		<view class="flex diygw-col-24">
-			<button class="round bg-orange sm" @tap="quit">退出登录</button>
+			<button class="round bg-orange sm" @tap="quit" v-if="userInfo">退出登录</button>
 		</view>
 	</view>
 </template>
