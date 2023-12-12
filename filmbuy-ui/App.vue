@@ -10,8 +10,8 @@
 	};
 </script>
 <style lang="scss">
-	@import "colorui/main.css";
-	@import "colorui/icon.css";
+	@import "./colorui/icon.css";
+	@import "./colorui/main.css";
 	@import "uni.scss";
 	@import 'common/diygw-ui/iconfont.scss';
 	@import 'common/diygw-ui/animate.css';

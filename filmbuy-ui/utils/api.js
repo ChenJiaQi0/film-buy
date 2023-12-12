@@ -7,6 +7,7 @@ export const FILM_URL = BASE_API_URL + '/film';
 export const USER_URL = BASE_API_URL + '/user';
 export const ORDER_URL = BASE_API_URL + '/order';
 export const ACTOR_URL = BASE_API_URL + '/actor';
+export const COMMENT_URL = BASE_API_URL + '/comment';
 
 /******  影片模块  ******/
 // 热映影片
@@ -29,3 +30,7 @@ export const ORDER_LIST = ORDER_URL;
 export const LOGIN_URL = USER_URL + '/login';
 // 获取验证码
 export const CODE_URL = USER_URL + '/code';
+// 影片的评论信息
+export const COMMENTS = COMMENT_URL;
+// 评论
+export const COMMENT = COMMENT_URL;

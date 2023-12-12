@@ -70,6 +70,14 @@
 				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor": "#db5f54"
 			}
+		},
+		{
+			"path": "pages/user/comment",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "写评论"
+			}
 		}
 	],
 	"globalStyle": {

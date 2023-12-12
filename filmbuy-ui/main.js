@@ -18,6 +18,8 @@ import Tools from '@/common/Tools.js'
 import HttpService from '@/common/HttpService.js'
 import Session from '@/common/Session.js'
 import uView from './uni_modules/diy-uview-ui';
+import cuCustom from './colorui/components/cu-custom.vue'
+Vue.component('cu-custom', cuCustom)
 Vue.use(uView);
 Vue.config.productionTip = false
 Vue.prototype.$tools = new Tools()
