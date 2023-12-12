@@ -47,9 +47,11 @@ public class CinemaController {
      */
     @GetMapping()
     public Result<List<Cinema>> list(@RequestParam(required = false) String area,
-                                     @RequestParam(required = false) String brandName) {
+                                     @RequestParam(required = false) String brandName,
+                                     @RequestParam(required = false) String city) {
         LambdaQueryWrapper<Cinema> wp = new LambdaQueryWrapper<>();
         Result<List<Cinema>> resp = new Result<>();
+        if (city != null ) wp.like(Cinema::getCity, city);
         if (area != null ) wp.like(Cinema::getArea, area);
         if (brandName != null ) wp.like(Cinema::getBrandName, brandName);
         resp.setData(cinemaService.list(wp));

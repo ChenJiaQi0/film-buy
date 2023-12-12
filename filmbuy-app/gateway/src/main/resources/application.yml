@@ -38,7 +38,7 @@ spring:
           predicates:
             - Path=/actor/**
         - id: route-comment
-          uri: lb://film
+          uri: lb://user
           predicates:
             - Path=/comment/**
     nacos:

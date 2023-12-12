@@ -30,6 +30,7 @@ public class CommentController {
     public Result<List<Comment>> list(@PathVariable String id) {
         Result<List<Comment>> resp = new Result<>();
         LambdaQueryWrapper<Comment> wp = new LambdaQueryWrapper<>();
+        wp.orderByDesc(Comment::getCreateTime);
         wp.eq(Comment::getFilmId, id);
         List<Comment> list = commentService.list(wp);
         resp.setData(list);
