@@ -1,5 +1,31 @@
 <template>
+	<!-- 影片信息 -->
+	<view class="cinema-top">
+		<view class="tops-item">
+			<view class="cinema-img">
+				<image :src="film.img"></image>
+			</view>
+			<view class="cinema-info">
+				<view class="cinema-info-top">
+					<view class="top-name">{{film.name}}</view>
+					<view class="top-type">3D IMAX</view>
+				</view>
+				<view class="rate-item">
+					<text class="rate-nun">{{film.ename}}</text>
+				</view>
+				<view v-if="film.tag != null" style="color: #f08c00;">{{film.tag}}</view>
+				<view class="list-type">{{film.cat}}</view>
+				<view class="list-type">{{film.date}} | {{film.addr}}上映 | {{film.dur}}分钟</view>
+				<view class="list-type" style="justify-content: space-between;display: flex;">
+					<button class="cu-btn bg-grey " style="margin-right: 5px;"><text
+							class="diy-icon-likefill"></text>想看</button>
+					<button class="cu-btn bg-grey "><text class="diy-icon-favorfill"></text>看过</button>
+				</view>
+			</view>
+		</view>
+	</view>
 	<view class="container container27315 white page">
+		<!-- 筛选条件 -->
 		<view class="flex diygw-dropdown diygw-col-24 dropdowns-clz">
 			<u-dropdown class="flex-sub" direction="down" ref="refDropdowns">
 				<u-dropdown-item @change="getCinemaList" :title="cityInfo" v-model="areaParam"
@@ -54,14 +80,15 @@
 				areaParam: '',
 				area: [],
 				cinemaList: [],
+				film: {}
 			};
 		},
 		onShow() {
-			this.setCurrentPage(this);
-
-			this.getLocation()
+			this.getLocation();
 		},
-		onLoad(option) {},
+		onLoad(option) {
+			this.film = JSON.parse(option.film)
+		},
 		methods: {
 			closeDropdowns() {
 				this.$refs.refDropdowns.close();
@@ -89,7 +116,6 @@
 
 						// 调用逆地理编码服务
 						this.reverseGeocoding(latitude, longitude);
-
 					},
 					fail: (err) => {
 						console.error('获取位置失败', err);
@@ -142,5 +168,147 @@
 
 	.container27315 {
 		padding-bottom: 80px;
+	}
+
+	.cinema-top {
+		padding: 32rpx;
+		position: relative;
+
+		.tops-item {
+			display: flex;
+			align-items: center;
+			z-index: 9999;
+		}
+
+		.btins {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			// z-index: 99;
+			filter: blur(15px);
+			-webkit-filter: blur(15px);
+		}
+
+		.cinema-img {
+			width: 180rpx;
+			height: 248rpx;
+
+			image {
+				width: 180rpx;
+				height: 248rpx;
+				border-radius: 20rpx;
+			}
+		}
+
+		.cinema-info {
+			margin-left: 30rpx;
+
+			.cinema-info-top {
+				display: flex;
+				align-items: center;
+
+				.top-name {
+					color: #000;
+					font-size: 35rpx;
+					font-weight: 700;
+				}
+
+				.top-type {
+					background-color: #7B7B7B;
+					border-radius: 6rpx;
+					padding: 2rpx 8rpx;
+					color: #FFFFFF;
+					font-size: 17rpx;
+					margin-left: 30rpx;
+				}
+			}
+
+			.rate-item {
+				display: flex;
+				align-items: center;
+				margin-top: 5rpx;
+
+				.rate-nun {
+					color: #868e96;
+					font-size: 22rpx;
+					font-weight: 550;
+					margin-left: 16rpx;
+				}
+
+			}
+		}
+	}
+
+	.list-type {
+		color: black;
+		font-size: 24rpx;
+		margin-top: 12rpx;
+
+		text {
+			color: #FF6E06;
+			font-size: 550;
+			margin-right: 8rpx;
+		}
+	}
+
+	.cinema-down {
+		display: flex;
+		align-items: center;
+		padding: 22rpx 32rpx;
+		border-bottom: 2rpx solid #DFE0E2;
+
+		.down-city {
+			display: flex;
+			align-items: center;
+
+			text {
+				color: #636775;
+				font-size: 28rpx;
+			}
+
+			image {
+				width: 24rpx;
+				height: 24rpx;
+				margin-left: 8rpx;
+			}
+		}
+
+		.serchs {
+			margin-left: auto;
+			width: 44rpx;
+			height: 44rpx;
+		}
+	}
+
+	.cinema-list {
+		margin: 0rpx 32rpx;
+		border-bottom: 2rpx solid #DFE0E2;
+		padding: 32rpx 0rpx 40rpx 0rpx;
+
+		.cinema-name {
+			color: #2D3039;
+			font-size: 32rpx;
+			font-weight: 550;
+		}
+
+		.cinema-address-item {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 10rpx;
+
+			.address-text {
+				color: #636775;
+				font-size: 24rpx;
+				width: 78%;
+			}
+
+			.distance {
+				color: #636775;
+				font-size: 28rpx;
+			}
+		}
 	}
 </style>

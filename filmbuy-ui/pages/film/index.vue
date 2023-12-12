@@ -57,7 +57,7 @@
 											<uni-rate :readonly="true" v-model="hot.sc" active-color="#FF6E06"
 												allowHalf="true" :size="15" max="10" color="gray" />
 											<span style="color: #FF6E06;">{{ hot.sc }}分</span>
-											<button class="movie-btns" @tap="goFilmShowTime(hot)">购票</button>
+											<button class="movie-btns" @tap.stop="goCinemaPick(hot)">购票</button>
 										</view>
 										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ hot.description }}
 										</view>
@@ -201,9 +201,9 @@
 					url: '/pages/film/film?film=' + JSON.stringify(film),
 				})
 			},
-			goFilmShowTime(film) {
+			goCinemaPick(film) {
 				uni.navigateTo({
-					url: '/pages/film/film-showtime?film=' + JSON.stringify(film),
+					url: '/pages/cinema/cinema-pick?film=' + JSON.stringify(film),
 				})
 			},
 			changeTabs(evt) {

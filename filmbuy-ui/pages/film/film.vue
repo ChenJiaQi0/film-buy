@@ -115,7 +115,7 @@
 		<view v-else style="text-align: center;color: red;width: 100%;">待观众评论...</view>
 		<view class="cu-bar foot" style="width: 100%;background-color: white;">
 			<button class=" cu-btn shadow-blur round lg" style="width: 100%;background-color: #db5f54;color: white;"
-				@tap="goFilmShowTime()">购票</button>
+				@tap="goCinemaPick()">购票</button>
 		</view>
 	</view>
 </template>
@@ -137,9 +137,9 @@
 			}
 		},
 		methods: {
-			goFilmShowTime() {
+			goCinemaPick() {
 				uni.navigateTo({
-					url: '/pages/film/film-showtime?film=' + JSON.stringify(this.film),
+					url: '/pages/cinema/cinema-pick?film=' + JSON.stringify(this.film),
 				})
 			},
 			async getActors() {

@@ -78,6 +78,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "写评论"
 			}
+		},
+		{
+			"path": "pages/cinema/cinema-pick",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "请先选择影院"
+			}
 		}
 	],
 	"globalStyle": {
