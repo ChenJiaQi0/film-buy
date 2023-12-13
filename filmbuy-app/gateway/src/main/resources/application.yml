@@ -41,6 +41,10 @@ spring:
           uri: lb://user
           predicates:
             - Path=/comment/**
+        - id: route-showtime
+          uri: lb://cinema
+          predicates:
+            - Path=/showtime/**
     nacos:
       discovery:
         server-addr: localhost:8848

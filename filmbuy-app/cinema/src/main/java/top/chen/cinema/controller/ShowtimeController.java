@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 import top.chen.cinema.domain.entity.Showtime;
+import top.chen.cinema.domain.vo.ShowtimeVo;
 import top.chen.cinema.service.ShowTimeService;
 import top.chen.common.result.Result;
 
@@ -35,12 +36,30 @@ public class ShowtimeController {
      * @param fid
      * @return
      */
+//    @GetMapping("/{cid}/{fid}")
+//    public Result<Map<String, ArrayList<Showtime>>> getShowTimeList(@PathVariable("cid") String cid,
+//                                                  @PathVariable("fid") String fid){
+//        Map<String, ArrayList<Showtime>> map = showTimeService.getShowTimeList(cid, fid);
+//        Result<Map<String, ArrayList<Showtime>>> resp = new Result<>();
+//        resp.setData(map);
+//        return resp;
+//    }
+
     @GetMapping("/{cid}/{fid}")
-    public Result<Map<String, ArrayList<Showtime>>> getShowTimeList(@PathVariable("cid") String cid,
-                                                  @PathVariable("fid") String fid){
+    public Result<ArrayList<ShowtimeVo>> getShowTimeList(@PathVariable("cid") String cid,
+                                                          @PathVariable("fid") String fid){
         Map<String, ArrayList<Showtime>> map = showTimeService.getShowTimeList(cid, fid);
-        Result<Map<String, ArrayList<Showtime>>> resp = new Result<>();
-        resp.setData(map);
+        Result<ArrayList<ShowtimeVo>> resp = new Result<>();
+        ArrayList<ShowtimeVo> list = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<Showtime>> entry : map.entrySet()) {
+            String key = entry.getKey();
+            ArrayList<Showtime> value = entry.getValue();
+            ShowtimeVo vo = new ShowtimeVo();
+            vo.setTime(key);
+            vo.setList(value);
+            list.add(vo);
+        }
+        resp.setData(list);
         return resp;
     }
 }

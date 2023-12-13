@@ -34,8 +34,8 @@ public class ShowTimeServiceImpl extends ServiceImpl<ShowtimeMapper, Showtime> i
 
         Map<String, ArrayList<Showtime>> map = new HashMap<>();
         for (Showtime show : lists) {
-            String time = show.getDate().getYear() + "-" + show.getDate().getMonth().getValue() + "-" + show.getDate().getDayOfMonth();
-//            String time = show.getDate().getYear() + "-" + show.getDate().getMonth() + "-" + show.getDate().getDay();
+//            String time = show.getDate().getYear() + "-" + show.getDate().getMonth().getValue() + "-" + show.getDate().getDayOfMonth();
+            String time = show.getDate().getMonth().getValue() + "-" + show.getDate().getDayOfMonth();
 
            if (map.containsKey(time)) {
                List<Showtime> list = map.get(time);
