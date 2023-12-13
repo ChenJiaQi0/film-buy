@@ -35,9 +35,12 @@
 			</u-dropdown>
 		</view>
 		<view v-if="cinemaList.length > 0">
-			<view class="flex diygw-col-24 flex-wrap flex-clz" v-for="(cinema, index) in cinemaList" :key="index">
+			<view class="flex diygw-col-24 flex-wrap flex-clz" v-for="(cinema, index) in cinemaList" :key="index"
+				@tap="goShowTime(cinema)">
 				<view class="diygw-title flex diygw-col-24 title-clz">
-					<view class="title font-normal"> {{cinema.brandName}}({{cinema.cinemaName}}) </view>
+					<view class="title font-normal">
+						{{cinema.brandName}}({{cinema.cinemaName}})
+					</view>
 					<view class="more">
 						<span style="color: red;">39.9</span>元起
 					</view>
@@ -90,6 +93,12 @@
 			this.film = JSON.parse(option.film)
 		},
 		methods: {
+			goShowTime(cinema) {
+				uni.navigateTo({
+					url: '/pages/film/film-showtime?film=' + JSON.stringify(this.film) + '&cinema=' + JSON
+						.stringify(cinema)
+				})
+			},
 			closeDropdowns() {
 				this.$refs.refDropdowns.close();
 			},

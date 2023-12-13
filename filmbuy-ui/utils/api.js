@@ -8,6 +8,7 @@ export const USER_URL = BASE_API_URL + '/user';
 export const ORDER_URL = BASE_API_URL + '/order';
 export const ACTOR_URL = BASE_API_URL + '/actor';
 export const COMMENT_URL = BASE_API_URL + '/comment';
+export const SHOWTIME_URL = BASE_API_URL + '/showtime';
 
 /******  影片模块  ******/
 // 热映影片
@@ -22,6 +23,9 @@ export const ACTORS = ACTOR_URL;
 /******  影院模块  ******/
 // 影院列表
 export const CINEMA_LIST = CINEMA_URL;
+export const MOVIE_LIST = CINEMA_URL + '/films'
+export const SHOWtIME_LIST = SHOWTIME_URL;
+
 /******  订单模块  ******/
 export const ORDER_LIST = ORDER_URL;
 
