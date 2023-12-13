@@ -57,7 +57,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="buy-btns" @click="getGou(value)">购票</view>
+					<view class="buy-btns" @tap="getGou(value)">购票</view>
 				</view>
 			</view>
 			<view v-else style="text-align: center;color: red;width: 100%;">该影片暂无排期...请重新选择吧</view>
@@ -86,7 +86,8 @@
 				swiperCurrent: 0,
 				tabLists: '',
 				tabIndexs: 0,
-				timeList: []
+				timeList: [],
+				showTimeId: '',
 			}
 		},
 		onLoad(option) {
@@ -149,6 +150,12 @@
 					this.timeList = data.list
 				}
 			},
+			getGou(value) {
+				console.log(value);
+				uni.navigateTo({
+					url: '/pages/film/film-buy?showTimeId=' + value.id + '&price=' + value.price
+				})
+			}
 		},
 		computed: {
 			findFilm() {
