@@ -24,14 +24,14 @@
 		 * 生命周期函数--监听页面加载
 		 */
 		onLoad: function(options) {
-			// this.getOrderList();
+			this.getOrderList();
 
 		},
 
 		/**
 		 * 生命周期函数--监听页面显示
 		 */
-		onShow: function() {
+		onShow() {
 			this.getOrderList();
 		},
 
@@ -44,6 +44,7 @@
 				})
 			},
 			getOrderList() {
+				const _this = this
 				uni.request({
 					url: ORDER_LIST, //仅为示例，并非真实接口地址。
 					header: {
@@ -55,6 +56,7 @@
 								title: '错误',
 								content: res.data.msg != null ? res.data.msg : '用户未登录，请先登录！',
 								success: function(res) {
+									_this.orderList = []
 									if (res.confirm) {
 										uni.navigateTo({
 											url: '/pages/user/login'
@@ -63,8 +65,10 @@
 								}
 
 							})
+						} else {
+							_this.orderList = res.data.data;
 						}
-						this.orderList = res.data.data;
+
 					}
 				});
 			}
