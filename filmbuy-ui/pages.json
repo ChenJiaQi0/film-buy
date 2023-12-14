@@ -59,7 +59,7 @@
 			"path": "pages/film/film-showtime",
 			"style": {
 				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "选择场次",
 				"navigationBarBackgroundColor": "#db5f54"
 			}
 		},
@@ -84,7 +84,7 @@
 			"style": {
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#db5f54",
-				"navigationBarTitleText": "请先选择影院"
+				"navigationBarTitleText": "选择影院"
 			}
 		}
 	],

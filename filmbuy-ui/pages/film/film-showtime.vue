@@ -14,7 +14,9 @@
 		<view v-if="findFilm">
 			<!-- 轮播盒子 start -->
 			<view class="swiper_main">
-				<image class="background-img-vague" :src="chooseMovie.img" mode=""></image>
+				<template v-if="chooseMovie">
+					<image class="background-img-vague" :src="chooseMovie.img" mode=""></image>
+				</template>
 				<view class="wrap">
 					<swipers :list="movieList" height="260" mode="none" name="img" :autoplay="false"
 						img-mode="scaleToFill" class="swiper_bg" :effect3d="true" bg-color="none" :circular="false"
@@ -25,8 +27,10 @@
 			</view>
 			<!-- 轮播盒子 end -->
 
-			<view class="moive-name">{{chooseMovie.name}}</view>
-			<view class="moive-info">{{chooseMovie.dur}}分钟 | {{chooseMovie.addr}} | {{chooseMovie.cat}}</view>
+			<template v-if="chooseMovie">
+				<view class="moive-name">{{chooseMovie.name}}</view>
+				<view class="moive-info">{{chooseMovie.dur}}分钟 | {{chooseMovie.addr}} | {{chooseMovie.cat}}</view>
+			</template>
 
 			<view v-if="findShowTime">
 				<!-- 场次日期 -->
@@ -70,6 +74,9 @@
 <script>
 	import swipers from '@/components/u-swiper.vue';
 	import {
+		request
+	} from '@/utils/request.js';
+	import {
 		MOVIE_LIST,
 		SHOWtIME_LIST,
 	} from '@/utils/api.js';
@@ -79,10 +86,10 @@
 		},
 		data() {
 			return {
-				film: {},
+				film: null,
 				cinema: {},
 				movieList: [],
-				chooseMovie: '',
+				chooseMovie: null,
 				swiperCurrent: 0,
 				tabLists: '',
 				tabIndexs: 0,
@@ -92,10 +99,17 @@
 		},
 		onLoad(option) {
 			this.cinema = JSON.parse(option.cinema);
-			this.film = JSON.parse(option.film);
-			this.chooseMovie = JSON.parse(option.film);
-			this.getMovieList()
-			this.getShowTimeList()
+			if (option.film != null) {
+				this.film = JSON.parse(option.film);
+				this.chooseMovie = JSON.parse(option.film);
+			}
+			// const _this = this;
+			// new Promise(function() {
+			// 	_this.getMovieList()
+			// }).then(() => {
+			// 	_this.getShowTimeList()
+			// })
+			this.getMovieList();
 		},
 		onShow() {},
 		methods: {
@@ -103,46 +117,75 @@
 			setBackground(index) {
 				this.swiperCurrent = index
 				this.chooseMovie = this.movieList[index]
-				this.getShowTimeList()
+				this.getShowTimeList(this.chooseMovie)
 				this.tabIndexs = 0
 			},
-			getMovieList() {
-				const _this = this;
-				uni.request({
-					url: MOVIE_LIST + '/' + this.cinema.id,
-					success(res) {
-						if (res.data.code === 200) {
-							_this.movieList = res.data.data
-							_this.swiperCurrent = _this.movieList.findIndex((ele) => ele.id === _this.film.id)
-						} else {
-							uni.showToast({
-								title: '网络异常请稍后重试',
-								icon: 'error'
-							})
-						}
+			async getMovieList() {
+				const data = await request(MOVIE_LIST + '/' + this.cinema.id, 'GET')
+				if (data.code === 200) {
+					this.movieList = data.data;
+					if (this.film != null) {
+						this.swiperCurrent = this.movieList.findIndex((ele) => ele
+							.id === this.film.id);
+						console.log(this.chooseMovie);
+						this.getShowTimeList(this.chooseMovie);
+					} else {
+						this.chooseMovie = data.data[0];
+						console.log(this.chooseMovie);
+						console.log(data.data[0]);
+						this.getShowTimeList(data.data[0]);
 					}
-				})
+				}
+				// uni.request({
+				// 	url: MOVIE_LIST + '/' + this.cinema.id,
+				// 	success(res) {
+				// 		if (res.data.code === 200) {
+				// 			_this.movieList = res.data.data;
+				// 			if (_this.film != null) {
+				// 				_this.swiperCurrent = _this.movieList.findIndex((ele) => ele
+				// 					.id === _this.film.id);
+				// 			} else {
+				// 				_this.chooseMovie = _this.movieList[0];
+				// 				console.log(_this.chooseMovie);
+				// 			}
+				// 		} else {
+				// 			uni.showToast({
+				// 				title: '网络异常请稍后重试',
+				// 				icon: 'error'
+				// 			})
+				// 		}
+				// 	}
+				// })
 			},
-			getShowTimeList() {
-				const _this = this;
-				uni.request({
-					url: SHOWtIME_LIST + '/' + this.cinema.id + '/' + this.chooseMovie.id,
-					success(res) {
-						if (res.data.code === 200) {
-							_this.tabLists = res.data.data
-							if (_this.tabLists.length > 0) {
-								_this.timeList = _this.tabLists[0].list
-							} else {
-								_this.timeList = []
-							}
-						} else {
-							uni.showToast({
-								title: '网络异常请稍后重试',
-								icon: 'error'
-							})
-						}
+			async getShowTimeList(value) {
+				console.log(value);
+				const data = await request(SHOWtIME_LIST + '/' + this.cinema.id + '/' + value.id, 'GET');
+				if (data.code === 200) {
+					this.tabLists = data.data
+					if (this.tabLists.length > 0) {
+						this.timeList = this.tabLists[0].list
+					} else {
+						this.timeList = []
 					}
-				})
+				}
+				// uni.request({
+				// 	url: SHOWtIME_LIST + '/' + this.cinema.id + '/' + this.chooseMovie.id,
+				// 	success(res) {
+				// 		if (res.data.code === 200) {
+				// 			_this.tabLists = res.data.data
+				// 			if (_this.tabLists.length > 0) {
+				// 				_this.timeList = _this.tabLists[0].list
+				// 			} else {
+				// 				_this.timeList = []
+				// 			}
+				// 		} else {
+				// 			uni.showToast({
+				// 				title: '网络异常请稍后重试',
+				// 				icon: 'error'
+				// 			})
+				// 		}
+				// 	}
+				// })
 			},
 			getTimeTab(data, index) {
 				if (this.tabIndexs != index) {
@@ -151,16 +194,18 @@
 				}
 			},
 			getGou(value) {
-				console.log(value);
+				// console.log(value);
 				uni.navigateTo({
-					url: '/pages/film/film-buy?showTimeId=' + value.id + '&price=' + value.price
+					url: '/pages/film/film-buy?showTimeId=' + value.id + '&price=' + value.price + '&date=' + value
+						.date + '&hour=' + value.hour + '&roomName=' + value.name + '&filmName=' + this
+						.chooseMovie.name + "&cat=" + this.chooseMovie.cat + '&cinemaName=' + this.cinema
+						.cinemaName
 				})
 			}
 		},
 		computed: {
 			findFilm() {
-				const res = this.movieList.find((ele) => ele = this.film)
-				return res != null ? true : false
+				return this.movieList.length > 0 ? true : false
 			},
 			findShowTime() {
 				return this.tabLists.length > 0 ? true : false

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<anil-seat ref="anilSeat" title="皮皮鲁与鲁西西之罐头小人" info="2021年01月22日 国语 奇幻 喜剧 儿童" room-name="5号厅">
+		<anil-seat ref="anilSeat" :title="filmName" :info="info" :room-name="roomName">
 		</anil-seat>
 	</view>
 </template>
@@ -19,11 +19,13 @@
 			return {
 				showTimeId: '',
 				price: '',
-				// cinemaName: '',
-				// filmName: '',
-				// date: '',
+				filmName: '',
+				date: '',
+				hour: '',
+				roomName: '',
 				// 电影座位格式
 				seatData: [],
+				cat: ''
 			}
 		},
 		methods: {
@@ -52,11 +54,24 @@
 		onLoad(option) {
 			this.showTimeId = option.showTimeId;
 			this.price = option.price;
+			this.date = option.date;
+			this.hour = option.hour;
+			this.roomName = option.roomName + "号厅";
+			this.cat = option.cat;
+			this.filmName = option.filmName;
+			uni.setNavigationBarTitle({
+				title: option.cinemaName,
+			});
 			this.getSeatList();
 			// console.log(this.seatData);
 			// this.$refs['anilSeat'].initData(this.seatData);
 
 		},
+		computed: {
+			info() {
+				return this.date + ' ' + this.hour + ' ' + this.cat;
+			}
+		}
 	}
 </script>
 

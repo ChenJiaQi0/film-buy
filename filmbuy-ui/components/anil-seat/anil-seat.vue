@@ -79,8 +79,8 @@
 		<view class="seat-foot">
 			<view class="sf-recommend" v-if="SelectNum === 0">
 				<text class="text">推荐选座</text>
-				<view class="sfr-tag" v-for="num in Math.min(max, 6)" :key="num" @click="smartChoose(num+1)">
-					<text class="text">{{ num+1 }}人</text>
+				<view class="sfr-tag" v-for="num in Math.min(max, 6)" :key="num" @click="smartChoose(num)">
+					<text class="text">{{ num }}人</text>
 				</view>
 			</view>
 			<view class="sf-arselect" v-else>
@@ -114,6 +114,7 @@
 			max: {
 				type: Number,
 				default: 4
+
 			},
 			title: {
 				type: String,
