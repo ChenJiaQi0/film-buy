@@ -39,6 +39,7 @@
 					count: option.length,
 					seat: option.map((ele) => ele.SeatCode),
 					info: this.info,
+					date: this.date + ' ' + this.hour,
 				}
 				// console.log(data);
 				uni.navigateTo({

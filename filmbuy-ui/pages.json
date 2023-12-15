@@ -100,7 +100,7 @@
 			"style": {
 				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor": "#db5f54",
-				"navigationBarTitleText": "账单支付"
+				"navigationBarTitleText": "确认订单"
 			}
 		}
 	],

@@ -93,8 +93,9 @@
 		},
 		methods: {
 			goPay() {
-				uni.navigateTo({
-					url: '/pages/order/pay'
+				uni.redirectTo({
+					url: '/pages/order/pay?data=' + JSON.stringify(this.data) + '&seatInfo=' + JSON.stringify(this
+						.seatInfo)
 				})
 
 			},

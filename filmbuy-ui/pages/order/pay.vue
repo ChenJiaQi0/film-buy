@@ -1,18 +1,17 @@
 <template>
 	<view>
 		<view class="amount">
-			<text>￥</text>{{dataInfo.price}}
+			<text>￥</text>{{data.price}}
 		</view>
 		<view class="pay-tips">支付金额</view>
 
-		<view class="pay-info-item">
-			<view class="film-title">{{dataInfo.movie_info.movie_name}}</view>
+		<view class="pay-info-item" v-if="data">
+			<view class="film-title">{{data.filmName}}</view>
 			<!-- <view class="film-text">5月29日 2021-09-29 11:00:00~2021-09-29</view> -->
-			<view class="film-text">{{dataInfo.movie_info.cinemaName}}</view>
-			<view class="film-text">{{dataInfo.movie_info.cinemaAddress}}</view>
-			<view class="film-text">{{dataInfo.movie_info.hallName}}</view>
+			<view class="film-text">{{data.cinemaName}}</view>
+			<view class="film-text">{{data.info}}</view>
 			<view class="film-text">
-				<text v-for="(value,index) in dataInfo.showInfor" :key="index">{{value.seatName}},</text>
+				<text v-for="(value,index) in seatInfo" :key="index">{{value.RowNum}}排{{value.ColumnNum}}座|</text>
 			</view>
 		</view>
 
@@ -24,40 +23,54 @@
 			<image src="../../static/image/icon-choice-yes.png" class="pay-check"></image>
 		</view>
 
-		<view class="pay-btns">确认支付</view>
+		<view class="pay-btns" @tap="pay">确认支付</view>
 
 	</view>
 </template>
 
 <script>
-	// import {filmPay,getOrderInfo} from "@/api/film.js"
-	// import {checkUser,filmH5Pay} from "@/api/api.js"
+	import {
+		request
+	} from '@/utils/request.js'
+	import {
+		ORDER_PAY
+	} from '@/utils/api.js'
 	export default {
 		data() {
 			return {
-				dataInfo: {
-					price: 45,
-					movie_info: {
-						movie_name: "长津湖之水门桥",
-						cinemaAddress: "丹东市东港市育才街(近教育局)(东港市联营胡同北0.1米)",
-						cinemaId: 25249,
-						cinemaName: "博纳电影院线·星鑫古汉店",
-					},
-					showInfor: [{
-							seatName: '6排7座'
-						},
-						{
-							seatName: '6排6座'
-						}
-					]
-				}
+				data: null,
+				seatInfo: [],
 			}
 		},
 		onLoad(opt) {
-			// this.getData(opt.orderNo)
+			this.data = JSON.parse(opt.data);
+			this.data.seat = this.data.seat.toString();
+			this.seatInfo = JSON.parse(opt.seatInfo);
+			console.log(this.data);
 		},
 		methods: {
-
+			pay() {
+				uni.showLoading({
+					title: '正在提交订单，请等待...'
+				})
+				request(ORDER_PAY, 'POST', this.data).then((res) => {
+					if (res.code === 200) {
+						uni.showToast({
+							title: '支付成功!',
+							icon: 'success'
+						})
+						uni.switchTab({
+							url: '/pages/order/index'
+						})
+					} else {
+						uni.showToast({
+							title: res.msg || '座位可能丢失了',
+							icon: 'error'
+						})
+					}
+				})
+				uni.hideLoading();
+			}
 		}
 	}
 </script>
