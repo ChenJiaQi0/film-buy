@@ -44,7 +44,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<OrderVO> getOrderByUserId(String id) {
         List<OrderVO> orderVOS = new ArrayList<>();
-        List<Order> orders = baseMapper.selectList(new QueryWrapper<Order>().lambda().eq(Order::getUserId, id).orderBy(true, true, Order::getStatus));
+        List<Order> orders = baseMapper.selectList(new QueryWrapper<Order>().lambda().eq(Order::getUserId, id).orderBy(true, true, Order::getStatus)
+                .orderBy(true, false, Order::getCreateTime));
         for (Order order : orders) {
             OrderVO vo = new OrderVO();
             vo.setOrder(order);
@@ -100,6 +101,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             seatService.updateStatusBySeats(order.getSeat());
             //判断用户余额是否能够购买——扣减用户余额
             userService.minusBalance(order.getUserId(), order.getPrice());
+            // 初始化订单状态 0：待消费
+            order.setStatus(0);
             //插入订单
             baseMapper.insert(order);
         } else {

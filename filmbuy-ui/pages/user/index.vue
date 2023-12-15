@@ -82,6 +82,9 @@
 </template>
 
 <script>
+	import {
+		BALANCE
+	} from '@/utils/api.js'
 	export default {
 		data() {
 			return {
@@ -98,8 +101,11 @@
 		},
 		onShow() {
 			this.init();
+			this.getBalance();
 		},
-		onLoad(option) {},
+		onLoad(option) {
+
+		},
 		methods: {
 			init() {
 				this.userInfo = uni.getStorageSync('user');
@@ -107,6 +113,17 @@
 			quit() {
 				uni.clearStorageSync();
 				this.init();
+			},
+			getBalance() {
+				const _this = this;
+				uni.request({
+					url: BALANCE + '/' + _this.userInfo.id,
+					method: 'GET',
+					success(res) {
+						_this.userInfo.balance = res.data.data;
+						uni.setStorageSync('user', _this.userInfo);
+					}
+				})
 			}
 		}
 	};

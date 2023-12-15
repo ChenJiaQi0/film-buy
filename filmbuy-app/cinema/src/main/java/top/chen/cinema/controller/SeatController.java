@@ -55,7 +55,7 @@ public class SeatController {
     }
 
     /**
-     * 生成场次的 4*4 座位信息
+     * 生成场次的 8*8 座位信息
      * @param id
      */
     @PostMapping("/{id}")

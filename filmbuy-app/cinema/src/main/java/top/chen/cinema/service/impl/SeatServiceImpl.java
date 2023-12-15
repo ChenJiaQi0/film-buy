@@ -24,8 +24,8 @@ public class SeatServiceImpl extends ServiceImpl<SeatMapper, Seat> implements Se
 
     @Override
     public void generate(String id) {
-        for (int i = 1; i < 5; i++) {
-            for (int j = 1; j< 5; j++){
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j< 9; j++){
                 baseMapper.insert(Seat.builder()
                         .showtimeId(Long.valueOf(id))
                         .rn(i)

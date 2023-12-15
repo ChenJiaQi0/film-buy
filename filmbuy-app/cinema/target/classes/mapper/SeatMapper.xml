@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.chen.cinema.mapper.SeatMapper">
+    <select id="getShowTimeNameById" parameterType="string" resultType="string">
+        select t.name from fb_seat s left join fb_showtime t on s.showtime_id = t.id where s.showtime_id = #{id} limit 1
+    </select>
+</mapper>

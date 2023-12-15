@@ -42,3 +42,5 @@ export const CODE_URL = USER_URL + '/code';
 export const COMMENTS = COMMENT_URL;
 // 评论
 export const COMMENT = COMMENT_URL;
+// 余额查询
+export const BALANCE = USER_URL + '/balance';
