@@ -27,7 +27,8 @@
 		</view>
 
 		<!-- 评分 -->
-		<view class="flex flex-wrap diygw-col-24 flex-direction-column justify-between items-start flex-clz">
+		<view class="flex flex-wrap diygw-col-24 flex-direction-column justify-between items-start flex-clz"
+			v-if="film.status === 1">
 			<view class="flex flex-wrap diygw-col-24 justify-between items-center">
 				<view class="diygw-col-0 text33-clz"> <text class="diy-icon-circlefill"></text> FilmBuy购票评分 </view>
 				<view class="flex flex-wrap diygw-col-0 items-center flex11-clz">
@@ -43,6 +44,9 @@
 						max="10" color="gray" />
 				</view>
 			</view>
+		</view>
+		<view v-else class="diygw-col-24 flex-direction-column flex-clz">
+			<view style="text-align: center;"> <text style="font-size: 50rpx;">{{film.wish}}</text>人想看</view>
 		</view>
 
 		<!-- 简介 -->
@@ -113,7 +117,7 @@
 			</view>
 		</view>
 		<view v-else style="text-align: center;color: red;width: 100%;">待观众评论...</view>
-		<view class="cu-bar foot" style="width: 100%;background-color: white;">
+		<view class="cu-bar foot" style="width: 100%;background-color: white;" v-if="film.status === 1">
 			<button class=" cu-btn shadow-blur round lg" style="width: 100%;background-color: #db5f54;color: white;"
 				@tap="goCinemaPick()">购票</button>
 		</view>

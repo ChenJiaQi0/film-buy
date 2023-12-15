@@ -86,7 +86,8 @@
 					<view class="container2">
 						<scroll-view class="scroll-view" scroll-x>
 							<view class="product-item" v-for="(item, index) in recommandedFilms" :key="index">
-								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
+								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img"
+									@tap="goFilm(item)">
 								</image>
 								<view class="product-info">
 									<text class="product-name diygw-text-line1">{{ item.name }}</text> <br />
@@ -102,7 +103,7 @@
 							<view class="diygw-list" v-if="exceptFilms.length > 0">
 								<view style="margin-bottom: 2px;margin-top: 2px;"
 									class="diygw-item col-100 row solid-bottom" v-for="(except, index) in exceptFilms"
-									:key="index">
+									:key="index" @tap="goFilm(except)">
 									<view class="">
 										<image style="width: 100px;height: 100px;" mode="aspectFit" class=""
 											:src="except.img"></image>
