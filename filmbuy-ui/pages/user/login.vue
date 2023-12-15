@@ -6,7 +6,7 @@
 				<image src='/static/login.png'></image>
 			</view>
 			<view class='form'>
-				<input type="number" v-model="username" class='input' placeholder="请输入邮箱号"
+				<input type="text" v-model="username" class='input' placeholder="请输入邮箱号"
 					placeholder-class="placeholder">
 			</view>
 			<view class='form' v-if='usernamelogin'>
@@ -72,7 +72,7 @@
 						msg: "密码不能为空"
 					},
 					username: {
-						rule: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+						rule: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
 						msg: "邮箱格式错误"
 					},
 					code: {
@@ -218,9 +218,10 @@
 									title: '登录成功',
 									duration: 50000,
 									success() {
-										uni.switchTab({
-											url: '/pages/film/index'
-										})
+										// uni.switchTab({
+										// 	url: '/pages/film/index'
+										// })
+										uni.navigateBack()
 									}
 								})
 								uni.setStorageSync(
@@ -262,9 +263,10 @@
 									title: '登录成功',
 									duration: 50000,
 									success() {
-										uni.switchTab({
-											url: '/pages/film/index'
-										})
+										// uni.switchTab({
+										// 	url: '/pages/film/index'
+										// })
+										uni.navigateBack()
 									}
 								})
 								uni.setStorageSync(

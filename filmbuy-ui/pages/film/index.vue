@@ -89,7 +89,7 @@
 								<image style="width: 100px;height: 100px;" mode="aspectFit" class="" :src="item.img">
 								</image>
 								<view class="product-info">
-									<text class="product-name diygw-text-line3">{{ item.name }}</text> <br />
+									<text class="product-name diygw-text-line1">{{ item.name }}</text> <br />
 									<text class="product-price">{{ item.date }}</text>
 								</view>
 							</view>
@@ -233,10 +233,11 @@
 						title: data.msg != null ? data.msg : '获取失败请稍后重试'
 					})
 				}
-				this.recommandedFilms = data.data.map((item) => {
-					item.date = this.formatDateString(item.date);
-					return item;
-				})
+				// this.recommandedFilms = data.data.map((item) => {
+				// 	item.date = this.formatDateString(item.date);
+				// 	return item;
+				// })
+				this.recommandedFilms = data.data
 			},
 			async except() {
 				const data = await request(EXCEPT_FILM, 'GET', {
@@ -249,27 +250,27 @@
 				}
 				this.exceptFilms = data.data
 			},
-			formatDateString(inputDateString) {
-				const date = new Date(inputDateString);
+			// formatDateString(inputDateString) {
+			// 	const date = new Date(inputDateString);
 
-				// 将月份的英文表示转换为数字表示
-				const month = this.monthNameToNumber(date.toLocaleString('default', {
-					month: 'long'
-				}));
+			// 	// 将月份的英文表示转换为数字表示
+			// 	const month = this.monthNameToNumber(date.toLocaleString('default', {
+			// 		month: 'long'
+			// 	}));
 
-				const day = date.getDate();
+			// 	const day = date.getDate();
 
-				const formattedString = `${month}月${day}日`;
-				return formattedString;
-			},
-			monthNameToNumber(monthName) {
-				const months = [
-					'一月', '二月', '三月', '四月', '五月', '六月',
-					'七月', '八月', '九月', '十月', '十一月', '十二月'
-				];
+			// 	const formattedString = `${month}月${day}日`;
+			// 	return formattedString;
+			// },
+			// monthNameToNumber(monthName) {
+			// 	const months = [
+			// 		'一月', '二月', '三月', '四月', '五月', '六月',
+			// 		'七月', '八月', '九月', '十月', '十一月', '十二月'
+			// 	];
 
-				return months.indexOf(monthName) + 1;
-			}
+			// 	return months.indexOf(monthName) + 1;
+			// }
 		}
 	};
 </script>
@@ -394,8 +395,8 @@
 		font-weight: 700;
 		font-size: 14px;
 		color: #333333;
-		line-height: 1.4;
-		margin-bottom: 4px;
+		// line-height: 1.4;
+		// margin-bottom: 4px;
 	}
 
 	.product-price {

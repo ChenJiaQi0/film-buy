@@ -310,16 +310,10 @@
 			//选定且购买座位
 			buySeat: function() {
 				if (this.SelectNum === 0) return;
-				// let oldArray = [];
-				// for (let i = 0; i < this.seatRow; i++) {
-				// 	for (let j = 0; j < this.seatCol; j++) {
-				// 		if (this.seatArray[i][j].type === 1) {
-				// 			oldArray.push(this.seatArray[i][j])
-				// 		}
-				// 	}
-				// }
-				console.log(this.optArr);
-				// this.$emit('confirm', this.optArr)
+				// uni.navigateTo({
+				// 	url: '/pages/film/film-buy'
+				// })
+				this.$emit('confirm', this.optArr);
 			},
 			//处理座位选择逻辑
 			handleChooseSeat: function(row, col, isbreak) {

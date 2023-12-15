@@ -131,8 +131,6 @@
 						this.getShowTimeList(this.chooseMovie);
 					} else {
 						this.chooseMovie = data.data[0];
-						console.log(this.chooseMovie);
-						console.log(data.data[0]);
 						this.getShowTimeList(data.data[0]);
 					}
 				}
@@ -158,7 +156,6 @@
 				// })
 			},
 			async getShowTimeList(value) {
-				console.log(value);
 				const data = await request(SHOWtIME_LIST + '/' + this.cinema.id + '/' + value.id, 'GET');
 				if (data.code === 200) {
 					this.tabLists = data.data
@@ -195,12 +192,29 @@
 			},
 			getGou(value) {
 				// console.log(value);
-				uni.navigateTo({
-					url: '/pages/film/film-buy?showTimeId=' + value.id + '&price=' + value.price + '&date=' + value
-						.date + '&hour=' + value.hour + '&roomName=' + value.name + '&filmName=' + this
-						.chooseMovie.name + "&cat=" + this.chooseMovie.cat + '&cinemaName=' + this.cinema
-						.cinemaName
-				})
+				const token = uni.getStorageSync('token');
+				if (token === null || token === '') {
+					uni.showModal({
+						title: '错误',
+						content: '用户未登录，请先登录之后再购票！',
+						success: function(res) {
+							if (res.confirm) {
+								uni.navigateTo({
+									url: '/pages/user/login'
+								})
+							}
+						}
+
+					})
+				} else {
+					uni.navigateTo({
+						url: '/pages/film/film-seat?showTimeId=' + value.id + '&price=' + value.price + '&date=' +
+							value
+							.date + '&hour=' + value.hour + '&roomName=' + value.name + '&filmName=' + this
+							.chooseMovie.name + "&cat=" + this.chooseMovie.cat + '&cinemaName=' + this.cinema
+							.cinemaName
+					})
+				}
 			}
 		},
 		computed: {
