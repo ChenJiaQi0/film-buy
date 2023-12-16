@@ -51,7 +51,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             vo.setOrder(order);
             vo.setBrandName(this.getBrandNameByOrderCinemaName(order.getCinemaName()));
             vo.setSeatMsg(this.getSeatMsgByOrderSeat(order.getSeat()));
-            vo.setFilmImg(this.getFilmImgByOrderFilmName(order.getFilmName()));
+            OrderVO filmInfo = this.getFilmImgByOrderFilmName(order.getFilmName());
+            vo.setFilmId(filmInfo.getFilmId());
+            vo.setFilmImg(filmInfo.getFilmImg());
             orderVOS.add(vo);
         }
         return orderVOS;
@@ -62,7 +64,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @param filmName
      * @return
      */
-    private String getFilmImgByOrderFilmName(String filmName) {
+    private OrderVO getFilmImgByOrderFilmName(String filmName) {
         return baseMapper.getFilmImgByOrderFilmName(filmName);
     }
 

@@ -12,8 +12,8 @@
 				</view>
 				<view class="left_bottom" style="margin-top: 10px;margin-bottom: 10px;width: 100%;">
 					<text style="font-size: 15px;">{{item.order.filmName}} {{item.order.count}}张</text>
-					<button class="cu-btn round sm shadow bg-red"
-						style="float: right;">{{item.order.status === 1 ? '评价影片' : '查看二维码'}}</button>
+					<button class="cu-btn round sm shadow bg-red" style="float: right;"
+						@tap="item.order.status === 1 ? goComment(item.filmId) : showCode(item)">{{item.order.status === 1 ? '评价影片' : '查看二维码'}}</button>
 				</view>
 				<view>
 					<text style="margin-right: 5px;">{{item.order.date}}</text>总价：<text
@@ -42,12 +42,15 @@
 			}
 		},
 		methods: {
-
-			jumpNext(item) {
-
-				this.$emit("itemClick", item);
+			goComment(item) {
+				this.$emit("goComment", item);
+			},
+			showCode(item) {
+				// this.$emit("showCode", item);
+				uni.navigateTo({
+					url: '/pages/order/code?data=' + JSON.stringify(item)
+				})
 			}
-
 		}
 	};
 </script>

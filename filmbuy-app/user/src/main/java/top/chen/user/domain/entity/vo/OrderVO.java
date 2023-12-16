@@ -20,6 +20,7 @@ public class OrderVO {
 
     private String brandName;
     private String filmImg;
+    private Long filmId;
 
     /**
      * 座位信息（xxx厅 xx排xx座...）

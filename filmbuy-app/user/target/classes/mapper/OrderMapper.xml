@@ -8,8 +8,8 @@
         where o.cinema_name = #{cinemaName}
     </select>
 
-    <select id="getFilmImgByOrderFilmName" parameterType="string" resultType="string">
-        SELECT f.img
+    <select id="getFilmImgByOrderFilmName" parameterType="string" resultType="top.chen.user.domain.entity.vo.OrderVO">
+        SELECT f.id as filmId, f.img as filmImg
         FROM `fb_order` o
                  LEFT JOIN fb_film f on o.film_name = f.name
         where o.film_name = #{filmName} limit 1

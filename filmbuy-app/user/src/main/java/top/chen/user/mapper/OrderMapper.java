@@ -2,6 +2,7 @@ package top.chen.user.mapper;
 
 import top.chen.user.domain.entity.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.chen.user.domain.entity.vo.OrderVO;
 
 /**
  * <p>
@@ -14,5 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface OrderMapper extends BaseMapper<Order> {
 
     String getBrandNameByOrderCinemaName(String cinemaName);
-    String getFilmImgByOrderFilmName(String filmName);
+    OrderVO getFilmImgByOrderFilmName(String filmName);
 }

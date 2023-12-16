@@ -1,6 +1,6 @@
 <template>
 	<view v-if="orderList.length > 0">
-		<cc-couponList :colors="colors" :orderList="orderList" @itemClick="jumpNext"></cc-couponList>
+		<cc-couponList :colors="colors" :orderList="orderList" @goComment="goComment"></cc-couponList>
 	</view>
 	<view v-else style="text-align: center;color: red;width: 100%;">该账户暂未消费记录订单...</view>
 </template>
@@ -35,12 +35,27 @@
 		},
 
 		methods: {
-			jumpNext(item) {
+			goComment(id) {
+				console.log(id);
+				const user = uni.getStorageSync('user')
+				if (user != null && user != '') {
+					uni.navigateTo({
+						url: '/pages/user/comment?id=' + id
+					})
+				} else {
+					uni.showModal({
+						content: '用户请先登录再点评',
+						confirmText: '去登录',
+						success(res) {
+							if (res.confirm) {
+								uni.navigateTo({
+									url: '/pages/user/login'
+								})
+							}
+						}
+					})
+				}
 
-				uni.showModal({
-					title: '点击优惠券条目',
-					content: '点击优惠券条目 = ' + JSON.stringify(item)
-				})
 			},
 			getOrderList() {
 				const _this = this
@@ -66,6 +81,7 @@
 							})
 						} else {
 							_this.orderList = res.data.data;
+							console.log(_this.orderList);
 						}
 
 					}
