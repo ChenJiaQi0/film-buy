@@ -25,7 +25,7 @@
 			<view class="flex diygw-col-24">
 				<view class="diygw-grid col-4" style="display: flex;justify-content: space-around;">
 					<view class="diygw-grid-item">
-						<view class="diygw-grid-inner grid1-item-clz">
+						<view class="diygw-grid-inner grid1-item-clz" @tap="goOrder">
 							<view class="diygw-grid-icon diygw-avatar grid1-icon-clz">
 								<image mode="aspectFill" class="diygw-avatar-img" src="/static/image/yingpian.png">
 								</image>
@@ -34,7 +34,7 @@
 						</view>
 					</view>
 					<view class="diygw-grid-item">
-						<view class="diygw-grid-inner grid1-item-clz">
+						<view class="diygw-grid-inner grid1-item-clz" @tap="topup">
 							<view class="diygw-grid-icon diygw-avatar grid1-icon-clz">
 								<image mode="aspectFill" class="diygw-avatar-img" src="/static/image/topup.png">
 								</image>
@@ -43,7 +43,7 @@
 						</view>
 					</view>
 					<view class="diygw-grid-item">
-						<view class="diygw-grid-inner grid1-item-clz">
+						<view class="diygw-grid-inner grid1-item-clz" @tap="noFood">
 							<view class="diygw-grid-icon diygw-avatar grid1-icon-clz">
 								<image mode="aspectFit" class="diygw-avatar-img" src="/static/image/food.png">
 								</image>
@@ -83,20 +83,14 @@
 
 <script>
 	import {
-		BALANCE
+		BALANCE,
+		TOPUP
 	} from '@/utils/api.js'
 	export default {
 		data() {
 			return {
 				//用户全局信息
 				userInfo: {},
-				//页面传参
-				globalOption: {},
-				//自定义全局变量
-				globalData: {
-					logintype: '0',
-					agree: '0'
-				}
 			};
 		},
 		onShow() {
@@ -107,6 +101,51 @@
 
 		},
 		methods: {
+			noFood() {
+				uni.showToast({
+					icon: 'none',
+					title: '小吃模块尚未开发...深感抱歉...'
+				})
+			},
+			topup() {
+				const _this = this;
+				if (_this.userInfo === null || _this.userInfo === '') {
+					uni.showToast({
+						icon: 'error',
+						title: '用户请先登录'
+					});
+					return;
+				}
+				uni.showToast({
+					icon: 'none',
+					title: '该平台仅供学习参考，不产生任何费用'
+				});
+				uni.showModal({
+					title: '确认充值',
+					success(res) {
+						if (res.confirm) {
+							uni.request({
+								url: TOPUP + '/' + _this.userInfo.id,
+								method: 'POST',
+								success(res) {
+									if (res.data.code === 200) {
+										uni.showToast({
+											icon: 'success',
+											title: '充值成功'
+										});
+										_this.getBalance();
+									}
+								}
+							})
+						}
+					}
+				});
+			},
+			goOrder() {
+				uni.switchTab({
+					url: '/pages/order/index'
+				})
+			},
 			init() {
 				this.userInfo = uni.getStorageSync('user');
 			},

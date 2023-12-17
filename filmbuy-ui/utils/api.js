@@ -45,3 +45,5 @@ export const COMMENTS = COMMENT_URL;
 export const COMMENT = COMMENT_URL;
 // 余额查询
 export const BALANCE = USER_URL + '/balance';
+// 余额充值
+export const TOPUP = USER_URL + '/topup';
