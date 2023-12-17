@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import top.chen.common.exception.ServiceException;
 import top.chen.common.result.Result;
 import top.chen.common.util.tokenUtil;
 import top.chen.user.domain.entity.Order;
@@ -26,6 +27,23 @@ import java.util.List;
 public class OrderController {
     @Resource
     private OrderService orderService;
+
+    /**
+     * 订单消费
+     * @param id
+     * @return
+     */
+    @PostMapping("/{id}")
+    public Result consume(@PathVariable String id) {
+        Order order = orderService.getById(id);
+        order.setStatus(1);
+        boolean b = orderService.updateById(order);
+        if (b) {
+            return new Result();
+        } else {
+            throw new ServiceException("消费异常");
+        }
+    }
 
     /**
      * 查询用户订单

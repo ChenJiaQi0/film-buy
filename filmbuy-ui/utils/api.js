@@ -32,6 +32,7 @@ export const SEAT_LIST = SEAT_URL;
 /******  订单模块  ******/
 export const ORDER_LIST = ORDER_URL;
 export const ORDER_PAY = ORDER_URL + '/buy';
+export const ORDER_CONSUME = ORDER_URL;
 
 /******  用户模块  ******/
 // 注册登录

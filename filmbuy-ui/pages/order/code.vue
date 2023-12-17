@@ -25,6 +25,7 @@
 			<view class="diygw-col-24 text34-clz"> 请到影院内自助取票机或影院前台取票 </view>
 			<image src="/static/code.jpg" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
 			<view class="diygw-col-24 text1-clz"> 验证码 8888888888 </view>
+			<button class="cu-btn round bg-red" @tap="cosume">确认消费</button>
 		</view>
 		<view style="text-align: center;">
 			<text class="icon icon-clz diy-icon-safe"></text>
@@ -34,6 +35,12 @@
 </template>
 
 <script>
+	import {
+		ORDER_CONSUME
+	} from '@/utils/api.js'
+	import {
+		request
+	} from '@/utils/request.js'
 	export default {
 		data() {
 			return {
@@ -45,7 +52,25 @@
 			this.data = JSON.parse(option.data);
 			console.log(this.data);
 		},
-		methods: {}
+		methods: {
+			async cosume() {
+				const res = await request(ORDER_CONSUME + '/' + this.data.order.id, 'POST');
+				if (res.code === 200) {
+					uni.showToast({
+						icon: 'success',
+						title: '消费成功'
+					})
+					setTimeout(function() {
+						uni.navigateBack()
+					}, 1000)
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: res.msg || '网络异常，消费失败'
+					})
+				}
+			}
+		}
 	};
 </script>
 
