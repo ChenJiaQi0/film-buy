@@ -50,26 +50,33 @@
 		},
 		methods: {
 			pay() {
+				const _this = this;
 				uni.showLoading({
-					title: '正在提交订单，请等待...'
+					title: '提交订单中'
 				})
-				request(ORDER_PAY, 'POST', this.data).then((res) => {
-					if (res.code === 200) {
-						uni.showToast({
-							title: '支付成功!',
-							icon: 'success'
-						})
-						uni.switchTab({
-							url: '/pages/order/index'
-						})
-					} else {
-						uni.showToast({
-							title: res.msg || '座位可能丢失了',
-							icon: 'error'
-						})
-					}
-				})
-				uni.hideLoading();
+				setTimeout(function() {
+					request(ORDER_PAY, 'POST', _this.data).then((res) => {
+						if (res.code === 200) {
+							uni.showToast({
+								title: '支付成功!',
+								icon: 'success'
+							})
+							setTimeout(function() {
+								uni.switchTab({
+									url: '/pages/order/index'
+								})
+							}, 1000)
+						} else {
+							uni.showToast({
+								title: res.msg || '座位可能丢失了',
+								icon: 'error'
+							})
+						}
+					})
+				}, 1000);
+				setTimeout(function() {
+					uni.hideLoading();
+				}, 2000);
 			}
 		}
 	}

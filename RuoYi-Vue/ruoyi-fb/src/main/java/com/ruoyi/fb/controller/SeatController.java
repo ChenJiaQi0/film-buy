@@ -35,6 +35,15 @@ public class SeatController extends BaseController
     private ISeatService seatService;
 
     /**
+     * 生成场次的 8*8 座位信息
+     * @param id
+     */
+    @PostMapping("/{id}")
+    public void generateSeatByShowTime(@PathVariable String id) {
+        seatService.generate(id);
+    }
+
+    /**
      * 查询seat列表
      */
     @PreAuthorize("@ss.hasPermi('seat:seat:list')")

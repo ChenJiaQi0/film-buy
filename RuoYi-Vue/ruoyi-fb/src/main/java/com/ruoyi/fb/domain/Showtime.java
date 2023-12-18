@@ -1,5 +1,6 @@
 package com.ruoyi.fb.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -29,7 +30,7 @@ public class Showtime extends BaseEntity
     private Long filmId;
 
     /** 放映日期（显示今明两天） */
-    @Excel(name = "放映日期", readConverterExp = "显=示今明两天")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date date;
 
     /** 放映时间 */
@@ -75,12 +76,12 @@ public class Showtime extends BaseEntity
     {
         return filmId;
     }
-    public void setDate(Date date) 
+    public void setDate(Date date)
     {
         this.date = date;
     }
 
-    public Date getDate() 
+    public Date getDate()
     {
         return date;
     }

@@ -18,6 +18,10 @@ public class Comment extends BaseEntity
     /** 主键id */
     private Long id;
 
+    /** 评论星级 */
+    @Excel(name = "评论星级")
+    private Double sc;
+
     /** 评论内容 */
     @Excel(name = "评论内容")
     private String comment;
@@ -43,7 +47,16 @@ public class Comment extends BaseEntity
     {
         return id;
     }
-    public void setComment(String comment) 
+
+    public Double getSc() {
+        return sc;
+    }
+
+    public void setSc(Double sc) {
+        this.sc = sc;
+    }
+
+    public void setComment(String comment)
     {
         this.comment = comment;
     }
@@ -84,6 +97,7 @@ public class Comment extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
+            .append("sc", getSc())
             .append("comment", getComment())
             .append("userId", getUserId())
             .append("filmId", getFilmId())

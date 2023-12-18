@@ -68,7 +68,7 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="tabsIndex == 1" class="flex-sub">
+				<view v-if="tabsIndex == 2" class="flex-sub">
 					<view class="diygw-col-24 search1-clz">
 						<view class="diygw-search">
 							<view class="flex1 align-center flex padding-xs solid radius">
@@ -137,6 +137,54 @@
 						</view>
 					</view>
 				</view>
+				<view v-if="tabsIndex === 1" class="flex-sub">
+					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz"
+						v-if="recommendList.length > 0">
+						<view class="flex diygw-col-24 list-clz">
+							<view class="diygw-list">
+								<view style="margin-bottom: 2px;margin-top: 2px;"
+									class="diygw-item col-100 row solid-bottom" v-for="(rec, index) in recommendList"
+									:key="index" @tap="goFilm(rec)">
+									<view>
+										<image style="width: 100px;height: 100px;" mode="aspectFit" class=""
+											:src="rec.img"></image>
+									</view>
+									<view class="content">
+										<view class="title title2"> {{ rec.name }} </view>
+										<view>
+											<uni-rate :readonly="true" v-model="rec.sc" active-color="#FF6E06"
+												allowHalf="true" :size="15" max="10" color="gray" />
+											<view class="cu-capsule"
+												style="display: flex;width: 100%;justify-content: space-between;margin-bottom: 5px;">
+												<view>
+													<view class='cu-tag bg-red'>
+														<text class='cuIcon-likefill'></text>
+													</view>
+													<view class="cu-tag line-red">
+														{{ rec.wish }}
+													</view>
+												</view>
+												<view v-if="rec.status === 1">
+													<button class="movie-btns" @tap.stop="goCinemaPick(rec)">购票</button>
+												</view>
+												<view v-else>
+													<view>
+														<uni-tag style="font-size: 20px;text-align: center;"
+															:text="rec.status === 2 ? '预售' : '想看'"
+															:type="rec.status === 2 ? 'success' : 'warning'" />
+													</view>
+												</view>
+											</view>
+										</view>
+										<view class="diygw-text-line3 diygw-col-24 text1-clz"> {{ rec.description }}
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view v-else style="text-align: center;color: red;width: 100%;">暂无推荐...请先登录或购票</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -149,7 +197,8 @@
 	import {
 		HOT_FILM,
 		EXCEPT_FILM,
-		RECOMMEND_FILM
+		RECOMMEND_FILM,
+		RECOMMEND_USER,
 	} from '@/utils/api.js';
 	import queryParams from '../../uni_modules/diy-uview-ui/libs/function/queryParams';
 	export default {
@@ -157,6 +206,10 @@
 			return {
 				tabsDatas: [{
 						text: `热映`,
+						icon: ``
+					},
+					{
+						text: `推荐`,
 						icon: ``
 					},
 					{
@@ -173,6 +226,7 @@
 				hotFilms: [],
 				exceptFilms: [],
 				recommandedFilms: [],
+				recommendList: []
 			};
 		},
 		onShow() {
@@ -181,6 +235,7 @@
 			this.hot();
 			this.except();
 			this.recommend();
+			// this.recommendUser();
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);
@@ -190,9 +245,9 @@
 				});
 			}
 
-			this.hot();
-			this.except();
-			this.recommend();
+			// this.hot();
+			// this.except();
+			// this.recommend();
 			this.hotParam = '';
 			this.exceptParam = '';
 		},
@@ -211,6 +266,9 @@
 				let {
 					index
 				} = evt.currentTarget.dataset;
+				if (index === 1) {
+					this.recommendUser();
+				}
 				if (index == this.tabsIndex) return;
 				this.setData({
 					tabsIndex: index
@@ -251,6 +309,10 @@
 				}
 				this.exceptFilms = data.data
 			},
+			async recommendUser() {
+				const data = await request(RECOMMEND_USER, 'GET');
+				this.recommendList = data.data;
+			}
 			// formatDateString(inputDateString) {
 			// 	const date = new Date(inputDateString);
 

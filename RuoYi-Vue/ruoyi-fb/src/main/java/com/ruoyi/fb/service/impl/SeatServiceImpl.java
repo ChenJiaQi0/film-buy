@@ -8,6 +8,8 @@ import com.ruoyi.fb.mapper.SeatMapper;
 import com.ruoyi.fb.domain.Seat;
 import com.ruoyi.fb.service.ISeatService;
 
+import static com.alibaba.fastjson2.util.JdbcSupport.createTime;
+
 /**
  * seatService业务层处理
  * 
@@ -80,6 +82,23 @@ public class SeatServiceImpl implements ISeatService
     public int deleteSeatByIds(Long[] ids)
     {
         return seatMapper.deleteSeatByIds(ids);
+    }
+
+    @Override
+    public void generate(String id) {
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j< 9; j++){
+                Seat seat = Seat.builder()
+                        .showtimeId(Long.valueOf(id))
+                        .rn(i)
+                        .cn(j)
+                        .deleted(0L)
+                        .build();
+                seat.setCreateTime(DateUtils.getNowDate());
+                seat.setUpdateTime(DateUtils.getNowDate());
+                seatMapper.insertSeat(seat);
+            }
+        }
     }
 
     /**

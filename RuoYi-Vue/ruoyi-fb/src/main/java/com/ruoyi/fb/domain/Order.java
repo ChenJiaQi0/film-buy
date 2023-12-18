@@ -1,9 +1,12 @@
 package com.ruoyi.fb.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+
+import java.util.Date;
 
 /**
  * order对象 fb_order
@@ -37,6 +40,30 @@ public class Order extends BaseEntity
     /** 总价 */
     @Excel(name = "总价")
     private Long price;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private Date date;
+
+    /**
+     * 买票数量
+     */
+    private Integer count;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     /** 删除标识（0：未删除1：已删除） */
     @Excel(name = "删除标识", readConverterExp = "0=：未删除1：已删除")
@@ -115,6 +142,8 @@ public class Order extends BaseEntity
             .append("userId", getUserId())
             .append("seat", getSeat())
             .append("price", getPrice())
+            .append("date", getDate())
+            .append("count", getCount())
             .append("deleted", getDeleted())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())

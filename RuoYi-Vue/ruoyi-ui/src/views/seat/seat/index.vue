@@ -2,36 +2,16 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="场次id" prop="showtimeId">
-        <el-input
-          v-model="queryParams.showtimeId"
-          placeholder="请输入场次id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.showtimeId" placeholder="请输入场次id" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="座位所在排的编号" prop="rn">
-        <el-input
-          v-model="queryParams.rn"
-          placeholder="请输入座位所在排的编号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.rn" placeholder="请输入座位所在排的编号" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="座位所在列的编号" prop="cn">
-        <el-input
-          v-model="queryParams.cn"
-          placeholder="请输入座位所在列的编号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.cn" placeholder="请输入座位所在列的编号" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="删除标识" prop="deleted">
-        <el-input
-          v-model="queryParams.deleted"
-          placeholder="请输入删除标识"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.deleted" placeholder="请输入删除标识" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -41,46 +21,19 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['seat:seat:add']"
-        >新增</el-button>
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleGen">生成座位</el-button>
+      </el-col>
+      <!-- <el-col :span="1.5">
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd" v-hasPermi="['seat:seat:add']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['seat:seat:edit']"
-        >修改</el-button>
+        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate" v-hasPermi="['seat:seat:edit']">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['seat:seat:remove']"
-        >删除</el-button>
-      </el-col>
+        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" v-hasPermi="['seat:seat:remove']">删除</el-button>
+      </el-col> -->
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['seat:seat:export']"
-        >导出</el-button>
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" v-hasPermi="['seat:seat:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -95,31 +48,13 @@
       <el-table-column label="删除标识" align="center" prop="deleted" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['seat:seat:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['seat:seat:remove']"
-          >删除</el-button>
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)" v-hasPermi="['seat:seat:edit']">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)" v-hasPermi="['seat:seat:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+
+    <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" @pagination="getList" />
 
     <!-- 添加或修改seat对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -127,7 +62,7 @@
         <el-form-item label="场次id" prop="showtimeId">
           <el-input v-model="form.showtimeId" placeholder="请输入场次id" />
         </el-form-item>
-        <el-form-item label="座位所在排的编号" prop="rn">
+        <!-- <el-form-item label="座位所在排的编号" prop="rn">
           <el-input v-model="form.rn" placeholder="请输入座位所在排的编号" />
         </el-form-item>
         <el-form-item label="座位所在列的编号" prop="cn">
@@ -135,10 +70,10 @@
         </el-form-item>
         <el-form-item label="删除标识" prop="deleted">
           <el-input v-model="form.deleted" placeholder="请输入删除标识" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button type="primary" @click="generate">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -146,7 +81,7 @@
 </template>
 
 <script>
-import { listSeat, getSeat, delSeat, addSeat, updateSeat } from "@/api/seat/seat";
+import { listSeat, getSeat, delSeat, addSeat, updateSeat, generate } from "@/api/seat/seat";
 
 export default {
   name: "Seat",
@@ -194,6 +129,14 @@ export default {
     this.getList();
   },
   methods: {
+    /** 自动为场次生成8*8的座位 */
+    generate() {
+      this.loading = true;
+      generate(this.form.showtimeId).then(response => {
+        this.open = false;
+        this.getList();
+      })
+    },
     /** 查询seat列表 */
     getList() {
       this.loading = true;
@@ -235,7 +178,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -243,6 +186,12 @@ export default {
       this.reset();
       this.open = true;
       this.title = "添加seat";
+    },
+    /** 生成按钮操作 */
+    handleGen() {
+      this.reset();
+      this.open = true;
+      this.title = "生成座位";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -277,12 +226,12 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除seat编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除seat编号为"' + ids + '"的数据项？').then(function () {
         return delSeat(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {

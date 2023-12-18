@@ -18,6 +18,8 @@ export const HOT_FILM = FILM_URL + '/hot';
 export const EXCEPT_FILM = FILM_URL + '/except';
 // 待映推荐
 export const RECOMMEND_FILM = FILM_URL + '/recommend';
+// 用户推荐
+export const RECOMMEND_USER = FILM_URL + '/recommendByUserId';
 // 获取演员信息
 export const ACTORS = ACTOR_URL;
 

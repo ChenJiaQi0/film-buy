@@ -54,6 +54,7 @@ public class ShowtimeServiceImpl implements IShowtimeService
     public int insertShowtime(Showtime showtime)
     {
         showtime.setCreateTime(DateUtils.getNowDate());
+        showtime.setUpdateTime(DateUtils.getNowDate());
         return showtimeMapper.insertShowtime(showtime);
     }
 

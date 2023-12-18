@@ -22,4 +22,9 @@ public interface FilmService extends IService<Film> {
     List<Film> hotFilms(String name);
     List<Film> exceptFilms(String name);
     List<Film> recommendedFilms();
+
+    // 获取用户购买电影的id
+    List<Long> getUserPurchaseHistoryFromDatabase(String userId);
+
+    List<Long> recommendMovies(String userId);
 }

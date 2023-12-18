@@ -58,4 +58,6 @@ public interface ISeatService
      * @return 结果
      */
     public int deleteSeatById(Long id);
+
+    void generate(String id);
 }

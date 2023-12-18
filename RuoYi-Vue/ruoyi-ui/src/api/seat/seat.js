@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+// 为场次生成 8*8 seat
+export function generate(id) {
+  return request({
+    url: '/seat/seat/' + id,
+    method: 'post'
+  })
+}
+
 // 查询seat列表
 export function listSeat(query) {
   return request({

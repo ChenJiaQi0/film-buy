@@ -4,6 +4,8 @@ package top.chen.film.controller;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import top.chen.common.result.Result;
+import top.chen.common.util.JwtUtil;
+import top.chen.common.util.tokenUtil;
 import top.chen.film.domain.entity.Film;
 import top.chen.film.domain.vo.FilmVO;
 import top.chen.film.service.FilmService;
@@ -25,6 +27,21 @@ import java.util.Map;
 public class FilmController {
     @Resource
     private FilmService filmService;
+
+    /**
+     * 根据用户购买记录推荐电影
+     * @param token
+     * @return
+     */
+    @GetMapping("/recommendByUserId")
+    public Result<List<Film>> recommendByUserId(@RequestHeader String token) {
+        Integer userId = tokenUtil.getUserIdFromToken(token);
+        List<Long> movieIds = filmService.recommendMovies(String.valueOf(userId));
+        List<Film> films = filmService.listByIds(movieIds);
+        Result<List<Film>> resp = new Result<>();
+        resp.setData(films);
+        return resp;
+    }
 
     @GetMapping("/getSimpleFilm/{id}")
     public Film getSimpleFilm(@PathVariable String id){

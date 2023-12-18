@@ -42,7 +42,7 @@
 					date: this.date + ' ' + this.hour,
 				}
 				// console.log(data);
-				uni.navigateTo({
+				uni.redirectTo({
 					url: '/pages/film/film-buy?data=' + JSON.stringify(data) + '&seatInfo=' + JSON.stringify(
 						option)
 				})

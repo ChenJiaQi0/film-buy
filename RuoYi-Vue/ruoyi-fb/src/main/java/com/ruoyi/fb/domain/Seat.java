@@ -1,5 +1,6 @@
 package com.ruoyi.fb.domain;
 
+import lombok.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -11,6 +12,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * @author chen
  * @date 2023-11-11
  */
+@Builder
 public class Seat extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -24,11 +26,11 @@ public class Seat extends BaseEntity
 
     /** 座位所在排的编号 */
     @Excel(name = "座位所在排的编号")
-    private Long rn;
+    private Integer rn;
 
     /** 座位所在列的编号 */
     @Excel(name = "座位所在列的编号")
-    private Long cn;
+    private Integer cn;
 
     /** 状态（0：空闲1：已售出） */
     @Excel(name = "状态", readConverterExp = "0=：空闲1：已售出")
@@ -56,21 +58,21 @@ public class Seat extends BaseEntity
     {
         return showtimeId;
     }
-    public void setRn(Long rn) 
+    public void setRn(Integer rn)
     {
         this.rn = rn;
     }
 
-    public Long getRn() 
+    public Integer getRn()
     {
         return rn;
     }
-    public void setCn(Long cn) 
+    public void setCn(Integer cn)
     {
         this.cn = cn;
     }
 
-    public Long getCn() 
+    public Integer getCn()
     {
         return cn;
     }

@@ -19,4 +19,13 @@
     <select id="recommendedFilms" resultType="top.chen.film.domain.entity.Film">
         SELECT * from fb_film WHERE status != 1 ORDER BY wish DESC LIMIT 0,6
     </select>
+
+    <select id="getUserPurchaseHistory" parameterType="string" resultType="Long">
+        SELECT id FROM `fb_film` WHERE name in (
+            select DISTINCT(o.film_name) as name
+            from fb_order o
+                LEFT JOIN fb_user u on o.user_id = u.id
+            where u.id = #{userId}
+        )
+    </select>
 </mapper>

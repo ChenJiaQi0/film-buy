@@ -73,6 +73,10 @@ public class Film extends BaseEntity
     @Excel(name = "状态", readConverterExp = "0=：未上映1：已上映")
     private Long status;
 
+    /** 简介 */
+    @Excel(name = "简介")
+    private String description;
+
     /** 演员们的ids */
     @Excel(name = "演员们的ids")
     private String actors;
@@ -207,7 +211,16 @@ public class Film extends BaseEntity
     {
         return status;
     }
-    public void setActors(String actors) 
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setActors(String actors)
     {
         this.actors = actors;
     }
@@ -243,6 +256,7 @@ public class Film extends BaseEntity
             .append("sc", getSc())
             .append("snum", getSnum())
             .append("status", getStatus())
+            .append("description", getDescription())
             .append("actors", getActors())
             .append("deleted", getDeleted())
             .append("createTime", getCreateTime())

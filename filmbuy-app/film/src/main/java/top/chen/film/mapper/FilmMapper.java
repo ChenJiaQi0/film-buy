@@ -20,4 +20,6 @@ public interface FilmMapper extends BaseMapper<Film> {
     List<Film> exceptFilms(String name);
 
     List<Film> recommendedFilms();
+
+    List<Long> getUserPurchaseHistory(String userId);
 }
