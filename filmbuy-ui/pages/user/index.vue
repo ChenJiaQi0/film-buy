@@ -9,7 +9,7 @@
 			<view class="diygw-col-0 text1-clz" v-if="userInfo.username != null"> {{userInfo.username}} </view>
 			<view class="diygw-col-0 text1-clz" v-else>
 				<button @tap="navigateTo" data-type="page" data-url="/pages/user/login"
-					class="cu-btn round bg-green">点击登录</button>
+					class="cu-btn round bg-red">点击登录</button>
 			</view>
 			<view class="flex diygw-col-24 justify-around flex-wrap flex9-clz">
 				<view class="flex flex-wrap diygw-col-8 flex-direction-column items-center flex19-clz">

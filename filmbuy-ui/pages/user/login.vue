@@ -12,14 +12,13 @@
 			<view class='form' v-if='usernamelogin'>
 				<input type='text' v-model="password" class='input' :password="show" placeholder="请输入密码"
 					placeholder-class="placeholder">
-				<sunui-password @change="showPass" />
 			</view>
 			<view class='form' v-if='codelogin'>
 				<input type="digit" controlled="true" v-model="code" class='codeinput' :password="show"
 					placeholder="请输入验证码" placeholder-class="placeholder">
 				<view :class="disabled ? 'huoquzhong' : 'huoqu'" @tap="get_code">{{ time }}{{ text }}</view>
 			</view>
-			<view class='forget'>
+			<view class='forget' @tap="goForget">
 				忘记密码？
 			</view>
 			<checkbox-group @change="choose">
@@ -49,11 +48,7 @@
 		LOGIN_URL,
 		CODE_URL
 	} from '@/utils/api.js'
-	import sunuipassword from './sunui-password.vue'
 	export default {
-		components: {
-			sunuipassword
-		},
 		data() {
 			return {
 				xieyi: '',
@@ -88,6 +83,12 @@
 		},
 		onLoad(option) {},
 		methods: {
+			//跳转忘记密码
+			goForget() {
+				uni.navigateTo({
+					url: '/pages/user/forget'
+				})
+			},
 			//查看用户协议
 			showxieyi() {
 				console.log('查看用户协议')
@@ -158,7 +159,7 @@
 						setTimeout(function() {
 							uni.hideLoading();
 						}, 100);
-						if (re.data.code == 0) {
+						if (re.data.code == 200) {
 							this.disabled = true;
 							this.setInterValFunc(); //开启倒计时
 						} else {
@@ -475,7 +476,7 @@
 		border-radius: 40rpx;
 		color: #ffffff;
 		letter-spacing: 10rpx;
-		background-color: #0066ff;
+		background-color: #db5f54;
 	}
 
 	.footer {

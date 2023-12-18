@@ -30,4 +30,6 @@ public interface UserService extends IService<User> {
     Integer topUp(String userId);
 
     void minusBalance(Long id, Integer price);
+
+    void rePwd(LoginVO user);
 }

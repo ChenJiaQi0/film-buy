@@ -1,5 +1,6 @@
 package top.chen.user.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import top.chen.common.exception.ServiceException;
@@ -81,6 +82,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectById(userId);
         user.setBalance(user.getBalance() + 50);
         return userMapper.updateById(user);
+    }
+
+    @Override
+    public void rePwd(LoginVO user) {
+        User dbUser = userMapper.selectOne(new QueryWrapper<User>().lambda().eq(User::getUsername, user.getUsername()));
+        if (dbUser == null || ObjectUtil.isNull(dbUser)) {
+            throw new ServiceException("查无此账号，请重新输入");
+        } else {
+            // 判断验证码是否正确
+            String redisCode = (String) redisUtil.get("code:forget:" + user.getUsername());
+            // 判断验证码是否失效
+            if (redisCode == null) {
+                throw new ServiceException("验证码失效");
+            }
+            if (!user.getCode().equals(redisCode)) {
+                throw new ServiceException("验证码不正确");
+            }
+            if (user.getPassword() == null) {
+                throw new ServiceException("重置密码不能为空");
+            }
+            dbUser.setPassword(user.getPassword());
+            baseMapper.updateById(dbUser);
+            redisUtil.delete("code:forget:" + user.getUsername());
+        }
     }
 
     /**

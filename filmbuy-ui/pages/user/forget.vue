@@ -7,18 +7,17 @@
 			</view>
 			<view class='info'>忘记密码</view>
 			<view class='form'>
-				<input type="text" v-model='phone' class='logininput' placeholder="请输入手机号"
+				<input type="text" v-model='username' class='logininput' placeholder="请输入邮箱"
 					placeholder-class="placeholder">
 			</view>
 			<view class='form'>
-				<input type="digit" controlled="true" v-model='code' class='codeinput' placeholder="请输入验证码"
+				<input type="password" controlled="true" v-model='code' class='codeinput' placeholder="请输入验证码"
 					placeholder-class="placeholder">
 				<view :class="disabled ? 'huoquzhong' : 'huoqu'" @click="get_code">{{ time }}{{ text }}</view>
 			</view>
 			<view class='form'>
 				<input type="text" v-model="password" class='input' :password="show" placeholder="请输入密码"
 					placeholder-class="placeholder">
-				<sunui-password @change="showPass" />
 			</view>
 			<view class='btn'>
 				<view class='button' @click='save()'>确定</view>
@@ -28,14 +27,14 @@
 </template>
 
 <script>
-	import sunuipassword from './sunui-password.vue'
+	import {
+		CODE_FORGET,
+		REPWD
+	} from '@/utils/api.js';
 	export default {
-		components: {
-			sunuipassword
-		},
 		data() {
 			return {
-				phone: '',
+				username: '',
 				code: '',
 				password: '',
 				show: true,
@@ -44,16 +43,16 @@
 				disabled: false,
 				rules: {
 					password: {
-						rule: /^[0-9a-zA-Z]{1,16}$/,
-						msg: "密码应该为1-16位"
+						rule: /.+/,
+						msg: "密码不能为空"
 					},
-					phone: {
-						rule: /^1[3456789]\d{9}$/,
-						msg: "手机号格式错误"
+					username: {
+						rule: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+						msg: "邮箱格式错误"
 					},
 					code: {
-						rule: /^[0-9]{6}$/,
-						msg: "请输入6位数字验证码"
+						rule: /^[0-9]{4}$/,
+						msg: "请输入4位数字验证码"
 					}
 				},
 			}
@@ -82,26 +81,27 @@
 					url: url
 				})
 			},
+			//获取验证码
 			async get_code() {
-
 				if (this.disabled) {
 					return;
 				}
-				if (!this.validate('phone')) return;
+				if (!this.validate('username')) return;
 				uni.showLoading({
 					title: '发送中',
 					mask: true
 				});
 				uni.request({
-					url: '你的发送短信验证码的接口',
-					data: '接口参数',
-					method: 'post', //get、post、delete
+					url: CODE_FORGET,
+					data: {
+						username: this.username
+					},
+					method: 'get', //get、post、delete
 					success: re => {
 						setTimeout(function() {
 							uni.hideLoading();
 						}, 100);
-						console.log(re)
-						if (re.data.code == 0) {
+						if (re.data.code == 200) {
 							this.disabled = true;
 							this.setInterValFunc(); //开启倒计时
 						} else {
@@ -130,28 +130,30 @@
 				}, 1000);
 			},
 			save() {
-				if (!this.validate('phone')) return;
+				if (!this.validate('username')) return;
 				if (!this.validate("password")) return;
 				uni.showLoading({
 					title: '提交中',
 					mask: true
 				});
 				uni.request({
-					url: '你的重置密码的接口',
-					data: '接口参数',
+					url: REPWD,
+					data: {
+						username: this.username,
+						password: this.password,
+						code: this.code
+					},
 					method: 'post', //get、post、delete
 					success: re => {
 						setTimeout(function() {
 							uni.hideLoading();
 						}, 100);
-						if (re.data.code == 0) {
+						if (re.data.code == 200) {
 							uni.showToast({
 								title: '修改成功'
 							})
 							setTimeout(function() {
-								uni.navigateTo({
-									url: '/pages/login/login'
-								})
+								uni.navigateBack()
 							}, 1000);
 
 						} else {
@@ -304,7 +306,7 @@
 		line-height: 80rpx;
 		border-radius: 40rpx;
 		color: #FFFFFF;
-		background-color: #0066ff;
+		background-color: #db5f54;
 	}
 
 	.btn .desc {

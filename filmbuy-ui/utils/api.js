@@ -41,6 +41,10 @@ export const ORDER_CONSUME = ORDER_URL;
 export const LOGIN_URL = USER_URL + '/login';
 // 获取验证码
 export const CODE_URL = USER_URL + '/code';
+// 获取找回验证码
+export const CODE_FORGET = USER_URL + '/codeForget';
+// 找回密码
+export const REPWD = USER_URL + '/repwd';
 // 影片的评论信息
 export const COMMENTS = COMMENT_URL;
 // 评论

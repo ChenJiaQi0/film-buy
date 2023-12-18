@@ -40,6 +40,18 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 重置密码
+     * @param user
+     * @return
+     */
+    @PostMapping("/repwd")
+    public Result rePwd(@RequestBody LoginVO user) {
+        userService.rePwd(user);
+        Result resp = new Result<>();
+        return resp;
+    }
+
+    /**
      * 为账户默认充值50元
      * @param id
      * @return
@@ -100,6 +112,34 @@ public class UserController {
         mailMessage.setTo(username);
         mailMessage.setSubject("FILMBUY验证码");
         mailMessage.setText("尊敬的用户您好：感谢注册成为FILMBUY的用户，您的验证码是：" + code + ",有效时间三分钟，请勿重复发送。");
+        javaMailSender.send(mailMessage);
+
+
+        return Result.ok();
+    }
+
+    /**
+     * 发送找回验证码
+     * @param username
+     * @return
+     */
+    @GetMapping("/codeForget")
+    public Result sendCodeForget(@RequestParam String username) {
+        log.info("邮箱号：" + username);
+
+        // 判断验证码是否过期
+        if (redisUtil.get("code:forget:" + username) != null) {
+            throw new ServiceException("验证码未过期不能重复发送");
+        }
+
+        // 生成四位随机验证码并发送邮箱
+        String code = RandomStringUtils.randomNumeric(4);
+        redisUtil.set("code:forget:" + username, code);
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("1090060206@qq.com");
+        mailMessage.setTo(username);
+        mailMessage.setSubject("FILMBUY验证码");
+        mailMessage.setText("尊敬的用户您好：找回密码的验证码是：" + code + ",有效时间三分钟，请勿重复发送。");
         javaMailSender.send(mailMessage);
 
 
