@@ -83,8 +83,7 @@
 
 <script>
 	import {
-		BALANCE,
-		TOPUP
+		BALANCE
 	} from '@/utils/api.js'
 	export default {
 		data() {
@@ -116,29 +115,8 @@
 					});
 					return;
 				}
-				uni.showToast({
-					icon: 'none',
-					title: '该平台仅供学习参考，不产生任何费用'
-				});
-				uni.showModal({
-					title: '确认充值',
-					success(res) {
-						if (res.confirm) {
-							uni.request({
-								url: TOPUP + '/' + _this.userInfo.id,
-								method: 'POST',
-								success(res) {
-									if (res.data.code === 200) {
-										uni.showToast({
-											icon: 'success',
-											title: '充值成功'
-										});
-										_this.getBalance();
-									}
-								}
-							})
-						}
-					}
+				uni.navigateTo({
+					url: '/pages/user/recharge'
 				});
 			},
 			goOrder() {

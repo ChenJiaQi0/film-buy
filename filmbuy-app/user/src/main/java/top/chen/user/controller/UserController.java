@@ -14,6 +14,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import top.chen.common.exception.ServiceException;
 import top.chen.common.result.Result;
 import top.chen.common.util.RedisUtil;
+import top.chen.common.util.tokenUtil;
 import top.chen.user.domain.entity.Order;
 import top.chen.user.domain.entity.User;
 import top.chen.user.domain.entity.UserLoginResp;
@@ -53,13 +54,14 @@ public class UserController {
 
     /**
      * 为账户默认充值50元
-     * @param id
+     * @param balance
      * @return
      */
-    @PostMapping("/topup/{id}")
-    public Result<Integer> topUpByUserId(@PathVariable String id){
+    @PostMapping("/topup")
+    public Result<Integer> topUpByUserId(@RequestHeader String token, @RequestParam(value = "balance") Integer balance){
+        Integer id = tokenUtil.getUserIdFromToken(token);
         Result<Integer> resp = new Result<>();
-        resp.setData(userService.topUp(id));
+        resp.setData(userService.topUp(String.valueOf(id), balance));
         return resp;
     }
 

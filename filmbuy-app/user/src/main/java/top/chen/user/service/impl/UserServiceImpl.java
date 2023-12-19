@@ -78,9 +78,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Integer topUp(String userId) {
+    public Integer topUp(String userId, Integer balance) {
         User user = userMapper.selectById(userId);
-        user.setBalance(user.getBalance() + 50);
+        user.setBalance(user.getBalance() + balance);
         return userMapper.updateById(user);
     }
 

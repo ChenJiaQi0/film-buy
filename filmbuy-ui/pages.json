@@ -110,6 +110,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "二维码"
 			}
+		},
+		{
+			"path": "pages/user/recharge",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "充值"
+			}
 		}
 	],
 	"globalStyle": {

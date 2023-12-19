@@ -200,7 +200,7 @@
 		RECOMMEND_FILM,
 		RECOMMEND_USER,
 	} from '@/utils/api.js';
-	import queryParams from '../../uni_modules/diy-uview-ui/libs/function/queryParams';
+	// import queryParams from '../../uni_modules/diy-uview-ui/libs/function/queryParams';
 	export default {
 		data() {
 			return {
