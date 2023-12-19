@@ -22,8 +22,8 @@
 							:disabled="disabledWish">
 							<text :class="iconWish"></text>想看
 						</button>
-						<button class="cu-btn bg-grey " @tap="changeIconWatched" :disabled="disabledWatched"><text
-								:class="iconWatched"></text>看过</button>
+						<button v-if="film.status === 1" class="cu-btn bg-grey " @tap="changeIconWatched"
+							:disabled="disabledWatched"><text :class="iconWatched"></text>看过</button>
 					</view>
 				</view>
 			</view>
@@ -94,14 +94,14 @@
 				<view class="flex flex-wrap diygw-col-24 justify-between items-start">
 					<view class="diygw-col-0 text2-clz"> 热心网友 </view>
 					<view class="flex diygw-col-0">
-						<view class="diygw-tag padding-lr-xs xs radius bg-none">
+						<!-- <view class="diygw-tag padding-lr-xs xs radius bg-none">
 							<text class="diygw-icon diy-icon-appreciate"></text>
 							<text> 100 </text>
 						</view>
 						<view class="diygw-tag flex-direction-row-reverse padding-lr-xs xs radius bg-none">
 							<text> 19 </text>
 							<text class="diygw-icon diy-icon-cai"></text>
-						</view>
+						</view> -->
 					</view>
 				</view>
 				<uni-rate :readonly="true" v-model="comment.sc" active-color="#FF6E06" allowHalf="true" :size="15"
@@ -109,8 +109,8 @@
 				<view class="diygw-col-24 diygw-text-line2"> {{comment.comment}} </view>
 				<view class="flex diygw-col-0 justify-between">
 					<view class="diygw-tag padding-lr-xs xs radius bg-none">
-						<text class="diygw-icon diy-icon-communityfill"></text>
-						<text> 12回复 </text>
+						<!-- <text class="diygw-icon diy-icon-communityfill"></text>
+						<text> 12回复 </text> -->
 					</view>
 					<view class="diygw-tag padding-lr-xs xs radius bg-none">
 						<text class="diygw-icon diy-icon-timefill"></text>
@@ -183,10 +183,16 @@
 				if (data.code === 200) this.comments = data.data
 			},
 			goComment(id) {
+				const _this = this;
 				const user = uni.getStorageSync('user')
 				if (user != null && user != '') {
 					uni.navigateTo({
-						url: '/pages/user/comment?id=' + id
+						url: '/pages/user/comment?id=' + id,
+						events: {
+							changeFilm: (data) => {
+								_this.film = data.data;
+							}
+						}
 					})
 				} else {
 					uni.showModal({
@@ -210,6 +216,11 @@
 		onShow() {
 			this.getActors()
 			this.getComments()
+			// const eventChannel = this.getOpenerEventChannel()
+			// eventChannel.on('changeFilm', function(data) {
+			// 	console.log(data);
+			// 	this.film = data;
+			// })
 		}
 	}
 </script>

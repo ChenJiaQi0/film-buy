@@ -31,19 +31,24 @@
 		},
 		methods: {
 			async sendComment() {
+				const _this = this;
 				const data = await request(COMMENT, 'POST', {
 					sc: this.sc,
 					comment: this.comment,
 					filmId: this.filmId
 				})
 				if (data.code === 200) {
-					uni.navigateBack().then(() => {
-						uni.showToast({
-							duration: 2000,
-							title: '评论成功'
-						})
-					})
-
+					uni.navigateBack({
+						success() {
+							_this.getOpenerEventChannel().emit('changeFilm', {
+								data: data.data
+							});
+							uni.showToast({
+								duration: 2000,
+								title: '评论成功'
+							});
+						}
+					});
 				} else {
 					uni.showToast({
 						title: '网络异常请稍后重试',

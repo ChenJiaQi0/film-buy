@@ -3,6 +3,7 @@ package top.chen.film.controller;
 
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+import top.chen.common.exception.ServiceException;
 import top.chen.common.result.Result;
 import top.chen.common.util.JwtUtil;
 import top.chen.common.util.tokenUtil;
@@ -27,6 +28,22 @@ import java.util.Map;
 public class FilmController {
     @Resource
     private FilmService filmService;
+
+    /**
+     * 更新评分人数
+     * @param filmId
+     */
+    @PostMapping("/snum/{filmId}")
+    public Film updateSnum(@PathVariable String filmId) {
+        Film dbFilm = filmService.getById(filmId);
+        try {
+            dbFilm.setSnum(dbFilm.getSnum() + 1);
+            filmService.updateById(dbFilm);
+        } catch (Exception e) {
+            throw new ServiceException("更新失败");
+        }
+        return dbFilm;
+    }
 
     // 更新想看和看过人数
     @PostMapping("/updateWatchAndWantCount/{filmId}/{type}")
