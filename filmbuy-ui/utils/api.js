@@ -22,6 +22,8 @@ export const RECOMMEND_FILM = FILM_URL + '/recommend';
 export const RECOMMEND_USER = FILM_URL + '/recommendByUserId';
 // 获取演员信息
 export const ACTORS = ACTOR_URL;
+// 更新想看看过
+export const UPDATE_ICON = FILM_URL + '/updateWatchAndWantCount'
 
 /******  影院模块  ******/
 // 影院列表

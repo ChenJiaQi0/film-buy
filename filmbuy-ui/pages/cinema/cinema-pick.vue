@@ -17,9 +17,12 @@
 				<view class="list-type">{{film.cat}}</view>
 				<view class="list-type">{{film.date}} | {{film.addr}}上映 | {{film.dur}}分钟</view>
 				<view class="list-type" style="justify-content: space-between;display: flex;">
-					<button class="cu-btn bg-grey " style="margin-right: 5px;"><text
-							class="diy-icon-likefill"></text>想看</button>
-					<button class="cu-btn bg-grey "><text class="diy-icon-favorfill"></text>看过</button>
+					<button class="cu-btn bg-grey" style="margin-right: 5px;" @tap="changeIconWish"
+						:disabled="disabledWish">
+						<text :class="iconWish"></text>想看
+					</button>
+					<button class="cu-btn bg-grey " @tap="changeIconWatched" :disabled="disabledWatched"><text
+							:class="iconWatched"></text>看过</button>
 				</view>
 			</view>
 		</view>
@@ -68,7 +71,8 @@
 		location
 	} from '@/data/cinemaData.js';
 	import {
-		CINEMA_LIST
+		CINEMA_LIST,
+		UPDATE_ICON
 	} from '@/utils/api.js';
 	import {
 		request
@@ -83,7 +87,11 @@
 				areaParam: '',
 				area: [],
 				cinemaList: [],
-				film: {}
+				film: {},
+				iconWish: 'diy-icon-like',
+				iconWatched: 'diy-icon-favor',
+				disabledWish: false,
+				disabledWatched: false,
 			};
 		},
 		onShow() {
@@ -93,6 +101,26 @@
 			this.film = JSON.parse(option.film)
 		},
 		methods: {
+			async updateIcon(iconType) {
+				const data = await request(UPDATE_ICON + '/' + this.film.id + '/' + iconType, 'POST');
+				if (data.code != 200) {
+					uni.showToast({
+						title: data.msg || '网络异常，请稍后重试'
+					});
+				} else {
+					this.film = data.data;
+				}
+			},
+			changeIconWish() {
+				this.iconWish = 'diy-icon-likefill';
+				this.updateIcon('1');
+				this.disabledWish = true;
+			},
+			changeIconWatched() {
+				this.iconWatched = 'diy-icon-favorfill'
+				this.updateIcon('2');
+				this.disabledWatched = true;
+			},
 			goShowTime(cinema) {
 				uni.navigateTo({
 					url: '/pages/film/film-showtime?film=' + JSON.stringify(this.film) + '&cinema=' + JSON

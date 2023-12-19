@@ -28,6 +28,15 @@ public class FilmController {
     @Resource
     private FilmService filmService;
 
+    // 更新想看和看过人数
+    @PostMapping("/updateWatchAndWantCount/{filmId}/{type}")
+    public Result<Film> updateWatchAndWantCount(@PathVariable String type, @PathVariable String filmId) {
+        Film film = filmService.updateWatchAndWantCount(filmId, type);
+        Result<Film> resp = new Result<>();
+        resp.setData(film);
+        return resp;
+    }
+
     /**
      * 根据用户购买记录推荐电影
      * @param token

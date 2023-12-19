@@ -2,6 +2,7 @@ package top.chen.film.service.impl;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import top.chen.common.exception.ServiceException;
 import top.chen.film.domain.entity.Actor;
 import top.chen.film.domain.entity.Film;
 import top.chen.film.domain.vo.FilmVO;
@@ -28,6 +29,27 @@ import java.util.Map;
 public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements FilmService {
     @Resource
     private ActorService actorService;
+
+    /**
+     * 更新想看和看过
+     * @param filmId
+     * @param type
+     */
+    @Override
+    public Film updateWatchAndWantCount(String filmId, String type) {
+        Film film = baseMapper.selectById(filmId);
+        if ("1".equals(type)) {
+            film.setWish(film.getWish() + 1);
+        } else {
+            film.setWatched(film.getWatched() + 1);
+        }
+        try {
+            baseMapper.updateById(film);
+        } catch (Exception e) {
+            throw new ServiceException("更新失败");
+        }
+        return film;
+    }
 
     /**
      * 影片信息

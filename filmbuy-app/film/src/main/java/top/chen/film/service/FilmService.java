@@ -27,4 +27,6 @@ public interface FilmService extends IService<Film> {
     List<Long> getUserPurchaseHistoryFromDatabase(String userId);
 
     List<Long> recommendMovies(String userId);
+
+    Film updateWatchAndWantCount(String filmId, String type);
 }
