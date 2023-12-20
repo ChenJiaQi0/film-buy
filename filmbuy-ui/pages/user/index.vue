@@ -6,7 +6,7 @@
 			<!--  #endif -->
 			<image src="/static/image/user.png" class="image3-size diygw-image diygw-col-0 image3-clz" mode="widthFix">
 			</image>
-			<view class="diygw-col-0 text1-clz" v-if="userInfo.username != null"> {{userInfo.username}} </view>
+			<view class="diygw-col-0 text1-clz" v-if="userInfo"> {{userInfo.username}} </view>
 			<view class="diygw-col-0 text1-clz" v-else>
 				<button @tap="navigateTo" data-type="page" data-url="/pages/user/login"
 					class="cu-btn round bg-red">点击登录</button>
@@ -14,7 +14,7 @@
 			<view class="flex diygw-col-24 justify-around flex-wrap flex9-clz">
 				<view class="flex flex-wrap diygw-col-8 flex-direction-column items-center flex19-clz">
 					<view class="diygw-col-0 text20-clz diygw-text-lg">
-						{{userInfo.balance != null ? userInfo.balance : '0'}}
+						{{userInfo != null ? userInfo.balance : '0'}}
 					</view>
 					<view class="diygw-col-0"> 账户余额 </view>
 				</view>
@@ -100,7 +100,7 @@
 			this.getBalance();
 		},
 		onLoad(option) {
-
+			this.init();
 		},
 		methods: {
 			noFood() {

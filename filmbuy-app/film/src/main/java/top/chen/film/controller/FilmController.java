@@ -11,9 +11,7 @@ import top.chen.film.domain.entity.Film;
 import top.chen.film.domain.vo.FilmVO;
 import top.chen.film.service.FilmService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -61,10 +59,15 @@ public class FilmController {
      */
     @GetMapping("/recommendByUserId")
     public Result<List<Film>> recommendByUserId(@RequestHeader String token) {
+        Result<List<Film>> resp = new Result<>();
+
         Integer userId = tokenUtil.getUserIdFromToken(token);
         List<Long> movieIds = filmService.recommendMovies(String.valueOf(userId));
+        if (movieIds == null || movieIds.size() == 0){
+            resp.setData(Collections.emptyList());
+            return resp;
+        }
         List<Film> films = filmService.listByIds(movieIds);
-        Result<List<Film>> resp = new Result<>();
         resp.setData(films);
         return resp;
     }

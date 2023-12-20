@@ -4,7 +4,11 @@
 			"style": {
 				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "电影",
-				"navigationBarBackgroundColor": "#db5f54"
+				"navigationBarBackgroundColor": "#db5f54",
+				"app-plus": {
+					"titleNView": true,
+					"bounce": "none"
+				}
 			}
 		},
 		{

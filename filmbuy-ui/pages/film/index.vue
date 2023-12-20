@@ -1,4 +1,7 @@
 <template>
+	<!-- ref：唯一ref  timedown:开屏广告秒数  imageUrl：图片地址  advertClick：广告图点击 -->
+	<cc-advertView style="width: 100%;height: 100%;" ref="ccAdvert" :timedown="5"
+		imageUrl="https://cdn.pixabay.com/photo/2015/02/13/00/43/apples-634572_1280.jpg"></cc-advertView>
 	<view class="container container27315 white page">
 		<view class="flex diygw-col-24 flex-direction-column tabs-clz">
 			<view class="diygw-tabs text-center solid-bottom justify-center scale-title small-border tabs-title">
@@ -138,8 +141,7 @@
 					</view>
 				</view>
 				<view v-if="tabsIndex === 1" class="flex-sub">
-					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz"
-						v-if="recommendList.length > 0">
+					<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz" v-if="recommendList">
 						<view class="flex diygw-col-24 list-clz">
 							<view class="diygw-list">
 								<view style="margin-bottom: 2px;margin-top: 2px;"
@@ -226,8 +228,19 @@
 				hotFilms: [],
 				exceptFilms: [],
 				recommandedFilms: [],
-				recommendList: []
+				recommendList: [],
+				imgUrl: ''
 			};
+		},
+		onReady() {
+			let myThis = this;
+			// 模拟请求
+			setTimeout(function() {
+				myThis.imgUrl = 'https://cdn.pixabay.com/photo/2015/02/13/00/43/apples-634572_1280.jpg'
+				// 初始化广告图
+				myThis.$refs.ccAdvert.initAdvert();
+
+			}, 200);
 		},
 		onShow() {
 			this.setCurrentPage(this);
@@ -235,6 +248,7 @@
 			this.hot();
 			this.except();
 			this.recommend();
+			// this.tabsIndex = 0;
 			// this.recommendUser();
 		},
 		onLoad(option) {
@@ -267,7 +281,10 @@
 					index
 				} = evt.currentTarget.dataset;
 				if (index === 1) {
-					this.recommendUser();
+					const user = uni.getStorageSync('user')
+					if (user != null || user != '') {
+						this.recommendUser();
+					}
 				}
 				if (index == this.tabsIndex) return;
 				this.setData({

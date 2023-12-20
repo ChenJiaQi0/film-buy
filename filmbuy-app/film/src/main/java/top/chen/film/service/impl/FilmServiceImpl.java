@@ -146,11 +146,10 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
         for (String tag : tags2) {
             if (tags1.contains(tag)) {
                 flag = true;
-                continue;
+                break;
             }
             else {
                 flag =false;
-                break;
             }
         }
         return flag;

@@ -81,7 +81,6 @@
 							})
 						} else {
 							_this.orderList = res.data.data;
-							console.log(_this.orderList);
 						}
 
 					}

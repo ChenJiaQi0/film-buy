@@ -173,7 +173,7 @@
 			},
 			//倒计时
 			setInterValFunc() {
-				this.time = 5;
+				this.time = 300;
 				this.text = '秒';
 				this.setTime = setInterval(() => {
 					if (this.time - 1 == 0) {
