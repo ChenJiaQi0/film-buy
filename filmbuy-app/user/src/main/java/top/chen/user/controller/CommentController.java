@@ -33,6 +33,7 @@ public class CommentController {
         LambdaQueryWrapper<Comment> wp = new LambdaQueryWrapper<>();
         wp.orderByDesc(Comment::getCreateTime);
         wp.eq(Comment::getFilmId, id);
+        wp.last("LIMIT 5");
         List<Comment> list = commentService.list(wp);
         resp.setData(list);
         return resp;

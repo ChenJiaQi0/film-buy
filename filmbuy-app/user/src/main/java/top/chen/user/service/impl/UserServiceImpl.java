@@ -74,6 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 生成对应token
         String token = JwtUtil.createToken(dbUser.getId(), dbUser.getUsername());
         resp.setToken(token);
+        redisUtil.delete("code:" + user.getUsername());
         return resp;
     }
 

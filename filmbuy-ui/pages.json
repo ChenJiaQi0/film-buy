@@ -118,6 +118,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "充值"
 			}
+		},
+		{
+			"path": "pages/user/share",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "分享"
+			}
 		}
 	],
 	"globalStyle": {

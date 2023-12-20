@@ -54,7 +54,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="diygw-title flex diygw-col-24 title-clz">
+		<view class="diygw-title flex diygw-col-24 title-clz" @tap="navigateTo" data-type="page"
+			data-url="/pages/user/share">
 			<view class="title font-normal"><text class="diy-icon-forwardfill" style="margin-right: 5px;"></text>分享给朋友
 			</view>
 			<view class="more">
