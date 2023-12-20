@@ -39,7 +39,7 @@
 			</view>
 		</view>
 		<view class="version text-grey flex-direction-column flex diygw-col-24 justify-center align-center">
-			<view> 有问题联系开发人员 </view>
+			<view> 有问题email开发人员 </view>
 			<view> 3465976682@qq.com </view>
 		</view>
 		<view class="clearfix"></view>

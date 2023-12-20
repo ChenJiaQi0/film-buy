@@ -119,7 +119,8 @@
 				uni.showActionSheet({
 					itemList: ['保存图片到相册'],
 					success: () => {
-						plus.gallery.save('http://pds.jyt123.com/wxtest/logo.png', function() {
+						plus.gallery.save('https://pic.imgdb.cn/item/65600566c458853aef16e9bd.jpg',
+					function() {
 							uni.showToast({
 								title: '保存成功',
 								icon: 'none'
@@ -162,8 +163,8 @@
 									.tapIndex].type === 'WXSenceTimeline' ? 'WXSenceTimeline' :
 								"WXSceneSession",
 							type: this.type,
-							title: '耘助教',
-							summary: '耘助教是一个在线教育应用平台',
+							title: 'FilmBuy',
+							summary: 'FilmBuy是一个网上购票应用平台',
 							imageUrl: 'http://pds.jyt123.com/wxtest/logo.png',
 							href: "https://m3w.cn/uniapp",
 							success: (res) => {

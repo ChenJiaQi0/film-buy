@@ -134,6 +134,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "关于"
 			}
+		},
+		{
+			"path": "pages/user/feedback",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "反馈"
+			}
 		}
 	],
 	"globalStyle": {
