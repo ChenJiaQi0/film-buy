@@ -126,6 +126,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "分享"
 			}
+		},
+		{
+			"path": "pages/user/about",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "关于"
+			}
 		}
 	],
 	"globalStyle": {

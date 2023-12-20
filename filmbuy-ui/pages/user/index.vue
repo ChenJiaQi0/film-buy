@@ -69,7 +69,8 @@
 				<text class="diy-icon-right"></text>
 			</view>
 		</view>
-		<view class="diygw-title flex diygw-col-24 title-clz">
+		<view class="diygw-title flex diygw-col-24 title-clz" @tap="navigateTo" data-type="page"
+			data-url="/pages/user/about">
 			<view class="title font-normal"><text class="diy-icon-infofill" style="margin-right: 5px;"></text>关于我们
 			</view>
 			<view class="more">
