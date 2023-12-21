@@ -3,6 +3,8 @@ package top.chen.user.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.chen.user.domain.entity.Comment;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -12,5 +14,5 @@ import top.chen.user.domain.entity.Comment;
  * @since 2023-11-05
  */
 public interface CommentMapper extends BaseMapper<Comment> {
-
+    Double avgSc(String filmId);
 }

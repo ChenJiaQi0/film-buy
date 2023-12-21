@@ -3,6 +3,7 @@ package top.chen.user.fegin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author ChenQi
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @FeignClient(value = "film", path = "/film")
 public interface FilmService {
+    @PostMapping("/sc")
+    void updateSc(@RequestParam(value = "filmId")String filmId, @RequestParam(value = "sc")Double sc);
+
     @PostMapping("/snum/{filmId}")
     Film updateSnum(@PathVariable String filmId);
 }

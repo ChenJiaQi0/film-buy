@@ -28,6 +28,22 @@ public class FilmController {
     private FilmService filmService;
 
     /**
+     * 实时更新评分（未购票用户评分不被记录）
+     * @param filmId
+     * @param sc
+     */
+    @PostMapping("/sc")
+    public void updateSc(@RequestParam(value = "filmId")String filmId, @RequestParam(value = "sc")Double sc) {
+        Film dbFilm = filmService.getById(filmId);
+        try {
+            dbFilm.setSc(sc);
+            filmService.updateById(dbFilm);
+        } catch (Exception e) {
+            throw new ServiceException("更新失败");
+        }
+    }
+
+    /**
      * 更新评分人数
      * @param filmId
      */

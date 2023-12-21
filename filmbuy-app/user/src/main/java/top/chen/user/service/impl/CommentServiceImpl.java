@@ -23,8 +23,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     public Film comment(Comment comment) {
         // 评论
         baseMapper.insert(comment);
+        String filmId = String.valueOf(comment.getFilmId());
+        Double avgSc = baseMapper.avgSc(filmId);
+        filmService.updateSc(filmId, avgSc);
         // 更新评分人数
-        Film film = filmService.updateSnum(String.valueOf(comment.getFilmId()));
+        Film film = filmService.updateSnum(filmId);
         return film;
     }
 }
