@@ -12,7 +12,7 @@
 			<view class="left_bottom" style="margin-top: 10px;margin-bottom: 10px;font-size: 30rpx;">
 				<text>{{data.order.filmName}} {{data.order.count}}张</text>
 				<view>{{data.order.date}}</view>
-				<view>{{data.seatMsg}}</view>
+				<view style="font-size: 25rpx;">{{data.seatMsg}}</view>
 			</view>
 			<view>
 				<image style="width: 100px;height: 100px;" mode="aspectFit" :src="data.filmImg"></image>
