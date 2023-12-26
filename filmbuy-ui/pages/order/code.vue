@@ -8,7 +8,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="flex flex-wrap diygw-col-24 flex3-clz justify-between">
+		<view class="flex flex-nowrap diygw-col-24 flex3-clz justify-between">
 			<view class="left_bottom" style="margin-top: 10px;margin-bottom: 10px;font-size: 30rpx;">
 				<text>{{data.order.filmName}} {{data.order.count}}张</text>
 				<view>{{data.order.date}}</view>

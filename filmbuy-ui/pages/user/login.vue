@@ -217,7 +217,7 @@
 								console.log(re.data.data);
 								uni.showToast({
 									title: '登录成功',
-									duration: 50000,
+									duration: 1000,
 									success() {
 										// uni.switchTab({
 										// 	url: '/pages/film/index'
@@ -262,7 +262,7 @@
 								console.log(re.data.data);
 								uni.showToast({
 									title: '登录成功',
-									duration: 50000,
+									duration: 1000,
 									success() {
 										// uni.switchTab({
 										// 	url: '/pages/film/index'

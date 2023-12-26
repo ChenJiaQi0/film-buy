@@ -5,8 +5,8 @@
 			<view class="position-item">
 				<view class="item-texts">{{cinema.address}}</view>
 				<view class="item-img-list">
-					<image src="@/static/image/collection-icon.png" class="collion"></image>
-					<image src="@/static/image/moivew-location.png" class="locaion-img"></image>
+					<!-- <image src="@/static/image/collection-icon.png" class="collion"></image>
+					<image src="@/static/image/moivew-location.png" class="locaion-img"></image> -->
 				</view>
 			</view>
 		</view>

@@ -17,12 +17,12 @@
 				<view class="list-type">{{film.cat}}</view>
 				<view class="list-type">{{film.date}} | {{film.addr}}上映 | {{film.dur}}分钟</view>
 				<view class="list-type" style="justify-content: space-between;display: flex;">
-					<button class="cu-btn bg-grey" style="margin-right: 5px;" @tap="changeIconWish"
+					<!-- <button class="cu-btn bg-grey" style="margin-right: 5px;" @tap="changeIconWish"
 						:disabled="disabledWish">
 						<text :class="iconWish"></text>想看
 					</button>
 					<button class="cu-btn bg-grey " @tap="changeIconWatched" :disabled="disabledWatched"><text
-							:class="iconWatched"></text>看过</button>
+							:class="iconWatched"></text>看过</button> -->
 				</view>
 			</view>
 		</view>

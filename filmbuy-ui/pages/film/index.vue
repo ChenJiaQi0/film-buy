@@ -249,7 +249,7 @@
 			this.except();
 			this.recommend();
 			// this.tabsIndex = 0;
-			// this.recommendUser();
+			this.recommendUser();
 		},
 		onLoad(option) {
 			this.setCurrentPage(this);

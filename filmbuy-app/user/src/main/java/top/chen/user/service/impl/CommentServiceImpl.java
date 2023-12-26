@@ -24,10 +24,15 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         // 评论
         baseMapper.insert(comment);
         String filmId = String.valueOf(comment.getFilmId());
-        Double avgSc = baseMapper.avgSc(filmId);
-        filmService.updateSc(filmId, avgSc);
         // 更新评分人数
         Film film = filmService.updateSnum(filmId);
+
+        Double avgSc = baseMapper.avgSc(filmId);
+        System.out.println(avgSc);
+        if (avgSc != null) {
+            filmService.updateSc(filmId, avgSc);
+            film.setSc(avgSc);
+        }
         return film;
     }
 }

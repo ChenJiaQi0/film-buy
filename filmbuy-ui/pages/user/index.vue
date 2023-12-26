@@ -13,9 +13,10 @@
 			</view>
 			<view class="flex diygw-col-24 justify-around flex-wrap flex9-clz">
 				<view class="flex flex-wrap diygw-col-8 flex-direction-column items-center flex19-clz">
-					<view class="diygw-col-0 text20-clz diygw-text-lg">
-						{{userInfo != null ? userInfo.balance : '0'}}
+					<view class="diygw-col-0 text20-clz diygw-text-lg" v-if="userInfo">
+						{{userInfo.balance}}
 					</view>
+					<view v-else>0</view>
 					<view class="diygw-col-0"> 账户余额 </view>
 				</view>
 			</view>
@@ -140,8 +141,10 @@
 					url: BALANCE + '/' + _this.userInfo.id,
 					method: 'GET',
 					success(res) {
-						_this.userInfo.balance = res.data.data;
-						uni.setStorageSync('user', _this.userInfo);
+						if (res.data.code === 200) {
+							_this.userInfo.balance = res.data.data;
+							uni.setStorageSync('user', _this.userInfo);
+						}
 					}
 				})
 			}

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(value = "film", path = "/film")
 public interface FilmService {
-    @PostMapping("/sc")
-    void updateSc(@RequestParam(value = "filmId")String filmId, @RequestParam(value = "sc")Double sc);
+    @PostMapping("/sc/{filmId}/{sc}")
+    void updateSc(@PathVariable String filmId, @PathVariable Double sc);
 
     @PostMapping("/snum/{filmId}")
     Film updateSnum(@PathVariable String filmId);

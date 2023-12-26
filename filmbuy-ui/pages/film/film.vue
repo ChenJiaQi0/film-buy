@@ -83,7 +83,7 @@
 		<view style="display: flex;">
 			<view class="diygw-col-24 text-clz diygw-text-md" style="margin: 10px 0 10px 10px;"> 观众热评 </view>
 			<button class="cu-btn round lines-red" @tap="goComment(film.id)"
-				style="margin: 10px 10px 0px 0px;float: right;color: blue;width: 100px;height: 20px;">写短评
+				style="margin: 10px 10px 0px 0px;float: right;color: blue;width: 120px;height: 20px;">写短评
 			</button>
 		</view>
 		<view class="flex flex-wrap diygw-col-24 items-start flex2-clz" v-if="comments.length > 0"

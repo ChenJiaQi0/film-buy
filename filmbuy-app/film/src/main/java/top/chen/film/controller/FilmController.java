@@ -32,8 +32,8 @@ public class FilmController {
      * @param filmId
      * @param sc
      */
-    @PostMapping("/sc")
-    public void updateSc(@RequestParam(value = "filmId")String filmId, @RequestParam(value = "sc")Double sc) {
+    @PostMapping("/sc/{filmId}/{sc}")
+    public void updateSc(@PathVariable String filmId, @PathVariable Double sc) {
         Film dbFilm = filmService.getById(filmId);
         try {
             dbFilm.setSc(sc);
