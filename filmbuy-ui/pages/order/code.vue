@@ -23,7 +23,7 @@
 		</view>
 		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex39-clz">
 			<view class="diygw-col-24 text34-clz"> 请到影院内自助取票机或影院前台取票 </view>
-			<image src="/static/code.jpg" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+			<image src="/static/img/ewm.jpg" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
 			<view class="diygw-col-24 text1-clz"> 验证码 8888888888 </view>
 			<button class="cu-btn round bg-red" @tap="cosume">确认消费</button>
 		</view>

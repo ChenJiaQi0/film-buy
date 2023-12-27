@@ -96,7 +96,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     @Override
     @Transactional
-    public void buyFilm(Order order) {
+    public synchronized void buyFilm(Order order) {
         //判断选择的座位是否售空——将座位status修改为1
         Boolean onSell = seatService.isOnSell(order.getSeat());
         if (onSell) {
