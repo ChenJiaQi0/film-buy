@@ -1,10 +1,10 @@
 <template>
 	<view class="container container27315" style="margin-top: 100rpx;">
 		<view class="flex diygw-col-24 justify-center items-end flex-wrap flex-clz">
-			<image style="height: 100px;width: 100px" src="/static/my2.jpg"
-				class="image3-size diygw-image diygw-col-0 image3-clz" mode="widthFix">
+			<image style="height: 200px;width: 200px;float: left;" src="/static/logo.png"
+				class="image3-size diygw-image diygw-col-0 image3-clz" mode="aspectFill">
 			</image>
-			<view class="diygw-col-24 text-clz diygw-text-xl" style="text-align: center;"> FilmBuy电影 </view>
+			<!-- 			<view class="diygw-col-24 text-clz diygw-text-xl" style="text-align: center;"> FILMB </view> -->
 		</view>
 		<view class="flex diygw-col-24 list-clz">
 			<view class="diygw-list">

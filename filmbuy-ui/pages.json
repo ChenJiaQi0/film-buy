@@ -146,6 +146,14 @@
 				"navigationBarBackgroundColor": "#db5f54",
 				"navigationBarTitleText": "反馈"
 			}
+		},
+		{
+			"path": "pages/qrCode/qrcode",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#db5f54",
+				"navigationBarTitleText": "消费"
+			}
 		}
 	],
 	"globalStyle": {

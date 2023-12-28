@@ -4,8 +4,11 @@
 			<!-- #ifdef MP-WEIXIN -->
 			<view class="flex flex-wrap diygw-col-24 flex-direction-column flex8-clz"> </view>
 			<!--  #endif -->
-			<image src="/static/image/user.png" class="image3-size diygw-image diygw-col-0 image3-clz" mode="widthFix">
+			<image v-if="userInfo" src="/static/my2.jpg" class="image3-size diygw-image diygw-col-0 image3-clz"
+				mode="widthFix">
 			</image>
+			<image v-else src="/static/image/user.png" class="image3-size diygw-image diygw-col-0 image3-clz"
+				mode="widthFix"></image>
 			<view class="diygw-col-0 text1-clz" v-if="userInfo"> {{userInfo.username}} </view>
 			<view class="diygw-col-0 text1-clz" v-else>
 				<button @tap="navigateTo" data-type="page" data-url="/pages/user/login"
