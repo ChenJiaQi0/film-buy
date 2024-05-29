@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="场次id" prop="showtimeId">
+      <!-- <el-form-item label="场次id" prop="showtimeId">
         <el-input v-model="queryParams.showtimeId" placeholder="请输入场次id" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="座位所在排的编号" prop="rn">
@@ -12,6 +12,9 @@
       </el-form-item>
       <el-form-item label="删除标识" prop="deleted">
         <el-input v-model="queryParams.deleted" placeholder="请输入删除标识" clearable @keyup.enter.native="handleQuery" />
+      </el-form-item> -->
+      <el-form-item label="状态" prop="status">
+        <el-input v-model="queryParams.status" placeholder="请输入状态" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -44,8 +47,13 @@
       <el-table-column label="场次id" align="center" prop="showtimeId" />
       <el-table-column label="座位所在排的编号" align="center" prop="rn" />
       <el-table-column label="座位所在列的编号" align="center" prop="cn" />
-      <el-table-column label="状态" align="center" prop="status" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <el-table-column label="状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <el-tag type="success" effect="dark" v-if="scope.row.status == 0">空闲</el-tag>
+          <el-tag type="danger" effect="dark" v-else>已售</el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)" v-hasPermi="['seat:seat:edit']">修改</el-button>

@@ -1,118 +1,89 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="照片" prop="img">
+      <!-- <el-form-item label="照片" prop="img">
         <el-input
           v-model="queryParams.img"
           placeholder="请输入照片"
           clearable
           @keyup.enter.native="handleQuery"
         />
+      </el-form-item> -->
+      <el-form-item label="中文名" prop="name">
+        <el-input v-model="queryParams.name" placeholder="请输入影片中文名" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="影片中文名" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入影片中文名"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+      <el-form-item label="英文名" prop="ename">
+        <el-input v-model="queryParams.ename" placeholder="请输入影皮英文名" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="影皮英文名" prop="ename">
-        <el-input
-          v-model="queryParams.ename"
-          placeholder="请输入影皮英文名"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="标签" prop="tag">
+      <!-- <el-form-item label="标签" prop="tag">
         <el-input
           v-model="queryParams.tag"
           placeholder="请输入标签"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="类型" prop="cat">
-        <el-input
-          v-model="queryParams.cat"
-          placeholder="请输入类型"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.cat" placeholder="请输入类型" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="上映时间" prop="date">
-        <el-date-picker clearable
-          v-model="queryParams.date"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择上映时间">
+        <el-date-picker clearable v-model="queryParams.date" type="date" value-format="yyyy-MM-dd" placeholder="请选择上映时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="上映地区" prop="addr">
-        <el-input
-          v-model="queryParams.addr"
-          placeholder="请输入上映地区"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.addr" placeholder="请输入上映地区" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="时长" prop="dur">
+      <!-- <el-form-item label="时长" prop="dur">
         <el-input
           v-model="queryParams.dur"
           placeholder="请输入时长"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="想看人数" prop="wish">
+      </el-form-item> -->
+      <!-- <el-form-item label="想看人数" prop="wish">
         <el-input
           v-model="queryParams.wish"
           placeholder="请输入想看人数"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="看过人数" prop="watched">
+      </el-form-item> -->
+      <!-- <el-form-item label="看过人数" prop="watched">
         <el-input
           v-model="queryParams.watched"
           placeholder="请输入看过人数"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="评分" prop="sc">
-        <el-input
-          v-model="queryParams.sc"
-          placeholder="请输入评分"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        <el-input v-model="queryParams.sc" placeholder="请输入评分" clearable @keyup.enter.native="handleQuery" />
       </el-form-item>
-      <el-form-item label="评分人数" prop="snum">
+      <!-- <el-form-item label="评分人数" prop="snum">
         <el-input
           v-model="queryParams.snum"
           placeholder="请输入评分人数"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="演员们的ids" prop="actors">
+      </el-form-item> -->
+      <!-- <el-form-item label="演员们的ids" prop="actors">
         <el-input
           v-model="queryParams.actors"
           placeholder="请输入演员们的ids"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="删除标识" prop="deleted">
+      </el-form-item> -->
+      <!-- <el-form-item label="删除标识" prop="deleted">
         <el-input
           v-model="queryParams.deleted"
           placeholder="请输入删除标识"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -121,46 +92,16 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['film:film:add']"
-        >新增</el-button>
+        <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAdd" v-hasPermi="['film:film:add']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['film:film:edit']"
-        >修改</el-button>
+        <el-button type="success" plain icon="el-icon-edit" size="mini" :disabled="single" @click="handleUpdate" v-hasPermi="['film:film:edit']">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['film:film:remove']"
-        >删除</el-button>
+        <el-button type="danger" plain icon="el-icon-delete" size="mini" :disabled="multiple" @click="handleDelete" v-hasPermi="['film:film:remove']">删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['film:film:export']"
-        >导出</el-button>
+        <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" v-hasPermi="['film:film:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -168,9 +109,13 @@
     <el-table v-loading="loading" :data="filmList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="主键id" align="center" prop="id" />
-      <el-table-column label="照片" align="center" prop="img" />
-      <el-table-column label="影片中文名" align="center" prop="name" />
-      <el-table-column label="影皮英文名" align="center" prop="ename" />
+      <el-table-column label="照片" align="center" prop="img">
+        <template slot-scope="scope">
+          <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="contain" />
+        </template>
+      </el-table-column>
+      <el-table-column label="中文名" align="center" prop="name" />
+      <el-table-column label="英文名" align="center" prop="ename" />
       <el-table-column label="标签" align="center" prop="tag" />
       <el-table-column label="类型" align="center" prop="cat" />
       <el-table-column label="上映时间" align="center" prop="date" width="180">
@@ -184,36 +129,24 @@
       <el-table-column label="看过人数" align="center" prop="watched" />
       <el-table-column label="评分" align="center" prop="sc" />
       <el-table-column label="评分人数" align="center" prop="snum" />
-      <el-table-column label="状态" align="center" prop="status" />
-      <el-table-column label="演员们的ids" align="center" prop="actors" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <el-table-column label="状态" align="center" prop="status">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === 1">上映</el-tag>
+          <el-tag class="ml-2" type="success" v-else-if="scope.row.status === 2">预售</el-tag>
+          <el-tag class="ml-2" type="warning" v-else>想看</el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="演员们的ids" align="center" prop="actors" />
+      <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['film:film:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['film:film:remove']"
-          >删除</el-button>
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)" v-hasPermi="['film:film:edit']">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)" v-hasPermi="['film:film:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+
+    <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" @pagination="getList" />
 
     <!-- 添加或修改film对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -234,11 +167,7 @@
           <el-input v-model="form.cat" placeholder="请输入类型" />
         </el-form-item>
         <el-form-item label="上映时间" prop="date">
-          <el-date-picker clearable
-            v-model="form.date"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择上映时间">
+          <el-date-picker clearable v-model="form.date" type="date" value-format="yyyy-MM-dd" placeholder="请选择上映时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="上映地区" prop="addr">
@@ -258,6 +187,9 @@
         </el-form-item>
         <el-form-item label="评分人数" prop="snum">
           <el-input v-model="form.snum" placeholder="请输入评分人数" />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-input v-model="form.status" placeholder="请输入状态" />
         </el-form-item>
         <el-form-item label="演员们的ids" prop="actors">
           <el-input v-model="form.actors" placeholder="请输入演员们的ids" />
@@ -381,7 +313,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -423,12 +355,12 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除film编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除film编号为"' + ids + '"的数据项？').then(function () {
         return delFilm(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      }).catch(() => { });
     },
     /** 导出按钮操作 */
     handleExport() {

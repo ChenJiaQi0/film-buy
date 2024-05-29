@@ -116,11 +116,10 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
     // 根据已购买的电影标签推荐未看过的电影
     @Override
     public List<Long> recommendMovies(String userId) {
-        // 假设已经从数据库中获取到了用户购买历史和电影标签的数据
+
         List<Long> userPurchaseHistory = getUserPurchaseHistory(userId);
         Map<Long, List<String>> movieTags = getMovieTagsFromDatabase();
 
-        // 根据用户购买历史获取已购买的电影标签
         List<String> purchasedMovieTags = getMovieTagsByPurchaseHistory(userPurchaseHistory, movieTags);
 
         List<Long> recommendedMovies = new ArrayList<>();
@@ -131,11 +130,10 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
                 recommendedMovies.add(movieId);
             }
         }
-        System.out.println("根据已购买的电影标签推荐未看过的电影" + recommendedMovies);
+
         return recommendedMovies;
     }
 
-    // 判断两个标签列表是否有共同的标签
     private boolean hasCommonTags(List<String> tags1, List<String> tags2) {
 //        for (String tag : tags1) {
 //            if (tags2.contains(tag)) {
@@ -155,29 +153,22 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
         return flag;
     }
 
-    // 从数据库中获取用户购买历史
     private List<Long> getUserPurchaseHistory(String userId) {
         // 实现从数据库中获取用户购买历史的逻辑
         // 返回用户购买历史的电影id列表
         List<Long> filmIds = this.getUserPurchaseHistoryFromDatabase(userId);
-        System.out.println("从数据库中获取用户购买历史" + filmIds);
         return filmIds;
     }
 
-    // 从数据库中获取电影标签
     private Map<Long, List<String>> getMovieTagsFromDatabase() {
         Map<Long, List<String>> cat = new HashMap<>();
-        // 实现从数据库中获取电影标签的逻辑
         List<Film> list = this.list();
         for (Film film : list) {
             cat.put(film.getId(), List.of(film.getCat().split(",")));
         }
-        System.out.println("从数据库中获取电影标签" + cat);
-        // 返回电影id和对应标签列表的映射关系
         return cat;
     }
 
-    // 根据用户购买历史获取已购买的电影标签
     private List<String> getMovieTagsByPurchaseHistory(List<Long> userPurchaseHistory, Map<Long, List<String>> movieTags) {
         List<String> purchasedMovieTags = new ArrayList<>();
         for (Long movieId : userPurchaseHistory) {
@@ -185,7 +176,6 @@ public class FilmServiceImpl extends ServiceImpl<FilmMapper, Film> implements Fi
                 purchasedMovieTags.addAll(movieTags.get(movieId));
             }
         }
-        System.out.println("根据用户购买历史获取已购买的电影标签" + purchasedMovieTags);
         return purchasedMovieTags;
     }
 }

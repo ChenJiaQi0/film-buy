@@ -27,6 +27,12 @@ public class CinemaController {
     @Resource
     private CinemaService cinemaService;
 
+    @PostMapping("/list2")
+    public String list(Integer id){
+        List<Cinema> list = cinemaService.list(id);
+        return list.toString();
+    }
+
     /**
      * 根据影院查询对应影片信息
      * @param id
@@ -46,9 +52,7 @@ public class CinemaController {
      * @return
      */
     @GetMapping()
-    public Result<List<Cinema>> list(@RequestParam(required = false) String area,
-                                     @RequestParam(required = false) String brandName,
-                                     @RequestParam(required = false) String city) {
+    public Result<List<Cinema>> list(@RequestParam(required = false) String area,@RequestParam(required = false) String brandName,@RequestParam(required = false) String city) {
         LambdaQueryWrapper<Cinema> wp = new LambdaQueryWrapper<>();
         Result<List<Cinema>> resp = new Result<>();
         if (city != null ) wp.like(Cinema::getCity, city);

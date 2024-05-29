@@ -1,5 +1,6 @@
 package top.chen.cinema.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import top.chen.cinema.fegin.FilmService;
 import top.chen.cinema.mapper.CinemaMapper;
 import top.chen.cinema.service.CinemaService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +41,10 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, Cinema> impleme
             films.add(filmService.getSimpleFilm(filmId));
         }
         return films;
+    }
+
+    @Override
+    public List<Cinema> list(Integer id) {
+        return baseMapper.list(id, DateUtil.now());
     }
 }

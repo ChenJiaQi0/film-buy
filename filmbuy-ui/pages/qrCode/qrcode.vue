@@ -20,7 +20,7 @@
 		onLoad(opt) {
 			this.id = opt.id
 			this.cosume()
-			// console.log(this.id);
+			console.log(this.id);
 		},
 		onShow() {
 			// console.log("该二维码被消费了...")
@@ -28,6 +28,7 @@
 		methods: {
 			async cosume() {
 				const res = await request(ORDER_CONSUME + '/' + this.id, 'POST');
+				console.log(res);
 				if (res.code === 200) {
 					uni.showToast({
 						icon: 'success',

@@ -69,7 +69,7 @@ public class FilmController {
     }
 
     /**
-     * 根据用户购买记录推荐电影
+     * 推荐电影
      * @param token
      * @return
      */
@@ -83,7 +83,9 @@ public class FilmController {
             resp.setData(Collections.emptyList());
             return resp;
         }
+
         List<Film> films = filmService.listByIds(movieIds);
+        films.sort(Comparator.comparing(Film::getSc).reversed());
         resp.setData(films);
         return resp;
     }

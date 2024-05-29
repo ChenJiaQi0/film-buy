@@ -1,5 +1,6 @@
 /******  后端接口基础地址  ******/
-export const BASE_API_URL = 'http://10.20.68.187:8000';
+// export const BASE_API_URL = 'http://192.168.29.38:8000';
+export const BASE_API_URL = 'http://127.0.0.1:8000';
 
 /******  各服务基础地址  ******/
 export const CINEMA_URL = BASE_API_URL + '/cinema';

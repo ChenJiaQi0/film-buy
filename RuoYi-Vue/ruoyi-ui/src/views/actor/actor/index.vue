@@ -9,7 +9,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="照片" prop="img">
+      <!-- <el-form-item label="照片" prop="img">
         <el-input
           v-model="queryParams.img"
           placeholder="请输入照片"
@@ -24,7 +24,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -81,8 +81,12 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="主键id" align="center" prop="id" />
       <el-table-column label="姓名" align="center" prop="name" />
-      <el-table-column label="照片" align="center" prop="img" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <el-table-column label="照片" align="center" prop="img">
+        <template slot-scope="scope">
+          <el-image style="width: 100px; height: 100px" :src="scope.row.img" fit="contain" />
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -102,7 +106,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

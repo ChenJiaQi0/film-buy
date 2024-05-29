@@ -17,8 +17,8 @@
 
 		<view class="pay-item">
 			<view class="item-left">
-				<image src="../../static/image/icon_wechat.png"></image>
-				<text>微信支付</text>
+				<image src="../../static/image/zhifubao.png"></image>
+				<text>支付宝支付</text>
 			</view>
 			<image src="../../static/image/icon-choice-yes.png" class="pay-check"></image>
 		</view>
@@ -62,8 +62,8 @@
 								icon: 'success'
 							})
 							setTimeout(function() {
-								uni.switchTab({
-									url: '/pages/order/index'
+								uni.redirectTo({
+									url: '/pages/order/success'
 								})
 							}, 1000)
 						} else {
@@ -73,6 +73,7 @@
 							})
 						}
 					})
+					
 				}, 1000);
 				setTimeout(function() {
 					uni.hideLoading();

@@ -148,8 +148,10 @@
 				uni.getLocation({
 					type: 'wgs84',
 					success: (res) => {
-						const latitude = res.latitude;
-						const longitude = res.longitude;
+						// const latitude = res.latitude;
+						// const longitude = res.longitude;
+						const latitude = 32.0603;
+						const longitude = 118.7969;
 
 						// 调用逆地理编码服务
 						this.reverseGeocoding(latitude, longitude);

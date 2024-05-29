@@ -25,30 +25,30 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="座位信息" prop="seat">
+      <!-- <el-form-item label="座位信息" prop="seat">
         <el-input
           v-model="queryParams.seat"
           placeholder="请输入座位信息"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="总价" prop="price">
+      </el-form-item> -->
+      <!-- <el-form-item label="总价" prop="price">
         <el-input
           v-model="queryParams.price"
           placeholder="请输入总价"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <el-form-item label="删除标识" prop="deleted">
+      </el-form-item> -->
+      <!-- <el-form-item label="删除标识" prop="deleted">
         <el-input
           v-model="queryParams.deleted"
           placeholder="请输入删除标识"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -109,7 +109,7 @@
       <el-table-column label="用户id" align="center" prop="userId" />
       <el-table-column label="座位信息" align="center" prop="seat" />
       <el-table-column label="总价" align="center" prop="price" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <!-- <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -129,7 +129,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

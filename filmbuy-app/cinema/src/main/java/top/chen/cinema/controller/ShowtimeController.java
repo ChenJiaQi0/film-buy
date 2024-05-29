@@ -45,6 +45,12 @@ public class ShowtimeController {
 //        return resp;
 //    }
 
+    /**
+     * 获取排片信息
+     * @param cid
+     * @param fid
+     * @return
+     */
     @GetMapping("/{cid}/{fid}")
     public Result<ArrayList<ShowtimeVo>> getShowTimeList(@PathVariable("cid") String cid,
                                                           @PathVariable("fid") String fid){

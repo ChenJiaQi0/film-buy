@@ -21,6 +21,7 @@ public class QRCodeController {
     @GetMapping("qrCode")
     public void getQRCode(String codeContent, HttpServletResponse response) {
         try {
+            System.out.println(codeContent);
             qrCodeService.createQRCode2Stream(codeContent, response);
             log.info("成功生成二维码！");
         } catch (Exception e) {

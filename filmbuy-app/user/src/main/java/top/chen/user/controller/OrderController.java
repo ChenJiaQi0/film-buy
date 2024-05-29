@@ -3,6 +3,7 @@ package top.chen.user.controller;
 
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import top.chen.common.exception.ServiceException;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/order")
+@Slf4j
 public class OrderController {
     @Resource
     private OrderService orderService;
@@ -39,6 +41,7 @@ public class OrderController {
         order.setStatus(1);
         boolean b = orderService.updateById(order);
         if (b) {
+            log.info("二维码消费成功");
             return new Result();
         } else {
             throw new ServiceException("消费异常");
@@ -59,6 +62,12 @@ public class OrderController {
         return resp;
     }
 
+    /**
+     * 购买
+     * @param token
+     * @param order
+     * @return
+     */
     @PostMapping("/buy")
     public Result buyFilm(@RequestHeader String token, @RequestBody Order order) {
         // 判断用户是否登录

@@ -4,4 +4,17 @@
     <select id="getFilmIdsByCinemaId" parameterType="string" resultType="string">
         SELECT film_id FROM `fb_cinema_film` where cinema_id = #{id}
     </select>
+
+    <select id="list" resultType="top.chen.cinema.domain.entity.Cinema">
+        select * from fb_cinema
+        <where>
+
+            <if test="id != null and id != ''">
+                and id=#{id}
+            </if>
+            <if test="time!=null">
+                and DATE_FORMAT(create_time,'%y-%m-%d') like DATE_FORMAT(#{time},'%y-%m-%d')
+            </if>
+        </where>
+    </select>
 </mapper>

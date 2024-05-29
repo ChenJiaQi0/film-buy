@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="影院id" prop="cinemaId">
+      <!-- <el-form-item label="影院id" prop="cinemaId">
         <el-input
           v-model="queryParams.cinemaId"
           placeholder="请输入影院id"
@@ -16,7 +16,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="放映日期" prop="date">
         <el-date-picker clearable
           v-model="queryParams.date"
@@ -33,7 +33,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="厅号" prop="name">
+      <!-- <el-form-item label="厅号" prop="name">
         <el-input
           v-model="queryParams.name"
           placeholder="请输入厅号"
@@ -56,7 +56,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -122,7 +122,7 @@
       <el-table-column label="放映时间" align="center" prop="hour" />
       <el-table-column label="厅号" align="center" prop="name" />
       <el-table-column label="价格" align="center" prop="price" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <!-- <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -142,7 +142,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

@@ -1,87 +1,42 @@
 <template>
-	<view class="container container27315" v-if="data">
-		<view class="flex flex-wrap diygw-col-24 justify-around items-start flex-clz"
-			style="background-color: rgba(219, 95, 84, 0.8);color: white;">
-			<view class="flex flex-wrap diygw-col-20 items-center flex4-clz">
-				<view class="diygw-col-24 text6-clz" style="font-size: 30rpx;">
-					{{data.brandName}}——({{data.order.cinemaName}})
-				</view>
-			</view>
-		</view>
-		<view class="flex flex-nowrap diygw-col-24 flex3-clz justify-between">
-			<view class="left_bottom" style="margin-top: 10px;margin-bottom: 10px;font-size: 30rpx;">
-				<text>{{data.order.filmName}} {{data.order.count}}张</text>
-				<view>{{data.order.date}}</view>
-				<view style="font-size: 25rpx;">{{data.seatMsg}}</view>
-			</view>
-			<view>
-				<image style="width: 100px;height: 100px;" mode="aspectFit" :src="data.filmImg"></image>
-			</view>
-		</view>
-		<view class="flex diygw-col-24 line-clz">
-			<view class="diygw-pzx" style="border-bottom: 1px solid #cccccc"></view>
-		</view>
+	<view class="container container27315">
+		
 		<view class="flex flex-wrap diygw-col-24 flex-direction-column flex39-clz">
-			<view class="diygw-col-24 text34-clz"> 请到影院内自助取票机或影院前台取票 </view>
-			<image :src="codeContent" class="response diygw-col-24 image1-clz" mode="widthFix"></image>
+			<image src="../../static/image/gou.png" class="response" mode="widthFix" style="width: 200px;height: 200px;margin: 0 auto;"></image>
+			<view class="diygw-col-24 text34-clz" style="font-size: 50px;color: #089FEE;"> 支付成功 </view>
+			<view class="diygw-col-24 text34-clz">感谢您的支持，您的订单已处理完成</view>
 			<!-- <image src="http://localhost:8003/qrCode?codeContent=http://baidu.com"
 				class="response diygw-col-24 image1-clz" mode="widthFix"></image> -->
-			<view class="diygw-col-24 text1-clz"> 验证码 {{data.order.id}} </view>
+			<view class="diygw-col-24 text1-clz">
+				<button class="diygw-col-12 cu-btn round" style="color: #089FEE;font-size: 15px;background: none;" @tap="goIndex">返回首页</button>
+				<button class="diygw-col-12 cu-btn round" style="color: white;font-size: 15px;background: #089FEE;" @tap="goOrder">查看订单详情</button>
+			</view>
 			<!-- <button class="cu-btn round bg-red" @tap="cosume">确认消费</button> -->
 		</view>
-		<view style="text-align: center;">
+		<!-- <view style="text-align: center;">
 			<text class="icon icon-clz diy-icon-safe"></text>
 			<text class="text-clz"> FILMB官方认证 </text>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
-	import {
-		ORDER_CONSUME
-	} from '@/utils/api.js'
-	import {
-		request
-	} from '@/utils/request.js'
 	export default {
 		data() {
 			return {
-				data: null,
+				
 			};
 		},
-		onShow() {},
-		onLoad(option) {
-			this.data = JSON.parse(option.data);
-			console.log(this.data);
-		},
 		methods: {
-			async cosume() {
-				const res = await request(ORDER_CONSUME + '/' + this.data.order.id, 'POST');
-				if (res.code === 200) {
-					uni.showToast({
-						icon: 'success',
-						title: '消费成功'
-					})
-					setTimeout(function() {
-						uni.navigateBack()
-					}, 1000)
-				} else {
-					uni.showToast({
-						icon: 'error',
-						title: res.msg || '网络异常，消费失败'
-					})
-				}
-			}
-		},
-		computed: {
-			codeContent() {
-				// const codeContent = 'http://10.20.68.187:5173/#/pages/qrCode/qrcode?id=' + this.data.order.id;
-				// const codeContent = 'http://172.20.10.2:5173/#/pages/qrCode/qrcode?id=' + this.data.order.id;
-				const codeContent = 'http://192.168.29.38:5173/#/pages/qrCode/qrcode?id=' + this.data.order.id;
-				const encodedCodeContent = encodeURIComponent(codeContent);
-				const qrCodeUrl = `http://localhost:8003/qrCode?codeContent=${encodedCodeContent}`;
-				console.log(qrCodeUrl);
-				return qrCodeUrl
+			goIndex() {
+				uni.switchTab({
+					url: '/pages/film/index'
+				})
+			},
+			goOrder() {
+				uni.switchTab({
+					url: '/pages/order/index'
+				})
 			}
 		}
 	};

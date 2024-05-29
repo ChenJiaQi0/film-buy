@@ -17,7 +17,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="省" prop="province">
+      <!-- <el-form-item label="省" prop="province">
         <el-input
           v-model="queryParams.province"
           placeholder="请输入省"
@@ -56,7 +56,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -118,7 +118,7 @@
       <el-table-column label="市" align="center" prop="city" />
       <el-table-column label="区" align="center" prop="area" />
       <el-table-column label="地址" align="center" prop="address" />
-      <el-table-column label="删除标识" align="center" prop="deleted" />
+      <!-- <el-table-column label="删除标识" align="center" prop="deleted" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -138,7 +138,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
